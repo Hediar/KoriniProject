@@ -11,16 +11,16 @@ import Write from '../pages/Write';
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
-        <Header />
         <Route path="/" element={<Main />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/study" element={<Studyboard />} />
         <Route path="/freeboard" element={<Freeboard />} />
         <Route path="/write" element={<Write />} />
-        <Footer />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
