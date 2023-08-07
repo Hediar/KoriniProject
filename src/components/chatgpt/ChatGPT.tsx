@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { openAiConfig } from "../../libs/services/openaiapi";
+import { openai } from "../../libs/services/openaiapi";
 import styled from "styled-components";
 
 const ChatGPT = () => {
@@ -15,7 +15,7 @@ const ChatGPT = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await openAiConfig.createCompletion({
+      const res = await openai.createCompletion({
         model: "text-davinci-003",
         prompt,
         temperature: 0.8,
