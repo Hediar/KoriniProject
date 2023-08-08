@@ -12,6 +12,7 @@ const Mypage = () => {
     fetchComments();
   }, []);
 
+  //작성
   const handleCommentSubmit = async () => {
     try {
       const currentTime = new Date();
@@ -32,35 +33,35 @@ const Mypage = () => {
       console.log(error);
     }
   };
-
+  //삭제
   const handleCommentDelete = async (commentId: number) => {
     try {
       const { error } = await supabase.from('comment').delete().eq('id', commentId);
 
       if (error) {
-        console.error('Error deleting comment:', error);
+        console.error('Error delete comment:', error);
       } else {
-        console.log('Comment deleted successfully');
+        console.log('Comment delete successfully');
         fetchComments();
       }
     } catch (error) {
       console.log(error);
     }
   };
-
+  //수정
   const handleCommentEdit = (commentId: number, commentText: string) => {
     setEditingCommentId(commentId);
     setEditedCommentText(commentText);
   };
-
+  //수정 후 저장
   const handleCommentSave = async (commentId: number) => {
     try {
       const { error } = await supabase.from('comment').update({ text: editedCommentText }).eq('id', commentId);
 
       if (error) {
-        console.error('Error updating comment:', error);
+        console.error('Error update comment:', error);
       } else {
-        console.log('Comment updated successfully');
+        console.log('Comment update successfully');
         setEditingCommentId(null);
         setEditedCommentText('');
         fetchComments();
@@ -83,7 +84,12 @@ const Mypage = () => {
     <div>
       <h1>Detail</h1>
       <div>
-        <input type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="댓글 작성" />
+        <input
+          type="text"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="댓글을 작성해주세요⭐"
+        />
         <button onClick={handleCommentSubmit}>작성하기</button>
       </div>
       {comments.map((comment) => (
