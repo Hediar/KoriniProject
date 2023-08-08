@@ -1,7 +1,10 @@
-import React from "react";
+import Post from '../components/detail/Post';
 
 const Detail = () => {
-  return <div>Detail</div>;
+  return (
+    <>
+      <Post />
+    </>
+  );
 };
-
 export default Detail;
