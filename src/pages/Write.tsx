@@ -49,8 +49,7 @@ const Write = () => {
       category,
       title,
       body,
-      tag,
-      isDeleted: false
+      tag
     };
     // DB 추가
     createMutation.mutate(newPost);

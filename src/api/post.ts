@@ -2,13 +2,13 @@ import supabase from '../lib/client';
 import { PostType } from '../types/types';
 
 // Post 상세조회
-const getPosts = async (id: string | undefined): Promise<PostType> => {
+const getPost = async (id: string | undefined): Promise<PostType> => {
   const { data } = await supabase.from('post').select().eq('postid', id).single();
   return data;
 };
 
 // Post 추가
-const createPost = async (newPost: Omit<PostType, 'postid' | 'date'>): Promise<void> => {
+const createPost = async (newPost: Omit<PostType, 'date'>): Promise<void> => {
   await supabase.from('post').insert(newPost);
 };
 
@@ -22,4 +22,4 @@ const updatePost = async (editPost: PostType): Promise<void> => {
   await supabase.from('post').update(editPost).eq('postid', editPost.postid);
 };
 
-export { getPosts, createPost, deletePost, updatePost };
+export { getPost, createPost, deletePost, updatePost };

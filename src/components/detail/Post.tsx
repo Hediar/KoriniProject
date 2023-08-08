@@ -1,6 +1,6 @@
 import { PostType } from '../../types/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { deletePost, getPosts, updatePost } from '../../api/post';
+import { deletePost, getPost, updatePost } from '../../api/post';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -9,7 +9,7 @@ const Post = () => {
   // Post id 가져오기
   const { id } = useParams<{ id: string }>();
   // Post 상세조회
-  const { isLoading, isError, data: post } = useQuery<PostType>(['post', id], () => getPosts(id));
+  const { isLoading, isError, data: post } = useQuery<PostType>(['post', id], () => getPost(id));
   // 수정 여부 /  수정 입력값 받기
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
