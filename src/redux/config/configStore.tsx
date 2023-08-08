@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from '../module/userSlice';
-import chatBotSlice from '../module/chatBotSlice';
+import chatBotUISlice from '../module/chatBotUISlice';
+import chatLogSlice from '../module/chatLogSlice';
 
 const store = configureStore({
   reducer: {
     userSlice,
-    chatBot: chatBotSlice,
+    chatBotUI: chatBotUISlice,
+    chatBotLog: chatLogSlice,
   }
 });
 
