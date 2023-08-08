@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PostType } from '../types/types';
 import { createPost } from '../api/post';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 const Write = () => {
@@ -28,7 +28,7 @@ const Write = () => {
   const queryClient = useQueryClient();
   const createMutation = useMutation(createPost, {
     onSuccess: () => {
-      queryClient.invalidateQueries('post');
+      queryClient.invalidateQueries({ queryKey: ['post'] });
     }
   });
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {

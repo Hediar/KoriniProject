@@ -1,9 +1,9 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '../../api/post';
 
 const Post = () => {
   // Post 조회
-  const { isLoading, isError, data: posts } = useQuery('post', getPosts);
+  const { isLoading, isError, data: posts } = useQuery(['post'], getPosts);
 
   if (isLoading) {
     return <h1>로딩중입니다</h1>;
