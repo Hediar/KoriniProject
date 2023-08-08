@@ -1,7 +1,12 @@
 import React from 'react';
+import Mainposts from '../components/main/Mainposts';
 
 const Main = () => {
-  return <div>Main</div>;
+  return (
+    <div>
+      <Mainposts />
+    </div>
+  );
 };
 
 export default Main;

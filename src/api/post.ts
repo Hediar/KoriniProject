@@ -1,6 +1,11 @@
 import supabase from '../lib/client';
 import { PostType } from '../types/types';
 
+// Post 전체조회
+const getPosts = async (): Promise<any> => {
+  const { data } = await supabase.from('post').select('*');
+  return data;
+};
 // Post 상세조회
 const getPost = async (id: string | undefined): Promise<PostType> => {
   const { data } = await supabase.from('post').select().eq('postid', id).single();
@@ -22,4 +27,4 @@ const updatePost = async (editPost: PostType): Promise<void> => {
   await supabase.from('post').update(editPost).eq('postid', editPost.postid);
 };
 
-export { getPost, createPost, deletePost, updatePost };
+export { getPosts, getPost, createPost, deletePost, updatePost };
