@@ -5,7 +5,7 @@ export interface userType {
 }
 
 export interface PostType {
-  id: string;
+  postid: string;
   userid: string;
   name: string;
   date: string;
