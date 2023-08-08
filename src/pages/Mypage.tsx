@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import supabase from '../lib/supabase';
-
-interface Comment {
-  id: number;
-  nickname: string;
-  date: number;
-  text: string;
-}
+import { Comment } from '../types/types';
 
 const Mypage = () => {
   const [comments, setComments] = useState<Comment[]>([]);
@@ -28,9 +22,9 @@ const Mypage = () => {
         .insert([{ nickname: '짱구', date: formattedDate, text: newComment }]);
 
       if (error) {
-        console.error('Error adding comment:', error);
+        console.error('Error add comment:', error);
       } else {
-        console.log('Comment added successfully:', data);
+        console.log('Comment add successfully:', data);
         setNewComment('');
         fetchComments();
       }
