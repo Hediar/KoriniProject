@@ -43,6 +43,7 @@ const Mypage = () => {
       } else {
         console.log('Comment delete successfully');
         fetchComments();
+        alert('삭제 하시겠습니까?');
       }
     } catch (error) {
       console.log(error);
@@ -88,7 +89,12 @@ const Mypage = () => {
           type="text"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          placeholder="댓글을 작성해주세요⭐"
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleCommentSubmit();
+            }
+          }}
+          placeholder="댓글을 작성해주세요!"
         />
         <button onClick={handleCommentSubmit}>작성하기</button>
       </div>
