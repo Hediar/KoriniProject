@@ -71,7 +71,7 @@ const Mypage = () => {
       console.log(error);
     }
   };
-
+  //조회
   const fetchComments = async () => {
     try {
       const { data } = await supabase.from('comment').select('*');
