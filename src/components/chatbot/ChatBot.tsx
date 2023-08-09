@@ -3,17 +3,16 @@ import { openai } from "../../lib/openai";
 import LoaderIcon from "remixicon-react/Loader2LineIcon"
 import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon"
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { BotChatLogsType, addChatLog } from "../../redux/module/chatBotLogSlice";
+import { addChatLog } from "../../redux/module/chatBotLogSlice";
 import shortid from "shortid";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const ChatBot = () => {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const chatBotLogs = useSelector((state: { chatBotLog: BotChatLogsType }) => state.chatBotLog.logs);
+  const chatBotLogs = useAppSelector(((state) => state.chatBotLog.logs))
   console.log(chatBotLogs);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const submitButtonRef = useRef(null);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -22,8 +22,16 @@ export interface Comment {
   text: string;
 }
 
+export interface ChatBotState {
+  chatBotIsActive: boolean;
+}
+
 export interface ChatLogType {
   id: string;
   role: string;
   chat: string;
+}
+
+export interface BotChatLogsType {
+  logs: ChatLogType[];
 }

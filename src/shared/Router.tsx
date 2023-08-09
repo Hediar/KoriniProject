@@ -9,9 +9,10 @@ import Freeboard from '../pages/Freeboard';
 import Write from '../pages/Write';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { ChatBotState, toggleChatBotState } from '../redux/module/chatBotUISlice';
+import { toggleChatBotState } from '../redux/module/chatBotUISlice';
 import ChatBot from '../components/chatbot/ChatBot';
 import ChatIcon from 'remixicon-react/QuestionAnswerFillIcon';
+import { ChatBotState } from '../types/types';
 import { styled } from 'styled-components';
 
 const Router = () => {
