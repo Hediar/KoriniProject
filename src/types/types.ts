@@ -8,11 +8,11 @@ export interface PostType {
   postid: string;
   userid: string;
   name: string;
-  date: number;
+  date: string;
   category: string;
   title: string;
   body: string;
-  tag: string[];
+  tags: string[];
 }
 
 export interface Comment {
