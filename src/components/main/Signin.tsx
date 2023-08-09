@@ -42,6 +42,9 @@ const Signin = () => {
         return;
       }
 
+      // 로그인 성공 후 이메일 정보를 localStorage에 저장
+      localStorage.setItem('email', email);
+
       alert('로그인 성공');
       console.log('data', data);
     } catch (error) {
