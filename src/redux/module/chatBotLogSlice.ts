@@ -1,16 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ChatLogType } from "../../types/types";
 
-export interface ChatLogState {
-  id: string;
-  chatRes: string;
+export interface BotChatLogsType {
+  logs: ChatLogType[];
 }
 
-export interface RootState {
-  logs: ChatLogState[];
-}
-
-const initialState: RootState = {
-  logs: []
+const initialState: BotChatLogsType = {
+  logs: [],
 }
 
 const chatBotLogSlice = createSlice({
