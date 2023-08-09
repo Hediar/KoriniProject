@@ -5,6 +5,7 @@ interface UserState {
   user: UserType | null;
 }
 
+// user : email, name, userid
 const initialState: UserState = {
   user: null
 };

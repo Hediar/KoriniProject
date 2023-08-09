@@ -45,14 +45,17 @@ const Header = () => {
   return (
     <StHeader>
       <h2>KORINI 🐘</h2>
-      {user ? (
+      {/* {user ? (
         <>
           <button onClick={signOut}>Logout</button>
           <span>{user.name}</span>
         </>
       ) : (
         <button onClick={openModalButton}>Login</button>
-      )}
+      )} */}
+      <button onClick={openModalButton}>Login</button>
+      <button onClick={signOut}>Logout</button>
+
       {isOpen && (
         <>
           <StModalBox>
