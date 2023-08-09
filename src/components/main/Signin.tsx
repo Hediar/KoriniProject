@@ -12,15 +12,16 @@ const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
   const { isOpen } = useAppSelector((state: RootState) => state.modal);
 
-  // 이메일 유효성
+
+  //이메일 유효성
   const isEmailValid = (email: any) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRegex.test(email);
   };
-  // 비밀번호 유효성
+
+  //비밀번호 유효성
   const isPasswordValid = (password: any) => {
     return password.length >= 6;
   };
@@ -84,10 +85,8 @@ const Signin = () => {
         return;
       }
 
-
       // 로그인 성공 후 이메일 정보를 localStorage에 저장
       // localStorage.setItem('email', email);
-
 
       alert('로그인 성공');
       dispatch(closeModal());
