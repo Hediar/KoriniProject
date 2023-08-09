@@ -2,10 +2,14 @@ import supabase from '../lib/client';
 import { PostType } from '../types/types';
 
 // Post 전체조회
-const getPosts = async (): Promise<any> => {
-  const { data } = await supabase.from('post').select('*');
-  return data;
+const getPosts = async (pageParam: number): Promise<PostType[]> => {
+  const { data } = await supabase
+    .from('post')
+    .select('*')
+    .range(pageParam - 1, pageParam * 10 - 1);
+  return data as PostType[];
 };
+
 // Post 상세조회
 const getPost = async (id: string | undefined): Promise<PostType> => {
   const { data } = await supabase.from('post').select().eq('postid', id).single();
