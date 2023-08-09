@@ -1,16 +1,18 @@
 import React, { useRef, useState } from "react";
-import { openai } from "../../libs/services/openaiapi";
+import { openai } from "../../lib/openai";
 import LoaderIcon from "remixicon-react/Loader2LineIcon"
 import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon"
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { addChatLog } from "../../redux/module/chatBotLogSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { BotChatLogsType, addChatLog } from "../../redux/module/chatBotLogSlice";
+import shortid from "shortid";
 
 const ChatBot = () => {
   const [prompt, setPrompt] = useState("");
-  const [apiRes, setApiRes] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const chatBotLogs = useSelector((state: { chatBotLog: BotChatLogsType }) => state.chatBotLog.logs);
+  console.log(chatBotLogs);
   const dispatch = useDispatch();
   const submitButtonRef = useRef(null);
 
@@ -33,28 +35,32 @@ const ChatBot = () => {
     setLoading(true);
 
     try {
-      const { data } = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt,
-        temperature: 0.8,
-        max_tokens: 256,
-      });
-      console.log("gpt 답변 데이터 : ", data);
+      const { data } = await openai.createCompletion(
+        {
+          model: "text-davinci-003",
+          prompt,
+          temperature: 0.8,
+          max_tokens: 256,
+        }
+      );
+      dispatch(addChatLog({
+        id: shortid.generate(),
+        role: "user",
+        chat: prompt,
+      }))
       if (data?.choices[0]?.text) {
-        // store에서 chat log 가져오면 apiRes, setApiRes 리팩토링 필요
-        setApiRes(data.choices[0].text);
         dispatch(addChatLog({
           id: data.id,
-          chatRes: data.choices[0]?.text,
+          role: "bot",
+          chat: data.choices[0]?.text,
         }))
       } else {
-        setApiRes("정상적으로 전달되지 않았습니다. 다시 시도해주세요.");
+        alert("정상적으로 전달되지 않았습니다. 다시 시도해주세요.");
       }
     } catch (err) {
       console.log(err);
-      setApiRes("정상적으로 전달되지 않았습니다. 다시 시도해주세요.")
+      alert("정상적으로 전달되지 않았습니다. 다시 시도해주세요.")
     }
-    
     setPrompt("");
     setLoading(false);
   }
@@ -64,16 +70,31 @@ const ChatBot = () => {
       <ChatContainer>
         <ChatTitle>변수명, 함수명을 물어보세요!</ChatTitle>
         <ChatArea>
-          <ResponseContainer>
-            <BotName>코린봇 🐘</BotName>
-            <BotResponse>안녕하세요! <br /> 변수명, 함수명을 고민 중이신가요? 저에게 물어보세요!</BotResponse>
-          </ResponseContainer>
-          {apiRes && (
-            <ResponseContainer>
-              <BotName>코린봇 🐘</BotName>
-              <pre>{apiRes}</pre>
-            </ResponseContainer>
-          )}
+          <ChatLogBox>
+            <RoleName>코린봇 🐘</RoleName>
+            <ChatLog>안녕하세요! <br /> 변수명, 함수명을 고민 중이신가요? 저에게 물어보세요!</ChatLog>
+          </ChatLogBox>
+          {
+            chatBotLogs.map((chat) => {
+              if (chat.role === 'bot') {
+                return (
+                  <ChatLogBox key={chat.id}>
+                    <RoleName>코린봇 🐘</RoleName>
+                    <ChatLog>{chat.chat}</ChatLog>
+                  </ChatLogBox>
+                );
+              } else if (chat.role === 'user') {
+                return (
+                  <UserPromptBox key={chat.id}>
+                    <RoleName>사용자 👤</RoleName>
+                    <ChatLog>{chat.chat}</ChatLog>
+                  </UserPromptBox>
+                );
+              }
+              return null;
+            })
+          }
+
         </ChatArea>
         <PromptArea>
           <PromptForm onSubmit={handlePromptSubmit}>
@@ -116,6 +137,11 @@ const ChatContainer = styled.div`
   right: 40px;
   bottom: 90px;
   z-index: 9999;
+
+  @media (max-width: 500px) {
+    width: 100%;
+    max-width: 80%;
+  }
 `
 
 const ChatTitle = styled.h1`
@@ -131,24 +157,32 @@ const ChatArea = styled.div`
   overflow-y: auto;
 `
 
-const ResponseContainer = styled.div`
+const ChatLogBox = styled.div`
   width: 70%;
   padding: 15px;
-  border: 1px solid gray;
+  border: 1px solid #cbcbcb;
   border-radius: 10px;
-  margin: 5px;
+  margin: 10px 10px 5px 10px;
   font-size: 14px;
-  position: relative;
-  left: 10px;
+  background-color: #d6ede6;
 `
 
-const BotName = styled.p`
+const UserPromptBox = styled.div`
+  width: 70%;
+  padding: 15px;
+  border: 1px solid #cbcbcb;
+  border-radius: 10px;
+  margin: 10px 10px 5px 100px;
+  font-size: 14px;
+`
+
+const RoleName = styled.p`
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 10px;
 `
 
-const BotResponse = styled.p`
+const ChatLog = styled.p`
   line-height: 1.4;
 `
 
@@ -170,10 +204,11 @@ const PromptInput = styled.textarea`
   margin: 10px;
   padding: 10px;
   outline: none;
+  resize: none;
 `;
 
 const PromptSubmitButton = styled.button`
   background-color: transparent;
   border: none;
-  cursor: ${props => props.disabled ? 'auto' : 'pointer'};
+  cursor: ${props => props.disabled ? 'default' : 'pointer'};
 `
