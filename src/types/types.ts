@@ -1,7 +1,7 @@
 export interface UserType {
-  id: string;
+  userid: string;
   email: string;
-  password: string;
+  name: string;
 }
 
 export interface PostType {
@@ -12,7 +12,7 @@ export interface PostType {
   category: string;
   title: string;
   body: string;
-  tag: string[];
+  tags: string[];
 }
 
 export interface Comment {

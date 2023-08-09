@@ -16,7 +16,7 @@ const Post = () => {
     data: post
   } = useQuery<PostType>(['post', id], () => getPost(id as string), { enabled: typeof id === 'string' });
 
-  // 수정 여부 /  수정 입력값 받기
+  // 수정 여부 및 수정 입력값 받기
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');
@@ -127,7 +127,7 @@ const Post = () => {
               내용 : {post.body}
             </div>
             <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-              해시태그 : {post.tag}
+              해시태그 : {post.tags}
             </div>
           </>
         )}
