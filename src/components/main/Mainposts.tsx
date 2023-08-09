@@ -18,12 +18,12 @@ const Mainposts = () => {
     isFetchingNextPage
   } = useInfiniteQuery<ToTalDataType>({
     queryKey: ['posts'],
-    queryFn: () => getPosts(),
+    queryFn: ({ pageParam }) => getPosts(pageParam),
     getNextPageParam: (lastPage) => {
       console.log('lastPage', lastPage);
       // console.log('allPages', allPages);
 
-      // 전체 데이터 개수보다 작을 때 다음 페이지로
+      // 전체 페이지 개수보다 작을 때 다음 페이지로
       if (lastPage.page < lastPage.total_pages) {
         return lastPage.page + 1;
       }
@@ -53,23 +53,29 @@ const Mainposts = () => {
   }
   return (
     <>
-      {/* {posts?.map((post: PostType) => {
-        return (
-          <>
-            -----------------------
-            <div key={post.postid}>
-              <div>user id: {post.userid}</div>
-              <div>태그: {post.tag}</div>
-              <div>제목: {post.title}</div>
-              <div>작성자: {post.name}</div>
-              <div>내용: {post.body}</div>
-              <div>카테고리: {post.category}</div>
-              <div>작성날짜: {post.date}</div>
-            </div>
-            -----------------------
-          </>
-        );
-      })} */}
+      {posts?.pages
+        .map((data) => {
+          return data.posts;
+        })
+        .flat()
+        .map((post) => {
+          return (
+            <>
+              -----------------------
+              <div key={post.postid}>
+                {post.postid}
+                <div>user id: {post.userid}</div>
+                <div>태그: {post.tag}</div>
+                <div>제목: {post.title}</div>
+                <div>작성자: {post.name}</div>
+                <div>내용: {post.body}</div>
+                <div>카테고리: {post.category}</div>
+                <div>작성날짜: {post.date}</div>
+              </div>
+              -----------------------
+            </>
+          );
+        })}
       <div
         style={{
           textAlign: 'center',
