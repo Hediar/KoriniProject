@@ -1,7 +1,7 @@
-export interface userType {
-  id: string;
+export interface UserType {
+  userid: string;
   email: string;
-  password: string;
+  name: string;
 }
 
 export interface PostType {
