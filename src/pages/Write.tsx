@@ -33,6 +33,7 @@ const Write = () => {
   // Post 추가
   const queryClient = useQueryClient();
   const createMutation = useMutation(createPost, {
+    // 필요 없음
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['post'] });
     }

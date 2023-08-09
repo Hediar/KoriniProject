@@ -1,14 +1,14 @@
-import React, { useRef, useState } from "react";
-import { openai } from "../../libs/services/openaiapi";
-import LoaderIcon from "remixicon-react/Loader2LineIcon"
-import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon"
-import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { addChatLog } from "../../redux/module/chatBotLogSlice";
+import React, { useRef, useState } from 'react';
+import { openai } from '../../lib/openaiapi';
+import LoaderIcon from 'remixicon-react/Loader2LineIcon';
+import SendPlaneIcon from 'remixicon-react/SendPlaneFillIcon';
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { addChatLog } from '../../redux/module/chatBotLogSlice';
 
 const ChatBot = () => {
-  const [prompt, setPrompt] = useState("");
-  const [apiRes, setApiRes] = useState("");
+  const [prompt, setPrompt] = useState('');
+  const [apiRes, setApiRes] = useState('');
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -16,17 +16,17 @@ const ChatBot = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPrompt(e.currentTarget.value);
-  }
+  };
 
   // 질문을 전송하는 textarea에서 엔터를 입력하면 줄바꿈이 아닌 submit이 되도록
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.preventDefault();
       if (submitButtonRef.current) {
         (submitButtonRef.current as HTMLButtonElement).click();
       }
     }
-  }  
+  };
 
   const handlePromptSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,30 +34,32 @@ const ChatBot = () => {
 
     try {
       const { data } = await openai.createCompletion({
-        model: "text-davinci-003",
+        model: 'text-davinci-003',
         prompt,
         temperature: 0.8,
-        max_tokens: 256,
+        max_tokens: 256
       });
-      console.log("gpt 답변 데이터 : ", data);
+      console.log('gpt 답변 데이터 : ', data);
       if (data?.choices[0]?.text) {
         // store에서 chat log 가져오면 apiRes, setApiRes 리팩토링 필요
         setApiRes(data.choices[0].text);
-        dispatch(addChatLog({
-          id: data.id,
-          chatRes: data.choices[0]?.text,
-        }))
+        dispatch(
+          addChatLog({
+            id: data.id,
+            chatRes: data.choices[0]?.text
+          })
+        );
       } else {
-        setApiRes("정상적으로 전달되지 않았습니다. 다시 시도해주세요.");
+        setApiRes('정상적으로 전달되지 않았습니다. 다시 시도해주세요.');
       }
     } catch (err) {
       console.log(err);
-      setApiRes("정상적으로 전달되지 않았습니다. 다시 시도해주세요.")
+      setApiRes('정상적으로 전달되지 않았습니다. 다시 시도해주세요.');
     }
-    
-    setPrompt("");
+
+    setPrompt('');
     setLoading(false);
-  }
+  };
 
   return (
     <>
@@ -66,7 +68,9 @@ const ChatBot = () => {
         <ChatArea>
           <ResponseContainer>
             <BotName>코린봇 🐘</BotName>
-            <BotResponse>안녕하세요! <br /> 변수명, 함수명을 고민 중이신가요? 저에게 물어보세요!</BotResponse>
+            <BotResponse>
+              안녕하세요! <br /> 변수명, 함수명을 고민 중이신가요? 저에게 물어보세요!
+            </BotResponse>
           </ResponseContainer>
           {apiRes && (
             <ResponseContainer>
@@ -86,11 +90,8 @@ const ChatBot = () => {
               placeholder="질문을 입력하세요!"
               required
             />
-            <PromptSubmitButton
-              type="submit"
-              ref={submitButtonRef}
-              disabled={!prompt || loading}
-            >{loading ? <LoaderIcon /> : <SendPlaneIcon />}
+            <PromptSubmitButton type="submit" ref={submitButtonRef} disabled={!prompt || loading}>
+              {loading ? <LoaderIcon /> : <SendPlaneIcon />}
             </PromptSubmitButton>
           </PromptForm>
         </PromptArea>
@@ -116,20 +117,20 @@ const ChatContainer = styled.div`
   right: 40px;
   bottom: 90px;
   z-index: 9999;
-`
+`;
 
 const ChatTitle = styled.h1`
   font-size: 18px;
   font-weight: 500;
   text-align: center;
   padding: 20px;
-`
+`;
 
 const ChatArea = styled.div`
   width: 100%;
   height: 80%;
   overflow-y: auto;
-`
+`;
 
 const ResponseContainer = styled.div`
   width: 70%;
@@ -140,29 +141,29 @@ const ResponseContainer = styled.div`
   font-size: 14px;
   position: relative;
   left: 10px;
-`
+`;
 
 const BotName = styled.p`
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 10px;
-`
+`;
 
 const BotResponse = styled.p`
   line-height: 1.4;
-`
+`;
 
 const PromptArea = styled.div`
   width: 100%;
   background-color: #badbe8;
-`
+`;
 
 const PromptForm = styled.form`
   position: relative;
   bottom: 0;
   display: flex;
   justify-content: center;
-`
+`;
 
 const PromptInput = styled.textarea`
   width: 400px;
@@ -175,5 +176,5 @@ const PromptInput = styled.textarea`
 const PromptSubmitButton = styled.button`
   background-color: transparent;
   border: none;
-  cursor: ${props => props.disabled ? 'auto' : 'pointer'};
-`
+  cursor: ${(props) => (props.disabled ? 'auto' : 'pointer')};
+`;

@@ -8,17 +8,27 @@ const Post = () => {
   const navigate = useNavigate();
   // Post id 가져오기
   const { id } = useParams<{ id: string }>();
+
   // Post 상세조회
-  const { isLoading, isError, data: post } = useQuery<PostType>(['post', id], () => getPost(id));
+  const {
+    isLoading,
+    isError,
+    data: post
+  } = useQuery<PostType>(['post', id], () => getPost(id as string), { enabled: typeof id === 'string' });
+
   // 수정 여부 /  수정 입력값 받기
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');
+  const [tag, setTag] = useState<string[]>([]);
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
   const onChangeBody = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBody(e.target.value);
+  };
+  const onChangeTag = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTag([e.target.value]);
   };
 
   // 뒤로가기
@@ -104,6 +114,9 @@ const Post = () => {
             <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
               내용 : <textarea value={body} onChange={onChangeBody} />
             </div>
+            <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
+              해시태그 : <input value={tag} onChange={onChangeTag} />
+            </div>
           </>
         ) : (
           <>
@@ -113,11 +126,11 @@ const Post = () => {
             <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
               내용 : {post.body}
             </div>
+            <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
+              해시태그 : {post.tag}
+            </div>
           </>
         )}
-        <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          해시태그 : {post.tag}
-        </div>
       </div>
       {/* post.userid와 현재의 userid가 같을 때만 버튼이 보이도록 하기 */}
       <div style={{ padding: '10px', margin: '10px' }}>
