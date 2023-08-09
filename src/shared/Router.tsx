@@ -11,15 +11,15 @@ import Write from '../pages/Write';
 import { useSelector, useDispatch } from 'react-redux';
 import { ChatBotState, toggleChatBotState } from '../redux/module/chatBotUISlice';
 import ChatBot from '../components/chatbot/ChatBot';
-import ChatIcon from "remixicon-react/QuestionAnswerFillIcon"
+import ChatIcon from 'remixicon-react/QuestionAnswerFillIcon';
 import { styled } from 'styled-components';
 
 const Router = () => {
-  const chatBotIsActive = useSelector((state: { chatBotUI: ChatBotState; }) => state.chatBotUI.chatBotIsActive);
+  const chatBotIsActive = useSelector((state: { chatBotUI: ChatBotState }) => state.chatBotUI.chatBotIsActive);
   const dispatch = useDispatch();
   const toggleChatBot = () => {
     dispatch(toggleChatBotState());
-  }
+  };
   return (
     <BrowserRouter>
       <Header />
@@ -33,7 +33,7 @@ const Router = () => {
       </Routes>
       <Footer />
       <ChatBotButton onClick={toggleChatBot}>
-        <ChatIcon color='#fff' size={20} />
+        <ChatIcon color="#fff" size={20} />
       </ChatBotButton>
       {chatBotIsActive ? <ChatBot /> : null}
     </BrowserRouter>
@@ -58,4 +58,4 @@ const ChatBotButton = styled.button`
   &:hover {
     background-color: #445e70;
   }
-`
+`;
