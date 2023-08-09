@@ -12,13 +12,31 @@ const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+
   const { isOpen } = useAppSelector((state: RootState) => state.modal);
 
+  //이메일 유효성
+//   const isEmailValid = (email: any) => {
+//     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+//     return emailRegex.test(email);
+//   };
+  //비밀번호 유효성
+//   const isPasswordValid = (password: any) => {
+//     return password.length >= 6;
+//   };
+
+
   const checkInput = (email: string, password: string) => {
-    if (!email || !password) {
-      alert('이메일과 패스워드를 모두 입력해 주세요');
+    if (!isEmailValid(email)) {
+      alert('올바른 이메일 형식이 아닙니다.');
       return false;
     }
+
+    if (!isPasswordValid(password)) {
+      alert('비밀번호는 6자 이상이어야 합니다.');
+      return false;
+    }
+
     return true;
   };
 
@@ -65,6 +83,12 @@ const Signin = () => {
         alert('로그인 실패: 아이디가 없거나 비밀번호가 틀렸습니다.');
         return;
       }
+
+
+      // 로그인 성공 후 이메일 정보를 localStorage에 저장
+      // localStorage.setItem('email', email);
+
+
       alert('로그인 성공');
       dispatch(closeModal());
     } catch (error) {
