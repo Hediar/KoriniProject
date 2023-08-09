@@ -1,33 +1,63 @@
 import { useState } from 'react';
-import supabase from '../../lib/client';
 import styled from 'styled-components';
 import Signin from '../main/Signin';
 import Signup from '../main/Signup';
-import { signOut } from '../main/Auth';
+import supabase from '../../lib/client';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { RootState } from '../../redux/config/configStore';
+import { setCurrentUser } from '../../redux/module/userSlice';
+import { openModal, closeModal } from '../../redux/module/modalSlice';
 
 const Header = () => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  // user 정보 가져오기
+  const { user } = useAppSelector((state: RootState) => state.user);
+  const { isOpen } = useAppSelector((state: RootState) => state.modal);
   const [switchPage, setSwitchPage] = useState<boolean>(false);
 
-  const loginModalButton = () => {
-    setOpenModal(!openModal);
-    setSwitchPage(false);
+  const openModalButton = () => {
+    dispatch(openModal());
+  };
+
+  const closeModalButton = () => {
+    dispatch(closeModal());
   };
 
   const switchPageButton = () => {
     setSwitchPage(!switchPage);
   };
 
+  // 로그아웃
+  const signOut = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      // 전역 상태 유저 null
+      dispatch(setCurrentUser(null));
+      alert('로그아웃 되었습니다.');
+      if (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      alert('로그아웃 실패');
+    }
+  };
+
   return (
     <StHeader>
       <h2>KORINI 🐘</h2>
-      <button onClick={loginModalButton}>Login</button>
-      <button onClick={signOut}>Logout</button>
-      {openModal && (
+      {user ? (
+        <>
+          <button onClick={signOut}>Logout</button>
+          <span>{user.name}</span>
+        </>
+      ) : (
+        <button onClick={openModalButton}>Login</button>
+      )}
+      {isOpen && (
         <>
           <StModalBox>
             <StModalContents>
-              <button onClick={loginModalButton}>X</button>
+              <button onClick={closeModalButton}>X</button>
               {switchPage === false ? (
                 <>
                   <Signin />
