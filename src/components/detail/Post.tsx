@@ -89,6 +89,7 @@ const Post = () => {
     if (!isEdit) {
       setTitle(post.title);
       setBody(post.body);
+      setTags(post.tags);
     } else {
       const editPost = {
         ...post,
