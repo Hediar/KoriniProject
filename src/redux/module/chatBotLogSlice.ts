@@ -16,7 +16,8 @@ const chatBotLogSlice = createSlice({
     addChatLog: (state, action) => {
       state.logs.push({
         id: action.payload.id,
-        chatRes: action.payload.chatRes,
+        role: action.payload.role,
+        chat: action.payload.chat,
       });
     }
   }

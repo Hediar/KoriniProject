@@ -24,5 +24,6 @@ export interface Comment {
 
 export interface ChatLogType {
   id: string;
-  chatRes: string;
+  role: string;
+  chat: string;
 }

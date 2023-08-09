@@ -5,6 +5,7 @@ import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon"
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { BotChatLogsType, addChatLog } from "../../redux/module/chatBotLogSlice";
+import shortid from "shortid";
 
 const ChatBot = () => {
   const [prompt, setPrompt] = useState("");
@@ -42,10 +43,16 @@ const ChatBot = () => {
           max_tokens: 256,
         }
       );
+      dispatch(addChatLog({
+        id: shortid.generate(),
+        role: "user",
+        chat: prompt,
+      }))
       if (data?.choices[0]?.text) {
         dispatch(addChatLog({
           id: data.id,
-          chatRes: data.choices[0]?.text,
+          role: "bot",
+          chat: data.choices[0]?.text,
         }))
       } else {
         alert("정상적으로 전달되지 않았습니다. 다시 시도해주세요.");
@@ -63,20 +70,31 @@ const ChatBot = () => {
       <ChatContainer>
         <ChatTitle>변수명, 함수명을 물어보세요!</ChatTitle>
         <ChatArea>
-          <ResponseContainer>
-            <BotName>코린봇 🐘</BotName>
-            <BotResponse>안녕하세요! <br /> 변수명, 함수명을 고민 중이신가요? 저에게 물어보세요!</BotResponse>
-          </ResponseContainer>
+          <ChatLogBox>
+            <RoleName>코린봇 🐘</RoleName>
+            <ChatLog>안녕하세요! <br /> 변수명, 함수명을 고민 중이신가요? 저에게 물어보세요!</ChatLog>
+          </ChatLogBox>
           {
             chatBotLogs.map((chat) => {
-              return (
-                <ResponseContainer key={chat.id}>
-                  <BotName>코린봇 🐘</BotName>
-                  <BotResponse>{chat.chatRes}</BotResponse>
-                </ResponseContainer>
-              )
+              if (chat.role === 'bot') {
+                return (
+                  <ChatLogBox key={chat.id}>
+                    <RoleName>코린봇 🐘</RoleName>
+                    <ChatLog>{chat.chat}</ChatLog>
+                  </ChatLogBox>
+                );
+              } else if (chat.role === 'user') {
+                return (
+                  <UserPromptBox key={chat.id}>
+                    <RoleName>사용자 👤</RoleName>
+                    <ChatLog>{chat.chat}</ChatLog>
+                  </UserPromptBox>
+                );
+              }
+              return null;
             })
           }
+
         </ChatArea>
         <PromptArea>
           <PromptForm onSubmit={handlePromptSubmit}>
@@ -139,23 +157,32 @@ const ChatArea = styled.div`
   overflow-y: auto;
 `
 
-const ResponseContainer = styled.div`
+const ChatLogBox = styled.div`
   width: 70%;
   padding: 15px;
-  border: 1px solid gray;
+  border: 1px solid #cbcbcb;
   border-radius: 10px;
-  margin: 5px 10px 5px 10px;
+  margin: 10px 10px 5px 10px;
   font-size: 14px;
-  
+  background-color: #d6ede6;
 `
 
-const BotName = styled.p`
+const UserPromptBox = styled.div`
+  width: 70%;
+  padding: 15px;
+  border: 1px solid #cbcbcb;
+  border-radius: 10px;
+  margin: 10px 10px 5px 100px;
+  font-size: 14px;
+`
+
+const RoleName = styled.p`
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 10px;
 `
 
-const BotResponse = styled.p`
+const ChatLog = styled.p`
   line-height: 1.4;
 `
 
