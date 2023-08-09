@@ -1,10 +1,14 @@
-import { PostType } from '../../types/types';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import React, { useEffect } from 'react';
-import { getPosts } from '../../api/post';
+import { PostType, ToTalDataType } from '../../types/types';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
+import { getDataNumber, getPosts } from '../../api/post';
 import { useInView } from 'react-intersection-observer';
 
 const Mainposts = () => {
+  // 페이지 정보 만들기
+  // const { data: totalCount } = useQuery<any>(['mainCount'], getDataNumber);
+  // const [dataState, setDataState] = useState(1);
+
   const {
     data: posts,
     isLoading,
@@ -12,21 +16,25 @@ const Mainposts = () => {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage
-  } = useInfiniteQuery({
+  } = useInfiniteQuery<ToTalDataType>({
     queryKey: ['posts'],
-    queryFn: ({ pageParam = 1 }) => getPosts(pageParam),
+    queryFn: () => getPosts(),
     getNextPageParam: (lastPage) => {
-      // console.log('last', lastPage);
-      return lastPage.length / 10 ? lastPage.length / 10 : false;
-    },
-    select: (data: any) => {
-      return data.pages.flat();
+      console.log('lastPage', lastPage);
+      // console.log('allPages', allPages);
+
+      // 전체 데이터 개수보다 작을 때 다음 페이지로
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      }
     }
   });
 
+  console.log('hasNextPage:', hasNextPage);
   const { ref } = useInView({
     threshold: 1, // 맨 아래에 교차가 됐을 때
     onChange: (inView) => {
+      // 교차가 되면 inView = True
       // 실행
       if (!inView || !hasNextPage || isFetchingNextPage) return;
       fetchNextPage();
