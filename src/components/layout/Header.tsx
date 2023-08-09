@@ -3,6 +3,7 @@ import supabase from '../../lib/client';
 import styled from 'styled-components';
 import Signin from '../main/Signin';
 import Signup from '../main/Signup';
+import { signOut } from '../main/Auth';
 
 const Header = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -16,15 +17,6 @@ const Header = () => {
   const switchPageButton = () => {
     setSwitchPage(!switchPage);
   };
-
-  async function signOut() {
-    try {
-      const { error } = await supabase.auth.signOut();
-      alert('로그아웃 되었습니다.');
-    } catch (error) {
-      alert('로그아웃 실패');
-    }
-  }
 
   return (
     <StHeader>

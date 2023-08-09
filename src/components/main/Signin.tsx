@@ -30,13 +30,20 @@ const Signin = () => {
     e.preventDefault();
     const checkedInput = checkInput(email, password);
     if (!checkedInput) return;
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       });
+
+      if (error) {
+        alert('로그인 실패: 아이디가 없거나 비밀번호가 틀렸습니다.');
+        return;
+      }
+
       alert('로그인 성공');
-      console.log(data);
+      console.log('data', data);
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +63,7 @@ const Signin = () => {
         />
         <label>비밀번호</label>
         <input
-          type="text"
+          type="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);

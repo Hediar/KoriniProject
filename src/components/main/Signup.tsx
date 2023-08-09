@@ -20,11 +20,12 @@ const Signup = () => {
     if (!checkedInput) return;
 
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const response = await supabase.auth.signUp({
         email,
         password
       });
       alert('회원가입 완료!');
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
