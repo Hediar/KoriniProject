@@ -1,14 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice from '../module/userSlice';
 import chatBotUISlice from '../module/chatBotUISlice';
 import chatBotLogSlice from '../module/chatBotLogSlice';
+import userSlice from '../module/userSlice';
+import modalSlice from '../module/modalSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    userSlice,
+    user: userSlice,
+    modal: modalSlice,
     chatBotUI: chatBotUISlice,
-    chatBotLog: chatBotLogSlice,
+    chatBotLog: chatBotLogSlice
   }
 });
 
-export default store;
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;

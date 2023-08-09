@@ -1,10 +1,18 @@
 import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import supabase from '../../lib/client';
+import { setCurrentUser } from '../../redux/module/userSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { UserType } from '../../types/types';
+import { RootState } from '../../redux/config/configStore';
+import { closeModal } from '../../redux/module/modalSlice';
 
 const Signin = () => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { isOpen } = useAppSelector((state: RootState) => state.modal);
 
   const checkInput = (email: string, password: string) => {
     if (!email || !password) {
@@ -15,15 +23,23 @@ const Signin = () => {
   };
 
   const loginWithGithub = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'github'
-    });
+    try {
+      await supabase.auth.signInWithOAuth({
+        provider: 'github'
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const loginWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google'
-    });
+    try {
+      await supabase.auth.signInWithOAuth({
+        provider: 'google'
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const signInWithEmail = async (e: FormEvent) => {
@@ -37,13 +53,20 @@ const Signin = () => {
         password
       });
 
+      if (data) {
+        // 데이터 베이스에서 로그인한 유저의 정보 가져오기
+        const id = data.user?.id;
+        const response = await supabase.from('user').select().eq('userid', id).single();
+        const user = response.data;
+        // 전역에 셋팅
+        dispatch(setCurrentUser(user));
+      }
       if (error) {
         alert('로그인 실패: 아이디가 없거나 비밀번호가 틀렸습니다.');
         return;
       }
-
       alert('로그인 성공');
-      console.log('data', data);
+      dispatch(closeModal());
     } catch (error) {
       console.error(error);
     }
