@@ -6,8 +6,8 @@ import { Comment } from '../types/types';
 const Detail = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState<string>('');
+  const [editingCommentId, setEditingCommentId] = useState<string>('');
   const [editedCommentText, setEditedCommentText] = useState<string>('');
-  const [editingCommentIds, setEditingCommentIds] = useState<string[]>([]);
 
   useEffect(() => {
     fetchComments();
@@ -35,12 +35,12 @@ const Detail = () => {
     }
   };
   // 삭제
-  const handleCommentDelete = async (id: string) => {
+  const handleCommentDelete = async (commentId: string) => {
     try {
       const shouldDelete = window.confirm('삭제 하시겠습니까?');
 
       if (shouldDelete) {
-        const { error } = await supabase.from('comment').delete().eq('id', id);
+        const { error } = await supabase.from('comment').delete().eq('id', commentId);
 
         if (error) {
           console.error('Error delete comment:', error);
@@ -54,27 +54,24 @@ const Detail = () => {
     }
   };
   //수정
-  const handleCommentEdit = (id: string, commentText: string) => {
-    if (!editingCommentIds.includes(id)) {
-      setEditingCommentIds([...editingCommentIds, id]);
-      setEditedCommentText(commentText);
-    }
+  const handleCommentEdit = (commentId: string, commentText: string) => {
+    setEditingCommentId(commentId);
+    setEditedCommentText(commentText);
   };
-
   // 수정 후 저장
-  const handleCommentSave = async (id: string) => {
+  const handleCommentSave = async (commentId: string) => {
     try {
-      if (!editingCommentIds.includes(id)) {
+      if (!editingCommentId) {
         return;
       }
 
-      const { error } = await supabase.from('comment').update({ text: editedCommentText }).eq('id', id);
+      const { error } = await supabase.from('comment').update({ text: editedCommentText }).eq('id', commentId);
 
       if (error) {
         console.error('Error update comment:', error);
       } else {
         console.log('Comment update successfully');
-        setEditingCommentIds(editingCommentIds.filter((commentId) => commentId !== id));
+        setEditingCommentId('');
         setEditedCommentText('');
         fetchComments();
       }
@@ -113,13 +110,13 @@ const Detail = () => {
       {comments.map((comment) => (
         <div key={comment.id}>
           {comment.nickname} : "
-          {editingCommentIds.includes(comment.id) ? (
+          {editingCommentId === comment.id ? (
             <input type="text" value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} />
           ) : (
             comment.text
           )}
           " ({new Date(comment.date).toLocaleString()})
-          {editingCommentIds.includes(comment.id) ? (
+          {editingCommentId === comment.id ? (
             <>
               <button onClick={() => handleCommentSave(comment.id)}>저장</button>
             </>
@@ -134,5 +131,4 @@ const Detail = () => {
     </div>
   );
 };
-
 export default Detail;
