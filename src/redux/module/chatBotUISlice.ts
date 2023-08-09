@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface ChatBotState {
-  chatBotIsActive: boolean;
-}
+import { ChatBotState } from '../../types/types';
 
 const initialState: ChatBotState = {
   chatBotIsActive: false,

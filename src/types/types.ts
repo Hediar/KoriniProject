@@ -16,14 +16,22 @@ export interface PostType {
 }
 
 export interface Comment {
-  id: number;
+  id: string;
   nickname: string;
   date: number;
   text: string;
+}
+
+export interface ChatBotState {
+  chatBotIsActive: boolean;
 }
 
 export interface ChatLogType {
   id: string;
   role: string;
   chat: string;
+}
+
+export interface BotChatLogsType {
+  logs: ChatLogType[];
 }
