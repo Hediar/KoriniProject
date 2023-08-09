@@ -1,9 +1,11 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import { UserType } from '../../types/types';
 import styled from 'styled-components';
 import supabase from '../../lib/client';
 
 const Signup = () => {
   const [email, setEmail] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const checkInput = (email: string, password: string) => {
@@ -18,14 +20,25 @@ const Signup = () => {
     e.preventDefault();
     const checkedInput = checkInput(email, password);
     if (!checkedInput) return;
-
     try {
-      const response = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password
       });
+      if (error) {
+        alert(error.message);
+      }
+      if (data) {
+        //유저 객체 선언
+        const user = {
+          userid: data.user?.id,
+          email,
+          name
+        };
+        //데이터베이스에 유저 정보 업로드
+        await supabase.from('user').insert(user);
+      }
       alert('회원가입 완료!');
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -49,6 +62,13 @@ const Signup = () => {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
+          }}
+        />
+        <label>닉네임</label>
+        <input
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
           }}
         />
         <button>회원가입</button>

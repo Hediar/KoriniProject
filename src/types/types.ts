@@ -1,7 +1,7 @@
 export interface UserType {
-  id: string;
+  userid: string;
   email: string;
-  password: string;
+  name: string;
 }
 
 export interface PostType {
