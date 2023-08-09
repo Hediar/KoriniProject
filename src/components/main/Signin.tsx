@@ -14,6 +14,7 @@ const Signin = () => {
 
   const { isOpen } = useAppSelector((state: RootState) => state.modal);
 
+
   //이메일 유효성
   const isEmailValid = (email: any) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -24,6 +25,7 @@ const Signin = () => {
   const isPasswordValid = (password: any) => {
     return password.length >= 6;
   };
+
 
   const checkInput = (email: string, password: string) => {
     if (!isEmailValid(email)) {

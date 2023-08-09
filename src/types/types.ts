@@ -22,3 +22,9 @@ export interface Comment {
   date: number;
   text: string;
 }
+
+export interface ChatLogType {
+  id: string;
+  role: string;
+  chat: string;
+}
