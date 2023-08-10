@@ -100,12 +100,12 @@ const Detail = () => {
   }
 
   return (
-    <div>
+    <S.Outer>
       <Post />
       <S.CommentContainer>
         같이 이야기를 나눠보아요
-        <S.CommentInput>
-          <input
+        <S.WritetInputBox>
+          <S.WriteInput
             type="text"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
@@ -116,8 +116,8 @@ const Detail = () => {
             }}
             placeholder="댓글을 작성해주세요!"
           />
-        </S.CommentInput>
-        <S.WriteButton onClick={handleCommentSubmit}>작성하기</S.WriteButton>
+          <S.WriteButton onClick={handleCommentSubmit}>작성</S.WriteButton>
+        </S.WritetInputBox>
         {comments.map((comment) => (
           <S.Comment key={comment.commentid}>
             {comment.name} :
@@ -130,17 +130,17 @@ const Detail = () => {
             {new Date(comment.date).toLocaleString()}
             {')'}
             {user?.userid === comment.userid && (
-              <>
+              <S.ButtonBox>
                 <S.button onClick={() => handleCommentEdit(comment)}>
                   {comment.commentid === editingCommentId ? '저장' : '수정'}
                 </S.button>
                 <S.button onClick={() => handleCommentDelete(comment.commentid)}>삭제</S.button>
-              </>
+              </S.ButtonBox>
             )}
           </S.Comment>
         ))}
       </S.CommentContainer>
-    </div>
+    </S.Outer>
   );
 };
 
