@@ -79,6 +79,9 @@ const Header = () => {
         <button onClick={() => navigate('/free')}>자유</button>
         <button onClick={() => navigate('/study')}>학습</button>
       </div>
+      <div>
+        <button onClick={() => navigate('/write')}>글 작성</button>
+      </div>
     </>
   );
 };

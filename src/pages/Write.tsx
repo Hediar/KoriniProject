@@ -38,6 +38,7 @@ const Write = () => {
   // 해시태그 추가 및 삭제
   const handleHashTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing || e.keyCode === 229) return;
+    if (e.key !== 'Enter' && e.key !== 'Backspace') return;
     // 엔터로 해시태그 추가하기
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -80,9 +81,9 @@ const Write = () => {
         return alert('내용을 입력해주세요.');
       }
       // 해시태그 입력도 필수로 할 것인가..??
-      if (tags.length === 0) {
-        return alert('해시태그를 등록해주세요.');
-      }
+      // if (tags.length === 0) {
+      //   return alert('해시태그를 등록해주세요.');
+      // }
       // newPost 선언
       const newPost: Omit<PostType, 'date'> = {
         postid: shortid.generate(),
