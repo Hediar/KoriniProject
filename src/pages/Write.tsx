@@ -29,13 +29,30 @@ const Write = () => {
   const onChangeInputTag = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTag(e.target.value);
   };
-  const onChangeTags = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTags([e.target.value]);
-  };
 
   // 뒤로가기
   const backButton = () => {
     navigate(-1);
+  };
+
+  // 해시태그 추가 및 삭제
+  const handleHashTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.keyCode === 229) return;
+    // 엔터로 해시태그 추가하기
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (inputTag.trim() !== '') {
+        setTags([...tags, inputTag.split(' ').join('')]);
+        setInputTag('');
+      }
+    }
+    // 백스페이스로 해시태그 삭제하기
+    if (e.key === 'Backspace' && inputTag === '') {
+      if (tags.length > 0) {
+        const updateTags = tags.slice(0, tags.length - 1);
+        setTags(updateTags);
+      }
+    }
   };
 
   // Post 추가
@@ -54,15 +71,16 @@ const Write = () => {
         return alert('카테고리를 선택해주세요.');
       }
       if (!title) {
-        if (title.length > 100) {
-          return alert('제목은 100글자 미만으로 작성해주세요.');
-        }
         return alert('제목을 입력해주세요.');
+      }
+      if (title.length > 100) {
+        return alert('제목은 100글자 미만으로 작성해주세요.');
       }
       if (!body) {
         return alert('내용을 입력해주세요.');
       }
-      if (!tags) {
+      // 해시태그 입력도 필수로 할 것인가..??
+      if (tags.length === 0) {
         return alert('해시태그를 등록해주세요.');
       }
       // newPost 선언
@@ -73,7 +91,7 @@ const Write = () => {
         category,
         title,
         body,
-        tags
+        tags: [...tags]
       };
       // DB 추가
       createMutation.mutate(newPost);
@@ -113,11 +131,24 @@ const Write = () => {
           내용 : <textarea value={body} onChange={onChangeBody} placeholder="내용을 입력해주세요." />
         </div>
         {tags.length > 0 &&
-          tags.map((tag) => {
-            return <div key={tag}>{tag}</div>;
+          tags.map((tag, index) => {
+            return (
+              <>
+                <span key={index} style={{ backgroundColor: 'green', color: 'white' }}>
+                  #{tag}
+                </span>
+              </>
+            );
           })}
         <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          해시태그 : <input value={inputTag} onChange={onChangeInputTag} placeholder="해시태그를 등록해주세요." />
+          해시태그 :{' '}
+          <input
+            type="text"
+            value={inputTag}
+            onChange={onChangeInputTag}
+            onKeyDown={handleHashTag}
+            placeholder="해시태그를 등록해주세요."
+          />
         </div>
         <button>게시글 작성</button>
       </form>
