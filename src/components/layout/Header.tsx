@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
 import { setCurrentUser } from '../../redux/module/userSlice';
 import { openModal, closeModal } from '../../redux/module/modalSlice';
+import { useNavigate } from 'react-router';
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ const Header = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
   const { isOpen } = useAppSelector((state: RootState) => state.modal);
   const [switchPage, setSwitchPage] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const openModalButton = () => {
     dispatch(openModal());
@@ -43,37 +45,43 @@ const Header = () => {
   };
 
   return (
-    <StHeader>
-      <h2>KORINI 🐘</h2>
-      {user ? (
-        <>
-          <button onClick={signOut}>Logout</button>
-          <span>{user.name}</span>
-        </>
-      ) : (
-        <button onClick={openModalButton}>Login</button>
-      )}
-      {isOpen && (
-        <>
-          <StModalBox>
-            <StModalContents>
-              <button onClick={closeModalButton}>X</button>
-              {switchPage === false ? (
-                <>
-                  <Signin />
-                  <StPageButton onClick={switchPageButton}>회원가입 페이지로 이동</StPageButton>
-                </>
-              ) : (
-                <>
-                  <Signup />
-                  <StPageButton onClick={switchPageButton}>로그인 페이지로 이동</StPageButton>
-                </>
-              )}
-            </StModalContents>
-          </StModalBox>
-        </>
-      )}
-    </StHeader>
+    <>
+      <StHeader>
+        <h2>KORINI 🐘</h2>
+        {user ? (
+          <>
+            <button onClick={signOut}>Logout</button>
+            <span>{user.name}</span>
+          </>
+        ) : (
+          <button onClick={openModalButton}>Login</button>
+        )}
+        {isOpen && (
+          <>
+            <StModalBox>
+              <StModalContents>
+                <button onClick={closeModalButton}>X</button>
+                {switchPage === false ? (
+                  <>
+                    <Signin />
+                    <StPageButton onClick={switchPageButton}>회원가입 페이지로 이동</StPageButton>
+                  </>
+                ) : (
+                  <>
+                    <Signup />
+                    <StPageButton onClick={switchPageButton}>로그인 페이지로 이동</StPageButton>
+                  </>
+                )}
+              </StModalContents>
+            </StModalBox>
+          </>
+        )}
+      </StHeader>
+      <div>
+        <button onClick={() => navigate('/free')}>자유</button>
+        <button onClick={() => navigate('/study')}>학습</button>
+      </div>
+    </>
   );
 };
 
