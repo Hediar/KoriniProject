@@ -13,7 +13,8 @@ const queryClient = new QueryClient();
 const App = () => {
   const dispatch = useDispatch();
   const { user } = useAppSelector((state: RootState) => state.user);
-
+  console.log("app.tsx user 여부 : ", user);
+  
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
@@ -23,9 +24,9 @@ const App = () => {
           email: session.user.email,
           name: name
         };
+        dispatch(setCurrentUser(user));
+        await supabase.from('user').insert(user);
       } else dispatch(setCurrentUser(null));
-      dispatch(setCurrentUser(user));
-      await supabase.from('user').insert(user);
       if (session) {
         const response = await supabase.from('user').select().eq('userid', session?.user.id).single();
         if (response.data) {
