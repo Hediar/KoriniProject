@@ -13,6 +13,10 @@ import { fetchComments, addComment, deleteComment, updateComment } from '../api/
 import * as S from '../styles/StComment';
 
 const Detail = () => {
+  //페이지XXXX
+  const [currentPage, setCurrentPage] = useState(1);
+  const commentsPerPage = 4;
+
   // 포스트 아이디 가져오기
   const { id } = useParams();
   // 유저 정보 가져오기
@@ -98,6 +102,13 @@ const Detail = () => {
   if (isError) {
     return <h1>댓글 오류 발생</h1>;
   }
+  //페이지XXXX
+  const commentGroups = [];
+  for (let i = 0; i < comments.length; i += commentsPerPage) {
+    commentGroups.push(comments.slice(i, i + commentsPerPage));
+  }
+
+  const currentComments = commentGroups[currentPage - 1] || [];
 
   return (
     <S.Outer>
@@ -141,8 +152,15 @@ const Detail = () => {
           </S.Comment>
         ))}
       </S.CommentContainer>
+      {/* 페이지네이션 XXXX*/}
+      <div>
+        {commentGroups.map((group, index) => (
+          <button key={index} onClick={() => setCurrentPage(index + 1)}>
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </S.Outer>
   );
 };
-
 export default Detail;
