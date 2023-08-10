@@ -7,6 +7,8 @@ import Mypage from '../pages/Mypage';
 import Studyboard from '../pages/Studyboard';
 import Freeboard from '../pages/Freeboard';
 import Write from '../pages/Write';
+import NotFound from '../pages/NotFound';
+import PrivateRoute from './PrivateRoute';
 
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { RootState } from '../redux/config/configStore';
@@ -28,13 +30,19 @@ const Router = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/study" element={<Studyboard />} />
-        <Route path="/free" element={<Freeboard />} />
-        <Route path="/write" element={<Write />} />
+        <Route path="*" element={<NotFound />} />
+
+        {/* PrivateRoute : 로그인 유저 없으면 main 페이지로 이동 */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/study" element={<Studyboard />} />
+          <Route path="/free" element={<Freeboard />} />
+          <Route path="/write" element={<Write />} />
+        </Route>
       </Routes>
       <Footer />
+
       {/* user가 있을 때만 챗봇 버튼이 보이도록 */}
       {user && (
         <>
