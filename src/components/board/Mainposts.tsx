@@ -1,12 +1,15 @@
 import { ToTalDataType } from '../../types/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { getPosts } from '../../api/post';
 import { useInView } from 'react-intersection-observer';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Mainposts = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const queryKey = pathname === '/' ? ['posts'] : pathname === '/free' ? ['freeposts'] : ['studyposts'];
+
   const {
     data: posts,
     isLoading,
@@ -15,8 +18,8 @@ const Mainposts = () => {
     fetchNextPage,
     isFetchingNextPage
   } = useInfiniteQuery<ToTalDataType>({
-    queryKey: ['posts'],
-    queryFn: ({ pageParam }) => getPosts(pageParam),
+    queryKey: queryKey,
+    queryFn: ({ pageParam }) => getPosts(pageParam, pathname),
     getNextPageParam: (lastPage) => {
       // 전체 페이지 개수보다 작을 때 다음 페이지로
       if (lastPage.page < lastPage.total_pages) {
@@ -45,6 +48,7 @@ const Mainposts = () => {
   }, [posts]);
 
   // useEffect(() => {
+  //   console.log('key', queryKey);
   //   console.log('posts', posts);
   // }, [posts]);
 
@@ -63,7 +67,8 @@ const Mainposts = () => {
             <div
               key={post.postid}
               onClick={() => {
-                navigate(`detail/${post.postid}`);
+                // 절대경로
+                navigate(`/detail/${post.postid}`);
               }}
             >
               {post.postid}
