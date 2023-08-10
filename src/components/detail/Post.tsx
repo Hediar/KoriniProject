@@ -46,7 +46,7 @@ const Post = () => {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (inputTag.trim() !== '') {
-        setTags([...tags, inputTag.trim()]);
+        setTags([...tags, inputTag.split(' ').join('')]);
         setInputTag('');
       }
     }

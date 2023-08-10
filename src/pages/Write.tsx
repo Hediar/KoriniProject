@@ -42,8 +42,7 @@ const Write = () => {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (inputTag.trim() !== '') {
-        console.log(inputTag.trim());
-        setTags([...tags, inputTag.trim()]);
+        setTags([...tags, inputTag.split(' ').join('')]);
         setInputTag('');
       }
     }
