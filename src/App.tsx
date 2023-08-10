@@ -18,8 +18,11 @@ const App = () => {
     supabase.auth.onAuthStateChange(async (event, session) => {
       console.log('>>', session?.user);
       if (session) {
-        const response = await supabase.from('user').select().eq('userid', session?.user.id).single();
+        const response = await supabase.from('user').select('*').eq('userid', session?.user.id).single();
+        console.log('response', response);
+
         dispatch(setCurrentUser(response.data));
+        console.log('user', user);
       } else {
         dispatch(setCurrentUser(null));
       }
@@ -30,6 +33,7 @@ const App = () => {
     <>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
+        <div></div>
         <Router />
       </QueryClientProvider>
     </>

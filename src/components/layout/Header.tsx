@@ -64,9 +64,16 @@ const Header = () => {
   return (
     <StHeader>
       <h2>KORINI 🐘</h2>
-      <button onClick={openModalButton}>Login</button>
-      <button onClick={signOut}>Logout</button>
-
+      {/* <button onClick={openModalButton}>Login</button>
+      <button onClick={signOut}>Logout</button> */}
+      {user ? (
+        <>
+          <button onClick={signOut}>Logout</button>
+          <span>{user.name}</span>
+        </>
+      ) : (
+        <button onClick={openModalButton}>Login</button>
+      )}
       {isOpen && (
         <>
           <StModalBox>
