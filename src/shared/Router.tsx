@@ -8,18 +8,21 @@ import Studyboard from '../pages/Studyboard';
 import Freeboard from '../pages/Freeboard';
 import Write from '../pages/Write';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { ChatBotState, toggleChatBotState } from '../redux/module/chatBotUISlice';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { RootState } from '../redux/config/configStore';
+import { toggleChatBotState } from '../redux/module/chatBotUISlice';
 import ChatBot from '../components/chatbot/ChatBot';
-import ChatIcon from "remixicon-react/QuestionAnswerFillIcon"
+import ChatIcon from 'remixicon-react/QuestionAnswerFillIcon';
+
 import { styled } from 'styled-components';
 
 const Router = () => {
-  const chatBotIsActive = useSelector((state: { chatBotUI: ChatBotState; }) => state.chatBotUI.chatBotIsActive);
-  const dispatch = useDispatch();
+  const { user } = useAppSelector((state: RootState) => state.user);
+  const chatBotIsActive = useAppSelector((state: RootState) => state.chatBotUI.chatBotIsActive);
+  const dispatch = useAppDispatch();
   const toggleChatBot = () => {
     dispatch(toggleChatBotState());
-  }
+  };
   return (
     <BrowserRouter>
       <Header />
@@ -32,10 +35,17 @@ const Router = () => {
         <Route path="/write" element={<Write />} />
       </Routes>
       <Footer />
-      <ChatBotButton onClick={toggleChatBot}>
-        <ChatIcon color='#fff' size={20} />
-      </ChatBotButton>
-      {chatBotIsActive ? <ChatBot /> : null}
+      {/* user가 있을 때만 챗봇 버튼이 보이도록 */}
+      {
+        user && (
+          <>
+            <ChatBotButton onClick={toggleChatBot}>
+              <ChatIcon color="#fff" size={20} />
+            </ChatBotButton>
+            {chatBotIsActive ? <ChatBot /> : null}
+          </>
+        )
+      }
     </BrowserRouter>
   );
 };
@@ -58,4 +68,4 @@ const ChatBotButton = styled.button`
   &:hover {
     background-color: #445e70;
   }
-`
+`;

@@ -1,16 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { BotChatLogsType } from "../../types/types";
 
-export interface ChatLogState {
-  id: string;
-  chatRes: string;
-}
-
-export interface RootState {
-  logs: ChatLogState[];
-}
-
-const initialState: RootState = {
-  logs: []
+const initialState: BotChatLogsType = {
+  logs: [],
 }
 
 const chatBotLogSlice = createSlice({
@@ -20,7 +12,8 @@ const chatBotLogSlice = createSlice({
     addChatLog: (state, action) => {
       state.logs.push({
         id: action.payload.id,
-        chatRes: action.payload.chatRes,
+        role: action.payload.role,
+        chat: action.payload.chat,
       });
     }
   }

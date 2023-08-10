@@ -31,7 +31,7 @@ const getDataNumber = async () => {
 };
 
 // Post 상세조회
-const getPost = async (id: string | undefined): Promise<PostType> => {
+const getPost = async (id: string): Promise<PostType> => {
   const { data } = await supabase.from('post').select().eq('postid', id).single();
   return data;
 };

@@ -1,7 +1,7 @@
-export interface userType {
-  id: string;
+export interface UserType {
+  userid: string;
   email: string;
-  password: string;
+  name: string;
 }
 
 export interface ToTalDataType {
@@ -15,16 +15,30 @@ export interface PostType {
   postid: string;
   userid: string;
   name: string;
-  date: number;
+  date: string;
   category: string;
   title: string;
   body: string;
-  tag: string[];
+  tags: string[];
 }
 
 export interface Comment {
-  id: number;
+  id: string;
   nickname: string;
   date: number;
   text: string;
+}
+
+export interface ChatBotState {
+  chatBotIsActive: boolean;
+}
+
+export interface ChatLogType {
+  id: string;
+  role: string;
+  chat: string;
+}
+
+export interface BotChatLogsType {
+  logs: ChatLogType[];
 }

@@ -6,7 +6,7 @@ import { Comment } from '../types/types';
 const Detail = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState<string>('');
-  const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
+  const [editingCommentId, setEditingCommentId] = useState<string>('');
   const [editedCommentText, setEditedCommentText] = useState<string>('');
 
   useEffect(() => {
@@ -34,37 +34,44 @@ const Detail = () => {
       console.log(error);
     }
   };
-  //삭제
-  const handleCommentDelete = async (commentId: number) => {
+  // 삭제
+  const handleCommentDelete = async (commentId: string) => {
     try {
-      const { error } = await supabase.from('comment').delete().eq('id', commentId);
+      const shouldDelete = window.confirm('삭제 하시겠습니까?');
 
-      if (error) {
-        console.error('Error delete comment:', error);
-      } else {
-        console.log('Comment delete successfully');
-        fetchComments();
-        alert('삭제 하시겠습니까?');
+      if (shouldDelete) {
+        const { error } = await supabase.from('comment').delete().eq('id', commentId);
+
+        if (error) {
+          console.error('Error delete comment:', error);
+        } else {
+          console.log('Comment delete successfully');
+          fetchComments();
+        }
       }
     } catch (error) {
       console.log(error);
     }
   };
   //수정
-  const handleCommentEdit = (commentId: number, commentText: string) => {
+  const handleCommentEdit = (commentId: string, commentText: string) => {
     setEditingCommentId(commentId);
     setEditedCommentText(commentText);
   };
-  //수정 후 저장
-  const handleCommentSave = async (commentId: number) => {
+  // 수정 후 저장
+  const handleCommentSave = async (commentId: string) => {
     try {
+      if (!editingCommentId) {
+        return;
+      }
+
       const { error } = await supabase.from('comment').update({ text: editedCommentText }).eq('id', commentId);
 
       if (error) {
         console.error('Error update comment:', error);
       } else {
         console.log('Comment update successfully');
-        setEditingCommentId(null);
+        setEditingCommentId('');
         setEditedCommentText('');
         fetchComments();
       }
@@ -72,6 +79,7 @@ const Detail = () => {
       console.log(error);
     }
   };
+
   //조회
   const fetchComments = async () => {
     try {
