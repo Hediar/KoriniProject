@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { UserType } from '../../types/types';
 import styled from 'styled-components';
 import supabase from '../../lib/client';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState<string>('');
@@ -32,12 +33,6 @@ const Signup = () => {
         });
 
         if (data) {
-          const user = {
-            userid: data.user?.id,
-            email,
-            name
-          };
-          await supabase.from('user').insert(user);
           alert('회원가입 완료!');
         }
 
@@ -68,13 +63,6 @@ const Signup = () => {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-          }}
-        />
-        <label>닉네임</label>
-        <input
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
           }}
         />
         <button>회원가입</button>
