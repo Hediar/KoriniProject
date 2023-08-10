@@ -20,25 +20,31 @@ const Signup = () => {
     e.preventDefault();
     const checkedInput = checkInput(email, password);
     if (!checkedInput) return;
+
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password
-      });
-      if (error) {
-        alert(error.message);
-      }
-      if (data) {
-        //유저 객체 선언
-        const user = {
-          userid: data.user?.id,
+      const existingUser = await supabase.from('user').select('userid').eq('email', email).single();
+      if (existingUser.data) {
+        alert('이미 가입된 이메일입니다.');
+      } else {
+        const { data, error } = await supabase.auth.signUp({
           email,
-          name
-        };
-        //데이터베이스에 유저 정보 업로드
-        await supabase.from('user').insert(user);
+          password
+        });
+
+        if (data) {
+          const user = {
+            userid: data.user?.id,
+            email,
+            name
+          };
+          await supabase.from('user').insert(user);
+          alert('회원가입 완료!');
+        }
+
+        if (error) {
+          alert(error.message);
+        }
       }
-      alert('회원가입 완료!');
     } catch (error) {
       console.error(error);
     }
