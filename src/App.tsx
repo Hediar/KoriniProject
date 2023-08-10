@@ -7,8 +7,6 @@ import supabase from './lib/client';
 import { setCurrentUser } from './redux/module/userSlice';
 import { useAppSelector } from './hooks';
 import { RootState } from './redux/config/configStore';
-import { Session } from 'inspector';
-import { AuthChangeEvent } from '@supabase/supabase-js';
 
 const queryClient = new QueryClient();
 
