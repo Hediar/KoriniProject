@@ -1,13 +1,11 @@
 import Router from './shared/Router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import supabase from './lib/client';
 import { setCurrentUser } from './redux/module/userSlice';
 import { useAppSelector } from './hooks';
 import { RootState } from './redux/config/configStore';
-
 
 const queryClient = new QueryClient();
 
@@ -25,14 +23,11 @@ const App = () => {
       }
     });
   }, []);
-  console.log(user);
 
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
         <Router />
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>
     </>
   );
