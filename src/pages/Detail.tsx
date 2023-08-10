@@ -46,6 +46,7 @@ const Detail = () => {
         userid: user?.userid as string
       };
       addMutation.mutate(createComment);
+      setNewComment('');
     }
   };
 
