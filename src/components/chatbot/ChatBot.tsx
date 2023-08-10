@@ -187,7 +187,7 @@ const ChatLog = styled.p`
 
 const PromptArea = styled.div`
   width: 100%;
-  background-color: #badbe8;
+  background-color: ${props => props.theme.mainNavyColor};
 `;
 
 const PromptForm = styled.form`
