@@ -120,6 +120,9 @@ const Detail = () => {
           ) : (
             comment.text
           )}
+          {' ('}
+          {new Date(comment.date).toLocaleString()}
+          {')'}
           {user?.userid === comment.userid && (
             <>
               <button onClick={() => handleCommentEdit(comment)}>
