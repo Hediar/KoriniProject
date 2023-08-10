@@ -79,10 +79,10 @@ const Mainposts = () => {
                 }}
               >
                 <S.PostBoxNav>
-                  <div>제목: {post.title}</div>
-                  <div>작성자: {post.name}</div>
+                  <div>{post.title}</div>
+                  <div>{post.name}</div>
                 </S.PostBoxNav>
-                <S.PostContentBox>내용: {post.body}</S.PostContentBox>
+                <S.PostContentBox>{post.body}</S.PostContentBox>
               </S.PostBox>
             </>
           );

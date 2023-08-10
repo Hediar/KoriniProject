@@ -20,7 +20,7 @@ const S = {
   PostBoxNav: styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 13px;
     background-color: ${(props) => props.theme.mainNavyColor};
     color: ${(props) => props.theme.whiteColor};
   `,
