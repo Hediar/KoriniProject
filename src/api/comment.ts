@@ -2,9 +2,9 @@ import supabase from '../lib/client';
 import shortid from 'shortid';
 import { Comment } from '../types/types';
 
-// 전체 조회
-const fetchComments = async () => {
-  const { data } = await supabase.from('comment').select('*');
+// 게시글에 맞는 댓글 조회
+const fetchComments = async (id: string): Promise<any> => {
+  const { data } = await supabase.from('comment').select().eq('postid', id);
   return data;
 };
 
@@ -20,7 +20,7 @@ const deleteComment = async (commentId: string) => {
 
 // 수정
 const updateComment = async (editComment: Comment) => {
-  await supabase.from('comment').update(editComment);
+  await supabase.from('comment').update(editComment).eq('commentid', editComment.commentid);
 };
 
 export { fetchComments, addComment, deleteComment, updateComment };
