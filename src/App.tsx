@@ -1,5 +1,6 @@
 import Router from './shared/Router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import supabase from './lib/client';
@@ -23,10 +24,12 @@ const App = () => {
       }
     });
   }, []);
+  console.log(user);
 
   return (
     <>
       <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
         <Router />
       </QueryClientProvider>
     </>
