@@ -78,13 +78,11 @@ const Mainposts = () => {
                   navigate(`/detail/${post.postid}`);
                 }}
               >
-                <div>user id: {post.userid}</div>
-                <div>태그: {post.tags}</div>
-                <div>제목: {post.title}</div>
-                <div>작성자: {post.name}</div>
-                <div>내용: {post.body}</div>
-                <div>카테고리: {post.category}</div>
-                <div>작성날짜: {post.date}</div>
+                <S.PostBoxNav>
+                  <div>제목: {post.title}</div>
+                  <div>작성자: {post.name}</div>
+                </S.PostBoxNav>
+                <S.PostContentBox>내용: {post.body}</S.PostContentBox>
               </S.PostBox>
             </>
           );
