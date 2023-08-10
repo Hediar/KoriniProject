@@ -10,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState<string>('');
 
   const checkInput = (email: string, password: string) => {
-    if (!email || !password || !name) {
+    if (!email || !password) {
       alert('이메일과 패스워드를 모두 입력해 주세요');
       return false;
     }
@@ -33,12 +33,6 @@ const Signup = () => {
         });
 
         if (data) {
-          const user = {
-            userid: data.user?.id,
-            email,
-            name
-          };
-          await supabase.from('user').insert(user);
           alert('회원가입 완료!');
         }
 
@@ -69,13 +63,6 @@ const Signup = () => {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-          }}
-        />
-        <label>닉네임</label>
-        <input
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
           }}
         />
         <button>회원가입</button>
