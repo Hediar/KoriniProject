@@ -7,7 +7,7 @@ import { addChatLog } from "../../redux/module/chatBotLogSlice";
 import shortid from "shortid";
 import LoaderIcon from "remixicon-react/Loader2LineIcon"
 import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon"
-import styled from "styled-components";
+import * as S from "../../styles/StChatBot";
 
 const ChatBot = () => {
   const [prompt, setPrompt] = useState('');
@@ -70,37 +70,37 @@ const ChatBot = () => {
 
   return (
     <>
-      <ChatContainer>
-        <ChatTitle>변수명, 함수명을 물어보세요!</ChatTitle>
-        <ChatArea>
-          <ChatLogBox>
-            <RoleName>코린봇 🐘</RoleName>
-            <ChatLog>
+      <S.ChatContainer>
+        <S.ChatTitle>변수명, 함수명을 물어보세요!</S.ChatTitle>
+        <S.ChatArea>
+          <S.ChatLogBox>
+            <S.RoleName>코린봇 🐘</S.RoleName>
+            <S.ChatLog>
               안녕하세요! <br /> 변수명, 함수명을 고민 중이신가요? 저에게 물어보세요!
-            </ChatLog>
-          </ChatLogBox>
+            </S.ChatLog>
+          </S.ChatLogBox>
           {chatBotLogs.map((chat) => {
             if (chat.role === 'bot') {
               return (
-                <ChatLogBox key={chat.id}>
-                  <RoleName>코린봇 🐘</RoleName>
-                  <ChatLog>{chat.chat}</ChatLog>
-                </ChatLogBox>
+                <S.ChatLogBox key={chat.id}>
+                  <S.RoleName>코린봇 🐘</S.RoleName>
+                  <S.ChatLog>{chat.chat}</S.ChatLog>
+                </S.ChatLogBox>
               );
             } else if (chat.role === 'user') {
               return (
-                <UserPromptBox key={chat.id}>
-                  <RoleName>사용자 👤</RoleName>
-                  <ChatLog>{chat.chat}</ChatLog>
-                </UserPromptBox>
+                <S.UserPromptBox key={chat.id}>
+                  <S.RoleName>사용자 👤</S.RoleName>
+                  <S.ChatLog>{chat.chat}</S.ChatLog>
+                </S.UserPromptBox>
               );
             }
             return null;
           })}
-        </ChatArea>
-        <PromptArea>
-          <PromptForm onSubmit={handlePromptSubmit}>
-            <PromptInput
+        </S.ChatArea>
+        <S.PromptArea>
+          <S.PromptForm onSubmit={handlePromptSubmit}>
+            <S.PromptInput
               typeof="text"
               value={prompt}
               onChange={onChange}
@@ -109,105 +109,14 @@ const ChatBot = () => {
               placeholder="질문을 입력하세요!"
               required
             />
-            <PromptSubmitButton type="submit" ref={submitButtonRef} disabled={!prompt || loading}>
+            <S.PromptSubmitButton type="submit" ref={submitButtonRef} disabled={!prompt || loading}>
               {loading ? <LoaderIcon /> : <SendPlaneIcon />}
-            </PromptSubmitButton>
-          </PromptForm>
-        </PromptArea>
-      </ChatContainer>
+            </S.PromptSubmitButton>
+          </S.PromptForm>
+        </S.PromptArea>
+      </S.ChatContainer>
     </>
   );
 };
 
 export default ChatBot;
-
-const ChatContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 500px;
-  height: 600px;
-  border: none;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 5px 5px 13px rgba(91, 81, 81, 0.4);
-
-  position: fixed;
-  right: 40px;
-  bottom: 90px;
-  z-index: 9999;
-
-  @media (max-width: 500px) {
-    width: 100%;
-    max-width: 80%;
-  }
-`;
-
-const ChatTitle = styled.h1`
-  font-size: 18px;
-  font-weight: 500;
-  text-align: center;
-  padding: 20px;
-`;
-
-const ChatArea = styled.div`
-  width: 100%;
-  height: 80%;
-  overflow-y: auto;
-`;
-
-const ChatLogBox = styled.div`
-  width: 70%;
-  padding: 15px;
-  border: 1px solid #cbcbcb;
-  border-radius: 10px;
-  margin: 10px 10px 5px 10px;
-  font-size: 14px;
-  background-color: #d6ede6;
-`;
-
-const UserPromptBox = styled.div`
-  width: 70%;
-  padding: 15px;
-  border: 1px solid #cbcbcb;
-  border-radius: 10px;
-  margin: 10px 10px 5px 100px;
-  font-size: 14px;
-`;
-
-const RoleName = styled.p`
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 10px;
-`;
-
-const ChatLog = styled.p`
-  line-height: 1.4;
-`;
-
-const PromptArea = styled.div`
-  width: 100%;
-  background-color: ${props => props.theme.mainNavyColor};
-`;
-
-const PromptForm = styled.form`
-  position: relative;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-`;
-
-const PromptInput = styled.textarea`
-  width: 400px;
-  height: 40px;
-  margin: 10px;
-  padding: 10px;
-  outline: none;
-  resize: none;
-`;
-
-const PromptSubmitButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
-`;

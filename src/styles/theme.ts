@@ -5,4 +5,7 @@ export const theme: DefaultTheme = {
   mainNavyColor: "#566270",
   mainPaletteColor1: "#FFFFF3",
   mainPaletteColor2: "#E0E3DA",
+  mainInputColor: "#EFEFEF",
+  blackColor: "#000000",
+  whiteColor: "#fffff"
 }
