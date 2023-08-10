@@ -102,6 +102,7 @@ const Write = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <button onClick={backButton}>뒤로가기</button>
       <h1 style={{ padding: '10px', margin: '10px' }}>글 작성 페이지</h1>
       <form
         onSubmit={onSubmitHandler}
@@ -115,7 +116,6 @@ const Write = () => {
           flexDirection: 'column'
         }}
       >
-        <button onClick={backButton}>뒤로가기</button>
         <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
           카테고리 :{' '}
           <select onChange={onChangeCategory}>

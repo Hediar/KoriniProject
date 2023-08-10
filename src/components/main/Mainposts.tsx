@@ -3,8 +3,10 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import React, { useMemo } from 'react';
 import { getPosts } from '../../api/post';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 const Mainposts = () => {
+  const navigate = useNavigate();
   const {
     data: posts,
     isLoading,
@@ -58,7 +60,12 @@ const Mainposts = () => {
         return (
           <>
             -----------------------
-            <div key={post.postid}>
+            <div
+              key={post.postid}
+              onClick={() => {
+                navigate(`detail/${post.postid}`);
+              }}
+            >
               {post.postid}
               <div>user id: {post.userid}</div>
               <div>태그: {post.tags}</div>
