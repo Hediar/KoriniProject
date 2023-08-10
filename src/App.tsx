@@ -7,25 +7,26 @@ import supabase from './lib/client';
 import { setCurrentUser } from './redux/module/userSlice';
 import { useAppSelector } from './hooks';
 import { RootState } from './redux/config/configStore';
-import { Session } from 'inspector';
-import { AuthChangeEvent } from '@supabase/supabase-js';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const dispatch = useDispatch();
   const { user } = useAppSelector((state: RootState) => state.user);
-
+  console.log("app.tsx user 여부 : ", user);
+  
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
-      const name = session?.user.email?.split('@')[0];
-      const user = {
-        userid: session?.user.id,
-        email: session?.user.email,
-        name: name
-      };
-      dispatch(setCurrentUser(user));
-      await supabase.from('user').insert(user);
+      if (session) {
+        const name = session.user.email?.split('@')[0];
+        const user = {
+          userid: session.user.id,
+          email: session.user.email,
+          name: name
+        };
+        dispatch(setCurrentUser(user));
+        await supabase.from('user').insert(user);
+      } else dispatch(setCurrentUser(null));
       if (session) {
         const response = await supabase.from('user').select().eq('userid', session?.user.id).single();
         if (response.data) {

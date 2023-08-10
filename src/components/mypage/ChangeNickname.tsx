@@ -6,7 +6,6 @@ import { updateUserName } from "../../redux/module/userSlice";
 
 const ChangeNickname = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
-  console.log("> current user : ", user);
   const dispatch = useAppDispatch();
 
   // store에서 가져온 user 닉네임 state에 설정
@@ -37,7 +36,6 @@ const ChangeNickname = () => {
         user &&
         (
           <>
-            <div>Mypage</div>
             <label htmlFor="email">가입 이메일</label>
             <input
               name="email"

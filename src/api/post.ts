@@ -1,12 +1,48 @@
 import supabase from '../lib/client';
 import { PostType, ToTalDataType } from '../types/types';
 
-const getPosts = async (pageParam: number = 1): Promise<ToTalDataType> => {
-  const { data } = await supabase
-    .from('post')
-    .select('*')
-    .range(pageParam * 10 - 10, pageParam * 10 - 1);
-  const { count } = await supabase.from('post').select('count', { count: 'exact' });
+const getPosts = async (pageParam: number = 1, param?: string): Promise<ToTalDataType> => {
+  let data: any = [];
+  let count = null;
+
+  if (param === '/free') {
+    const freePosts = await supabase
+      .from('post')
+      .select('*')
+      .eq('category', '자유')
+      .range(pageParam * 10 - 10, pageParam * 10 - 1);
+
+    data = freePosts.data;
+
+    const { count: freeCount } = await supabase.from('post').select('count', { count: 'exact' }).eq('category', '자유');
+
+    count = freeCount;
+  } else if (param === '/study') {
+    const studyPosts = await supabase
+      .from('post')
+      .select('*')
+      .eq('category', '학습')
+      .range(pageParam * 10 - 10, pageParam * 10 - 1);
+
+    data = studyPosts.data;
+
+    const { count: studyCount } = await supabase
+      .from('post')
+      .select('count', { count: 'exact' })
+      .eq('category', '학습');
+
+    count = studyCount;
+  } else {
+    const allPosts = await supabase
+      .from('post')
+      .select('*')
+      .range(pageParam * 10 - 10, pageParam * 10 - 1);
+
+    data = allPosts.data;
+
+    const { count: allCount } = await supabase.from('post').select('count', { count: 'exact' });
+    count = allCount;
+  }
 
   // 총 페이지 개수 계산
   const total_pages = count ? Math.floor(count / 10) + (count % 10 === 0 ? 0 : 1) : 1;

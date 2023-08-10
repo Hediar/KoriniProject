@@ -1,5 +1,5 @@
 import React from 'react';
-import Mainposts from '../components/main/Mainposts';
+import Mainposts from '../components/board/Mainposts';
 
 const Main = () => {
   return (
