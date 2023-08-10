@@ -37,10 +37,12 @@ const Write = () => {
 
   // 해시태그 추가 및 삭제
   const handleHashTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.keyCode === 229) return;
     // 엔터로 해시태그 추가하기
     if (e.key === 'Enter') {
       e.preventDefault();
       if (inputTag.trim() !== '') {
+        console.log(inputTag.trim());
         setTags([...tags, inputTag.trim()]);
         setInputTag('');
       }
