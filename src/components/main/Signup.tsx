@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { UserType } from '../../types/types';
 import styled from 'styled-components';
 import supabase from '../../lib/client';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState<string>('');
@@ -20,25 +21,25 @@ const Signup = () => {
     e.preventDefault();
     const checkedInput = checkInput(email, password);
     if (!checkedInput) return;
+
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password
-      });
-      if (error) {
-        alert(error.message);
-      }
-      if (data) {
-        //유저 객체 선언
-        const user = {
-          userid: data.user?.id,
+      const existingUser = await supabase.from('user').select('userid').eq('email', email).single();
+      if (existingUser.data) {
+        alert('이미 가입된 이메일입니다.');
+      } else {
+        const { data, error } = await supabase.auth.signUp({
           email,
-          name
-        };
-        //데이터베이스에 유저 정보 업로드
-        await supabase.from('user').insert(user);
+          password
+        });
+
+        if (data) {
+          alert('회원가입 완료!');
+        }
+
+        if (error) {
+          alert(error.message);
+        }
       }
-      alert('회원가입 완료!');
     } catch (error) {
       console.error(error);
     }
@@ -62,13 +63,6 @@ const Signup = () => {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-          }}
-        />
-        <label>닉네임</label>
-        <input
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
           }}
         />
         <button>회원가입</button>

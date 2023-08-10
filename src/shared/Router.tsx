@@ -31,21 +31,19 @@ const Router = () => {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/study" element={<Studyboard />} />
-        <Route path="/freeboard" element={<Freeboard />} />
+        <Route path="/free" element={<Freeboard />} />
         <Route path="/write" element={<Write />} />
       </Routes>
       <Footer />
       {/* user가 있을 때만 챗봇 버튼이 보이도록 */}
-      {
-        user && (
-          <>
-            <ChatBotButton onClick={toggleChatBot}>
-              <ChatIcon color="#fff" size={20} />
-            </ChatBotButton>
-            {chatBotIsActive ? <ChatBot /> : null}
-          </>
-        )
-      }
+      {user && (
+        <>
+          <ChatBotButton onClick={toggleChatBot}>
+            <ChatIcon color="#fff" size={20} />
+          </ChatBotButton>
+          {chatBotIsActive ? <ChatBot /> : null}
+        </>
+      )}
     </BrowserRouter>
   );
 };

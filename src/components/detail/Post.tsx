@@ -14,7 +14,7 @@ const Post = () => {
   const { id } = useParams<{ id: string }>();
 
   // Post 상세조회
-  const { isLoading, isError, data: post } = useQuery<PostType>(['post', id], () => getPost(id as string));
+  const { isLoading, isError, data: post } = useQuery<PostType>(['post'], () => getPost(id ?? ''));
 
   // 수정 여부 및 수정 입력값 받기
   const [isEdit, setIsEdit] = useState<boolean>(false);
