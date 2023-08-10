@@ -1,10 +1,13 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from '../../redux/config/configStore';
 import updateUserNickname from "../../api/editprofile";
+import { updateUserName } from "../../redux/module/userSlice";
 
 const ChangeNickname = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
+  console.log("> current user : ", user);
+  const dispatch = useAppDispatch();
 
   // store에서 가져온 user 닉네임 state에 설정
   const [userName, setUserName] = useState(user?.name);
@@ -23,6 +26,7 @@ const ChangeNickname = () => {
       return false;
     } else if (user?.userid && userName) {
       updateUserNickname(user.userid, userName);
+      dispatch(updateUserName(userName));
       alert("닉네임이 정상적으로 변경되었습니다!")
     }
   }
