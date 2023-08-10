@@ -10,6 +10,7 @@ import { RootState } from '../redux/config/configStore';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { fetchComments, addComment, deleteComment, updateComment } from '../api/comment';
+import Loading from '../components/layout/Loading';
 
 const Detail = () => {
   // 포스트 아이디 가져오기
@@ -92,7 +93,11 @@ const Detail = () => {
   //조회
   const { isLoading, isError, data: comments } = useQuery<Comment[]>(['comment'], () => fetchComments(id ?? ''));
   if (isLoading) {
-    return <h1>로딩중입니다</h1>;
+    return (
+      <>
+        <Loading />
+      </>
+    );
   }
   if (isError) {
     return <h1>댓글 오류 발생</h1>;
