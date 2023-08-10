@@ -23,9 +23,11 @@ export interface PostType {
 }
 
 export interface Comment {
-  id: string;
-  nickname: string;
-  date: number;
+  postid: string;
+  userid: string;
+  commentid: string;
+  name: string;
+  date: string;
   text: string;
 }
 
