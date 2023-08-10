@@ -19,12 +19,14 @@ const App = () => {
   
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
-      const name = session?.user.email?.split('@')[0];
-      const user = {
-        userid: session?.user.id,
-        email: session?.user.email,
-        name: name
-      };
+      if (session) {
+        const name = session.user.email?.split('@')[0];
+        const user = {
+          userid: session.user.id,
+          email: session.user.email,
+          name: name
+        };
+      } else dispatch(setCurrentUser(null));
       dispatch(setCurrentUser(user));
       await supabase.from('user').insert(user);
       if (session) {

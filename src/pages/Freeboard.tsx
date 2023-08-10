@@ -1,7 +1,12 @@
 import React from 'react';
+import Mainposts from '../components/board/Mainposts';
 
 const Freeboard = () => {
-  return <div>Freeboard</div>;
+  return (
+    <div>
+      <Mainposts />
+    </div>
+  );
 };
 
 export default Freeboard;
