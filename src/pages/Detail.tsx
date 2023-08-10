@@ -102,8 +102,9 @@ const Detail = () => {
   return (
     <S.Outer>
       <Post />
+      <S.Title>같이 이야기를 나눠보아요🗣️</S.Title>
+
       <S.CommentContainer>
-        같이 이야기를 나눠보아요
         <S.WritetInputBox>
           <S.WriteInput
             type="text"

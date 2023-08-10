@@ -6,6 +6,12 @@ export const Outer = styled.div`
   margin: 0 auto;
   paddung: 0 auto;
 `;
+export const Title = styled.div`
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: 20px;
+`;
 
 export const CommentContainer = styled.div`
   display: flex;
@@ -30,6 +36,8 @@ export const WriteInput = styled.input`
   width: 90%;
   height: 50px;
   background-color: #d9d9d9;
+  margin-top: 10px;
+  border-radius: 10px;
 `;
 
 export const WriteButton = styled.button`
@@ -38,7 +46,8 @@ export const WriteButton = styled.button`
   color: white;
   border-radius: 10px;
   cursor: pointer;
-  width: 8%;
+  width: 30px;
+  height: 30px;
   margin-left: 20px;
 `;
 export const button = styled.button`
@@ -53,11 +62,12 @@ export const button = styled.button`
   cursor: pointer;
 `;
 export const Comment = styled.div`
-  border: 4px solid #566270;
+  border: 3px solid #566270;
   border-radius: 10px;
   margin: 15px 0 15px 0;
   width: 800px;
   height: 50px;
+  padding-top: 15px;
 `;
 
 export const ButtonBox = styled.div`
