@@ -29,13 +29,13 @@ const Router = () => {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Main />} />
+          <Route path="/study" element={<Studyboard />} />
+          <Route path="/free" element={<Freeboard />} />
           
           {/* PrivateRoute : 로그인 유저 없으면 main 페이지로 이동 */}
           <Route element={<PrivateRoute />}>
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/mypage" element={<Mypage />} />
-            <Route path="/study" element={<Studyboard />} />
-            <Route path="/free" element={<Freeboard />} />
             <Route path="/write" element={<Write />} />
           </Route>
         </Route>
