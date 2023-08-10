@@ -4,6 +4,13 @@ export interface UserType {
   name: string;
 }
 
+export interface ToTalDataType {
+  posts: PostType[];
+  page: number;
+  total_pages: number;
+  total_results: number | null;
+}
+
 export interface PostType {
   postid: string;
   userid: string;
