@@ -31,23 +31,26 @@ const Detail = () => {
     }
   });
   const handleCommentSubmit = () => {
+    if (!user) {
+      alert('로그인 후에 댓글을 작성할 수 있습니다! 로그인해주세요.');
+      return;
+    }
+
     // 유효성 검사
-    //날짜 설정
+    // 날짜 설정
     const currentTime = new Date();
     const formattedDate = currentTime.toISOString();
     // 새로운 댓글 객체 선언
-    if (user) {
-      const createComment: Comment = {
-        commentid: shortid.generate(),
-        name: user.name,
-        date: formattedDate,
-        text: newComment,
-        postid: id as string,
-        userid: user?.userid as string
-      };
-      addMutation.mutate(createComment);
-      setNewComment('');
-    }
+    const createComment: Comment = {
+      commentid: shortid.generate(),
+      name: user.name,
+      date: formattedDate,
+      text: newComment,
+      postid: id as string,
+      userid: user?.userid as string
+    };
+    addMutation.mutate(createComment);
+    setNewComment('');
   };
 
   // 삭제
