@@ -47,10 +47,10 @@ const Mainposts = () => {
       .flat();
   }, [posts]);
 
-  useEffect(() => {
-    console.log('key', queryKey);
-    console.log('posts', posts);
-  }, [posts]);
+  // useEffect(() => {
+  //   console.log('key', queryKey);
+  //   console.log('posts', posts);
+  // }, [posts]);
 
   if (isLoading) {
     return <h1>로딩중입니다</h1>;
