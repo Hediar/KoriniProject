@@ -2,9 +2,15 @@ import styled from 'styled-components';
 
 export const Header = styled.div`
   display: flex;
-  `;
+`;
+export const PageButton = styled.button`
+  height: 30px;
+  border-radius: 5px;
+  margin-top: 50px;
+`;
 
-  export const ModalBox = styled.div`
+//모달
+export const ModalBox = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -22,10 +28,4 @@ export const ModalContents = styled.div`
   width: 400px;
   height: 500px;
   border-radius: 12px;
-`;
-
-export const PageButton = styled.button`
-  height: 30px;
-  border-radius: 5px;
-  margin-top: 50px;
 `;
