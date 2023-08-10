@@ -15,7 +15,8 @@ const queryClient = new QueryClient();
 const App = () => {
   const dispatch = useDispatch();
   const { user } = useAppSelector((state: RootState) => state.user);
-
+  console.log("app.tsx user 여부 : ", user);
+  
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
       const name = session?.user.email?.split('@')[0];
