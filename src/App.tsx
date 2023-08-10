@@ -8,7 +8,6 @@ import { setCurrentUser } from './redux/module/userSlice';
 import { useAppSelector } from './hooks';
 import { RootState } from './redux/config/configStore';
 
-
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -32,7 +31,6 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <Router />
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>
     </>
   );
