@@ -43,6 +43,7 @@ const Signin = () => {
       await supabase.auth.signInWithOAuth({
         provider: 'github'
       });
+      alert('로그인 성공');
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +54,7 @@ const Signin = () => {
       await supabase.auth.signInWithOAuth({
         provider: 'google'
       });
+      alert('로그인 성공');
     } catch (error) {
       console.log(error);
     }

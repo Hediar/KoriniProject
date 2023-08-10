@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { UserType } from '../../types/types';
 import styled from 'styled-components';
 import supabase from '../../lib/client';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState<string>('');
@@ -9,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState<string>('');
 
   const checkInput = (email: string, password: string) => {
-    if (!email || !password) {
+    if (!email || !password || !name) {
       alert('이메일과 패스워드를 모두 입력해 주세요');
       return false;
     }
