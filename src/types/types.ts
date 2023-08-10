@@ -2,6 +2,7 @@ export interface UserType {
   userid: string;
   email: string;
   name: string;
+  // isLogin: boolean;
 }
 
 export interface ToTalDataType {

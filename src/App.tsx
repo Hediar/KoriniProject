@@ -16,6 +16,7 @@ const App = () => {
 
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('>>', session?.user);
       if (session) {
         const response = await supabase.from('user').select().eq('userid', session?.user.id).single();
         dispatch(setCurrentUser(response.data));
@@ -24,7 +25,6 @@ const App = () => {
       }
     });
   }, []);
-  console.log(user);
 
   return (
     <>

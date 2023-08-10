@@ -40,7 +40,7 @@ const Signin = () => {
 
   const loginWithGithub = async () => {
     try {
-      await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'github'
       });
     } catch (error) {
@@ -95,7 +95,12 @@ const Signin = () => {
   return (
     <div>
       <StTitle>🐘 로그인 🐘</StTitle>
-      <form onSubmit={signInWithEmail}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          signInWithEmail(e);
+        }}
+      >
         <label>이메일</label>
         <input
           type="email"
@@ -112,10 +117,14 @@ const Signin = () => {
             setPassword(e.target.value);
           }}
         />
-        <button>로그인</button>
+        <button type="submit">로그인</button>
+        <button type="button" onClick={loginWithGithub}>
+          Github Login
+        </button>
+        <button type="button" onClick={loginWithGoogle}>
+          Google Login
+        </button>
       </form>
-      <button onClick={loginWithGithub}>Github Login</button>
-      <button onClick={loginWithGoogle}>Google Login</button>
       <div></div>
     </div>
   );

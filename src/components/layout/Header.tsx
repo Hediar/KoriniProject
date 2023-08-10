@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
 import { setCurrentUser } from '../../redux/module/userSlice';
 import { openModal, closeModal } from '../../redux/module/modalSlice';
+import { AuthChangeEvent, AuthSession } from '@supabase/supabase-js';
+import { useDispatch } from 'react-redux';
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +16,23 @@ const Header = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
   const { isOpen } = useAppSelector((state: RootState) => state.modal);
   const [switchPage, setSwitchPage] = useState<boolean>(false);
+
+  // interface authType {
+  //   event: AuthChangeEvent;
+  //   session: AuthSession | null;
+  // }
+
+  //   const authState = async()=> {
+  //  const response = await supabase.auth.onAuthStateChange(event, session) => {
+  //       if (session) {
+  //         const response = await supabase.from('user').select().eq('userid', session?.user.id).single();
+  //         dispatch(setCurrentUser(response.data));
+  //       } else {
+  //         dispatch(setCurrentUser(null));
+  //       }
+  //   }}
+
+  // const authId = authState.data.subscription.id;
 
   const openModalButton = () => {
     dispatch(openModal());
@@ -45,14 +64,9 @@ const Header = () => {
   return (
     <StHeader>
       <h2>KORINI 🐘</h2>
-      {user ? (
-        <>
-          <button onClick={signOut}>Logout</button>
-          <span>{user.name}</span>
-        </>
-      ) : (
-        <button onClick={openModalButton}>Login</button>
-      )}
+      <button onClick={openModalButton}>Login</button>
+      <button onClick={signOut}>Logout</button>
+
       {isOpen && (
         <>
           <StModalBox>
@@ -108,3 +122,14 @@ const StPageButton = styled.button`
   border-radius: 5px;
   margin-top: 50px;
 `;
+
+// {authId !== null ? (
+//   <>
+//     <button onClick={signOut}>Logout</button>
+//     {/* <span>{user.name}</span> */}
+//   </>
+// ) : (
+//   <>
+//     <button onClick={openModalButton}>Login</button>
+//   </>
+// )}
