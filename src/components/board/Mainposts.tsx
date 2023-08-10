@@ -1,12 +1,15 @@
 import { ToTalDataType } from '../../types/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { getPosts } from '../../api/post';
 import { useInView } from 'react-intersection-observer';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Mainposts = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const queryKey = pathname === '/' ? ['posts'] : pathname === 'free' ? ['freeposts'] : ['studyposts'];
+
   const {
     data: posts,
     isLoading,
@@ -44,9 +47,9 @@ const Mainposts = () => {
       .flat();
   }, [posts]);
 
-  // useEffect(() => {
-  //   console.log('posts', posts);
-  // }, [posts]);
+  useEffect(() => {
+    console.log('param', pathname);
+  }, [posts]);
 
   if (isLoading) {
     return <h1>로딩중입니다</h1>;
@@ -63,7 +66,8 @@ const Mainposts = () => {
             <div
               key={post.postid}
               onClick={() => {
-                navigate(`detail/${post.postid}`);
+                // 절대경로
+                navigate(`/detail/${post.postid}`);
               }}
             >
               {post.postid}

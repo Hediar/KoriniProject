@@ -1,7 +1,7 @@
 import supabase from '../lib/client';
 import { PostType, ToTalDataType } from '../types/types';
 
-const getPosts = async (pageParam: number = 1): Promise<ToTalDataType> => {
+const getPosts = async (pageParam: number = 1, param?: string): Promise<ToTalDataType> => {
   const { data } = await supabase
     .from('post')
     .select('*')
