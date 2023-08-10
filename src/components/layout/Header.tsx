@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as S from "../../styles/StHeader";
+import * as S from '../../styles/StHeader';
 import Signin from '../main/Signin';
 import Signup from '../main/Signup';
 import supabase from '../../lib/client';
@@ -8,6 +8,7 @@ import { RootState } from '../../redux/config/configStore';
 import { setCurrentUser } from '../../redux/module/userSlice';
 import { openModal, closeModal } from '../../redux/module/modalSlice';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ const Header = () => {
   const signOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
-      alert('로그아웃 되었습니다.');
+      alert('로그아웃 되었습()니다.');
       if (error) {
         console.log(error);
       }
@@ -42,12 +43,22 @@ const Header = () => {
     }
   };
 
+  const mypageButton = () => {
+    navigate('/mypage');
+  };
+
+  const writeButton = () => {
+    navigate('/write');
+  };
+
   return (
     <>
       <S.Header>
-        <h2>KORINI 🐘</h2>
+        <Link to="/">KORINI 🐘</Link>
         {user ? (
           <>
+            <button onClick={writeButton}>글쓰기</button>
+            <button onClick={mypageButton}>mypage</button>
             <button onClick={signOut}>Logout</button>
             <span>{user.name}</span>
           </>
@@ -87,5 +98,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
