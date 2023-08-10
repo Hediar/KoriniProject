@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const Mainposts = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const queryKey = pathname === '/' ? ['posts'] : pathname === 'free' ? ['freeposts'] : ['studyposts'];
+  const queryKey = pathname === '/' ? ['posts'] : pathname === '/free' ? ['freeposts'] : ['studyposts'];
 
   const {
     data: posts,
@@ -18,8 +18,8 @@ const Mainposts = () => {
     fetchNextPage,
     isFetchingNextPage
   } = useInfiniteQuery<ToTalDataType>({
-    queryKey: ['posts'],
-    queryFn: ({ pageParam }) => getPosts(pageParam),
+    queryKey: queryKey,
+    queryFn: ({ pageParam }) => getPosts(pageParam, pathname),
     getNextPageParam: (lastPage) => {
       // 전체 페이지 개수보다 작을 때 다음 페이지로
       if (lastPage.page < lastPage.total_pages) {
@@ -48,7 +48,8 @@ const Mainposts = () => {
   }, [posts]);
 
   useEffect(() => {
-    console.log('param', pathname);
+    console.log('key', queryKey);
+    console.log('posts', posts);
   }, [posts]);
 
   if (isLoading) {
