@@ -31,8 +31,6 @@ const Header = () => {
   const signOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
-      // 전역 상태 유저 null
-      dispatch(setCurrentUser(null));
       alert('로그아웃 되었습니다.');
       if (error) {
         console.log(error);
