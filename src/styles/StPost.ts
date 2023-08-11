@@ -35,10 +35,8 @@ const S = {
     font-size: 16px;
     max-width: 1200px;
     width: 800px;
-    margin-bottom: 15px;
-    margin-top: -30px;
+    margin: 10px;
     padding: 0 auto;
-    color: #787d87;
   `,
 
   Info: styled.div`
@@ -102,10 +100,7 @@ const S = {
       color: ${(props) => props.theme.blackColor};
     }
   `,
-  EditTitle: styled.input`
-    width: 780px;
-    margin-bottom: 15px;
-  `,
+
   Textarea: styled.textarea`
     max-width: 1200px;
     width: 800px;
