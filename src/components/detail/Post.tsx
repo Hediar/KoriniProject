@@ -131,7 +131,7 @@ const Post = () => {
         {isEdit ? (
           <S.Box>
             <S.Info>(수정중)&nbsp;{post.date}</S.Info>
-            <S.Input value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
+            <S.EditTitle value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
           </S.Box>
         ) : (
           <S.Box>
