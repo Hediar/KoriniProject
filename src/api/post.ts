@@ -87,4 +87,20 @@ const updatePost = async (editPost: PostType): Promise<void> => {
   await supabase.from('post').update(editPost).eq('postid', editPost.postid);
 };
 
-export { getPosts, getDataNumber, getPost, createPost, deletePost, updatePost };
+// 내가 쓴 글 조회
+const getMyPosts = async (userid: string): Promise<PostType[]> => {
+  const { data } = await supabase.from('post').select('*').eq('userid', userid);
+  return data as PostType[];
+};
+
+// 내가 쓴 글 개수 조회 (페이지네이션용)
+const getMyPostsNumber = async (userid: string) => {
+  const { count } = await supabase
+    .from('post')
+    .select('count', { count: 'exact' })
+    .filter('userid', 'eq', userid);
+
+  return count;
+};
+
+export { getPosts, getDataNumber, getPost, createPost, deletePost, updatePost, getMyPosts, getMyPostsNumber };
