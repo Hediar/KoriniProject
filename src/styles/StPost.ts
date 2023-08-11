@@ -113,18 +113,6 @@ const S = {
     &::placeholder {
       color: ${(props) => props.theme.blackColor};
     }
-  `,
-
-  Button: styled.button`
-    background-color: #a593e0;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    width: 60px;
-    height: 30px;
-    margin-right: 10px;
-    margin-top: 15px;
-    cursor: pointer;
   `
 };
 

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
 import { S } from '../../styles/StPost';
+import * as G from '../../styles/StButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -116,10 +117,12 @@ const Post = () => {
       {user?.userid === post.userid && (
         <S.ButtonContainer>
           <div>
-            <S.Button onClick={() => deleteButton(post.postid)}>삭제</S.Button>
-            <S.Button onClick={() => editButton(post)} style={{ marginRight: '20px' }}>
+            <G.Button onClick={() => deleteButton(post.postid)} width="70px">
+              삭제
+            </G.Button>
+            <G.Button onClick={() => editButton(post)} width="70px" style={{ marginRight: '20px' }}>
               {isEdit ? '저장' : '수정'}
-            </S.Button>
+            </G.Button>
           </div>
         </S.ButtonContainer>
       )}

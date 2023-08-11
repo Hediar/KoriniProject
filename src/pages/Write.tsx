@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../redux/config/configStore';
 import { S } from '../styles/StWrite';
+import * as G from '../styles/StButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -158,8 +159,10 @@ const Write = () => {
             />
           </S.InputContainer>
           <S.ButtonContainer>
-            <S.Button onClick={cancellButton}>취소</S.Button>
-            <S.Button>등록</S.Button>
+            <G.Button onClick={cancellButton} width="80px">
+              취소
+            </G.Button>
+            <G.Button width="80px">등록</G.Button>
           </S.ButtonContainer>
         </S.FormContainer>
       </S.Container>

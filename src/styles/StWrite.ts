@@ -86,17 +86,6 @@ const S = {
     display: flex;
     flex-direction: row;
     justify-content: center;
-  `,
-
-  Button: styled.button`
-    background-color: #a593e0;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    width: 70px;
-    height: 30px;
-    margin: 10px;
-    cursor: pointer;
   `
 };
 
