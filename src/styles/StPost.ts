@@ -29,6 +29,8 @@ const S = {
     width: 800px;
     margin-left: 5px;
     padding: 0 auto;
+    font-weight: 700;
+    color: ${(props) => props.theme.mainPurpleColor}
   `,
 
   Name: styled.div`
@@ -108,13 +110,15 @@ const S = {
     height: 200px;
     font-family: 'Pretendard-Regular';
     line-height: 1.5;
-    font-size: 14px;
+    font-size: 16px;
     border: 1px ${(props) => props.theme.mainNavyColor} solid;
     outline: none;
     border-radius: 8px;
     &::placeholder {
       color: ${(props) => props.theme.blackColor};
     }
+    resize: none;
+    padding: 10px;
   `
 };
 

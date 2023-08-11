@@ -19,11 +19,12 @@ export const StLable = styled.p`
 
 export const SuInput = styled.input`
   width: 250px;
-  height: 30px;
+  height: 35px;
   border-radius: 10px;
   background-color: ${(props) => props.theme.mainInputColor};
   margin-bottom: 10px;
   border: 1px solid ${(props) => props.theme.mainPurpleColor};
+  padding: 0 10px;
 `;
 
 export const StButton = styled.button`
@@ -36,6 +37,9 @@ export const StButton = styled.button`
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.theme.buttonHoverColor};
+  }
 `;
 
 export const StSignUpButton = styled.button`
@@ -48,6 +52,9 @@ export const StSignUpButton = styled.button`
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.theme.buttonHoverColor};
+  }
 `;
 
 export const StDiv = styled.div`

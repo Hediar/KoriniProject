@@ -1,4 +1,5 @@
 import * as S from '../../styles/StHeader';
+import * as G from '../../styles/StButton';
 import Signin from '../main/Signin';
 import Signup from '../main/Signup';
 import supabase from '../../lib/client';
@@ -89,17 +90,18 @@ const Header = () => {
           </S.MenuButton>
         </S.MenuBox>
         {user ? (
-          <div>
-            <S.HeaderButton onClick={writeButton}>글쓰기</S.HeaderButton>
-            <S.HeaderButton onClick={mypageButton}>mypage</S.HeaderButton>
-            <S.HeaderButton onClick={signOut}>로그아웃</S.HeaderButton>
-
-            <S.HeaderName onClick={() => navigate('/mypage')}>{user.name}</S.HeaderName>
-          </div>
+          <S.ButtonBox>
+            <G.Button style={{marginLeft: "10px", marginRight: "5px"}} onClick={writeButton}>글쓰기</G.Button>
+            <G.Button style={{marginRight: "5px"}} onClick={mypageButton}>마이 페이지</G.Button>
+            <G.Button onClick={signOut}>로그아웃</G.Button>
+            <S.HeaderName onClick={() => navigate('/mypage')}>
+              {user.name}님
+            </S.HeaderName>
+          </S.ButtonBox>
         ) : (
           <div>
-            <S.HeaderButton onClick={openModalButton}>로그인</S.HeaderButton>
-            <S.HeaderButton onClick={openSignupModalButton}>회원가입</S.HeaderButton>
+            <G.Button style={{marginRight: "5px"}} onClick={openModalButton}>로그인</G.Button>
+            <G.Button style={{marginRight: "5px"}} onClick={openSignupModalButton}>회원가입</G.Button>
           </div>
         )}
         {isOpen && (
