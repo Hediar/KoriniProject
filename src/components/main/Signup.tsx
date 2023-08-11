@@ -1,12 +1,10 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { UserType } from '../../types/types';
+import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import supabase from '../../lib/client';
-import { useNavigate } from 'react-router-dom';
+import * as S from '../../styles/StSignInUp';
 
 const Signup = () => {
   const [email, setEmail] = useState<string>('');
-  const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const checkInput = (email: string, password: string) => {
@@ -47,38 +45,28 @@ const Signup = () => {
 
   return (
     <div>
-      <StTitle>🐘 회원가입 🐘</StTitle>
-      <form onSubmit={signUpWithEmail}>
-        <label>이메일</label>
-        <input
+      <S.StTitle>코리니 회원가입</S.StTitle>
+      <S.StForm onSubmit={signUpWithEmail}>
+        <S.StLable>이메일</S.StLable>
+        <S.SuInput
           type="email"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
           }}
         />
-        <label>비밀번호</label>
-        <input
+        <S.StLable>비밀번호</S.StLable>
+        <S.SuInput
           type="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
-        <button>회원가입</button>
-      </form>
+        <S.StSignUpButton>회원가입</S.StSignUpButton>
+      </S.StForm>
     </div>
   );
 };
 
 export default Signup;
-
-const StTitle = styled.div`
-  padding: 20px 0 50px 0;
-  font-size: 28px;
-  text-align: center;
-`;
-
-const StForm = styled.form`
-  display: flex;
-`;
