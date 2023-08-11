@@ -83,7 +83,7 @@ const Header = () => {
         {user ? (
           <div>
             <S.HeaderButton onClick={writeButton}>글쓰기</S.HeaderButton>
-            {/* <S.HeaderButton onClick={mypageButton}>mypage</S.HeaderButton> */}
+            <S.HeaderButton onClick={mypageButton}>mypage</S.HeaderButton>
             <S.HeaderButton onClick={signOut}>로그아웃</S.HeaderButton>
 
             <S.HeaderName onClick={() => navigate('/mypage')}>{user.name}</S.HeaderName>
