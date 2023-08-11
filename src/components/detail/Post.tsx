@@ -9,8 +9,29 @@ import { S } from '../../styles/StPost';
 import * as G from '../../styles/StButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import styled, { keyframes } from 'styled-components';
 
 const Post = () => {
+  const blinkAnimation = keyframes`
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+`;
+
+  const BlinkingText = styled.span`
+    animation: ${blinkAnimation} 1s infinite;
+  `;
+
+  const YourComponent = () => {
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleEditButtonClick = () => {
+      setIsEditing(!isEditing);
+    };
+  };
   const navigate = useNavigate();
   // 유저 정보 가져오기
   const { user } = useAppSelector((state: RootState) => state.user);
@@ -130,8 +151,10 @@ const Post = () => {
         <S.Category>{post.category}</S.Category>
         {isEdit ? (
           <S.Box>
-            <S.Info>(수정중)&nbsp;{post.date}</S.Info>
-            <S.EditTitle value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
+            <BlinkingText>
+              <S.Info>(수정중)&nbsp;{post.date}</S.Info>
+            </BlinkingText>
+            <S.Input value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
           </S.Box>
         ) : (
           <S.Box>
