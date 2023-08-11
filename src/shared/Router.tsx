@@ -15,7 +15,7 @@ import { toggleChatBotState } from '../redux/module/chatBotUISlice';
 import ChatBot from '../components/chatbot/ChatBot';
 import ChatIcon from 'remixicon-react/QuestionAnswerFillIcon';
 
-import { styled } from 'styled-components';
+import * as S from "../styles/StChatBot"
 
 const Router = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
@@ -29,12 +29,12 @@ const Router = () => {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Main />} />
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="/study" element={<Studyboard />} />
           <Route path="/free" element={<Freeboard />} />
           
           {/* PrivateRoute : 로그인 유저 없으면 main 페이지로 이동 */}
           <Route element={<PrivateRoute />}>
-            <Route path="/detail/:id" element={<Detail />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/write" element={<Write />} />
           </Route>
@@ -45,9 +45,9 @@ const Router = () => {
       {/* user가 있을 때만 챗봇 버튼이 보이도록 */}
       {user && (
         <>
-          <ChatBotButton onClick={toggleChatBot}>
+          <S.ChatBotButton onClick={toggleChatBot}>
             <ChatIcon color="#fff" size={20} />
-          </ChatBotButton>
+          </S.ChatBotButton>
           {chatBotIsActive ? <ChatBot /> : null}
         </>
       )}
@@ -55,22 +55,3 @@ const Router = () => {
   );
 };
 export default Router;
-
-const ChatBotButton = styled.button`
-  width: 50px;
-  height: 50px;
-  border: none;
-  border-radius: 50%;
-  background-color: #1f3646;
-  box-shadow: 5px 5px 13px rgba(154, 154, 154, 0.4);
-  cursor: pointer;
-  position: fixed;
-  bottom: 20px;
-  z-index: 9999;
-  right: 30px;
-  transition: all 0.1s ease-in-out;
-
-  &:hover {
-    background-color: #445e70;
-  }
-`;
