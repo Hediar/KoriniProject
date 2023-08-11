@@ -1,11 +1,10 @@
-import ChangeNickname from '../components/mypage/ChangeNickname';
-import ChangePassword from '../components/mypage/ChangePassword';
-import { useAppSelector } from '../hooks';
-import { RootState } from '../redux/config/configStore';
-import pic from '../assets/elephant.png';
+import ChangeNickname from "../components/mypage/ChangeNickname";
+import ChangePassword from "../components/mypage/ChangePassword";
+import { useAppSelector } from "../hooks";
+import { RootState } from "../redux/config/configStore";
+import pic from "../assets/elephant.png";
 
-import * as S from '../styles/StMyPage';
-import styled from 'styled-components';
+import * as S from "../styles/StMyPage";
 
 const Mypage = () => {
   const { user } = useAppSelector((state: RootState) => state.user);

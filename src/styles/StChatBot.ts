@@ -1,22 +1,22 @@
 import styled from "styled-components";
 
 export const ChatBotButton = styled.button`
-width: 50px;
-height: 50px;
-border: none;
-border-radius: 50%;
-background-color: #1f3646;
-box-shadow: 5px 5px 13px rgba(154, 154, 154, 0.4);
-cursor: pointer;
-position: fixed;
-bottom: 20px;
-z-index: 9999;
-right: 30px;
-transition: all 0.1s ease-in-out;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background-color: #1f3646;
+  box-shadow: 5px 5px 13px rgba(154, 154, 154, 0.4);
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  z-index: 9999;
+  right: 30px;
+  transition: all 0.1s ease-in-out;
 
-&:hover {
-  background-color: #445e70;
-}
+  &:hover {
+    background-color: ${props => props.theme.mainNavyColor};
+  }
 `;
 
 export const ChatContainer = styled.div`
@@ -43,7 +43,7 @@ export const ChatContainer = styled.div`
 
 export const ChatTitle = styled.h1`
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
   padding: 20px;
 `;
@@ -61,7 +61,7 @@ export const ChatLogBox = styled.div`
   border-radius: 10px;
   margin: 10px 10px 5px 10px;
   font-size: 14px;
-  background-color: #d6ede6;
+  background-color: ${props => props.theme.ChatBoxBgColor};
 `;
 
 export const UserPromptBox = styled.div`
@@ -79,13 +79,18 @@ export const RoleName = styled.p`
   margin-bottom: 10px;
 `;
 
-export const ChatLog = styled.p`
+export const BotChatLog = styled.p`
+  line-height: 1.4;
+`;
+
+export const UserChatLog = styled.p`
   line-height: 1.4;
 `;
 
 export const PromptArea = styled.div`
   width: 100%;
-  background-color: ${props => props.theme.pointcolor1};
+  background-color: ${props => props.theme.mainInputColor};
+  margin-top: 10px;
 `;
 
 export const PromptForm = styled.form`

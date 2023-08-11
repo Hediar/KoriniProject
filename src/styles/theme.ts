@@ -7,5 +7,6 @@ export const theme: DefaultTheme = {
   mainPaletteColor2: '#E0E3DA',
   mainInputColor: '#EFEFEF',
   blackColor: '#000000',
-  whiteColor: '#FFFFFF'
+  whiteColor: '#FFFFFF',
+  ChatBoxBgColor: '#e2deef',
 };
