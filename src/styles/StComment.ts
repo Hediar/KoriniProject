@@ -11,7 +11,7 @@ export const Title = styled.div`
   text-align: center;
   justify-content: center;
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 export const CommentContainer = styled.div`
@@ -22,7 +22,7 @@ export const CommentContainer = styled.div`
   background-color: #efefef;
   margin-top: 10px;
 
-  height: 500px;
+  height: 470px;
   border-radius: 30px;
 `;
 
@@ -104,10 +104,20 @@ export const Comment = styled.div`
 
 export const CommentName = styled.div`
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
+  margin-bottom: 5px;
 `;
 
 export const CommentDate = styled.div`
   font-size: 12px;
   color: #807b85;
+  margin-bottom: 5px;
+`;
+export const EditInput = styled.input`
+  display: flex;
+  border: 1px solid #566270;
+  width: 75%;
+  height: 25px;
+  margin-top: 5px;
+  border-radius: 5px;
 `;

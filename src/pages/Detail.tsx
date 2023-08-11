@@ -139,9 +139,12 @@ const Detail = () => {
                   <S.button onClick={() => handleCommentDelete(comment.commentid)}>삭제</S.button>
                 </S.ButtonBox>
               )}
-
               {comment.commentid === editingCommentId ? (
-                <input type="text" value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} />
+                <S.EditInput
+                  type="text"
+                  value={editedCommentText}
+                  onChange={(e) => setEditedCommentText(e.target.value)}
+                />
               ) : (
                 comment.text
               )}
