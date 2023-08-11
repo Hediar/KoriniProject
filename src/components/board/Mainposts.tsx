@@ -65,14 +65,14 @@ const Mainposts = () => {
     return <h1>오류 발생</h1>;
   }
   return (
-    <>
+    <S.Outer>
       <S.MainPostsContainer>
-        <div>글 목록</div>
+        <S.title>글 목록✍🏻</S.title>
+
         {processedPosts?.map((post) => {
           return (
-            <>
+            <S.box key={post.postid}>
               <S.PostBox
-                key={post.postid}
                 onClick={() => {
                   // 절대경로
                   navigate(`/detail/${post.postid}`);
@@ -80,13 +80,14 @@ const Mainposts = () => {
               >
                 <S.PostBoxNav>
                   <div>{post.title}</div>
-                  <div>{post.name}</div>
+                  <S.Nickname>{post.name}</S.Nickname>
                 </S.PostBoxNav>
                 <S.PostContentBox>{post.body}</S.PostContentBox>
               </S.PostBox>
-            </>
+            </S.box>
           );
         })}
+
         <div
           style={{
             textAlign: 'center',
@@ -98,7 +99,7 @@ const Mainposts = () => {
           ref={ref}
         ></div>
       </S.MainPostsContainer>
-    </>
+    </S.Outer>
   );
 };
 

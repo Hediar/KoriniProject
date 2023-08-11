@@ -11,7 +11,7 @@ export const ChatBotButton = styled.button`
   position: fixed;
   bottom: 20px;
   z-index: 9999;
-  right: 30px;
+  right: 100px;
   transition: all 0.1s ease-in-out;
 
   &:hover {

@@ -91,3 +91,10 @@ export const MenuButton = styled.p`
 export const Imagelogo = styled.img`
   width: 120px;
 `;
+
+export const outer = styled.p`
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+  paddung: 0 auto;
+`;
