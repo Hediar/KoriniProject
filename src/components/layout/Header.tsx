@@ -63,7 +63,7 @@ const Header = () => {
   };
 
   return (
-    <>
+    <S.outer>
       <S.Header>
         <Link to="/">
           <img
@@ -119,7 +119,7 @@ const Header = () => {
           </>
         )}
       </S.Header>
-    </>
+    </S.outer>
   );
 };
 
