@@ -28,6 +28,7 @@ export const HeaderName = styled.span`
 `;
 
 export const ModalBox = styled.div`
+  z-index: 100;
   position: fixed;
   top: 0;
   left: 0;
@@ -72,9 +73,9 @@ export const SwitchPageLink = styled.p`
   text-align: center;
   font-size: 14px;
   cursor: pointer;
-  /* & :hover {
+  & :hover {
     color: blue;
-  } */
+  }
 `;
 
 export const MenuBox = styled.div`
@@ -85,4 +86,8 @@ export const MenuBox = styled.div`
 export const MenuButton = styled.p`
   padding: 0 20px;
   cursor: pointer;
+`;
+
+export const Imagelogo = styled.img`
+  width: 120px;
 `;
