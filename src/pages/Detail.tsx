@@ -37,6 +37,11 @@ const Detail = () => {
       return;
     }
 
+    if (!newComment) {
+      alert('댓글 내용을 입력해주세요.');
+      return;
+    }
+
     // 유효성 검사
     // 날짜 설정
     const currentTime = new Date();
