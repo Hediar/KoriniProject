@@ -30,7 +30,6 @@ export const CommentTop = styled.div`
   display: flex;
   height: 15%;
   width: 700px;
-  margin-top: 10px;
 `;
 export const CommentBot = styled.div`
   display: flex;
@@ -97,7 +96,7 @@ export const Comment = styled.div`
   position: relative;
   border: 3px solid #566270;
   border-radius: 10px;
-  margin: 15px 0;
+  margin: 10px 0;
   padding: 10px;
   width: 800px;
   background-color: #ffffff;
