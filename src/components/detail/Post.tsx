@@ -133,7 +133,7 @@ const Post = () => {
       {user?.userid === post.userid && (
         <S.ButtonContainer>
           <div>
-            <G.Button onClick={() => deleteButton(post.postid)} width="70px">
+            <G.Button onClick={() => deleteButton(post.postid)} width="70px" style={{ marginRight: '10px' }}>
               삭제
             </G.Button>
             <G.Button onClick={() => editButton(post)} width="70px" style={{ marginRight: '20px' }}>
