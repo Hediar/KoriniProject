@@ -4,6 +4,9 @@ import { RootState } from '../../redux/config/configStore';
 import updateUserNickname from "../../api/editprofile";
 import { updateUserName } from "../../redux/module/userSlice";
 
+import styled from "styled-components";
+import * as S from "../../styles/StMyPage"
+
 const ChangeNickname = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
@@ -36,21 +39,26 @@ const ChangeNickname = () => {
         user &&
         (
           <>
-            <label htmlFor="email">가입 이메일</label>
-            <input
-              name="email"
-              value={user.email}
-              disabled
-            />
-            <form onSubmit={onSubmit}>
-              <label htmlFor="nickname">닉네임</label>
-              <input
-                name="nickname"
-                value={userName}
-                onChange={onChange}
+            <S.LabelInputBox>
+              <label htmlFor="email">가입 이메일</label>
+              <S.MyPageInput
+                id="email"
+                value={user.email}
+                disabled
               />
-              <button type="submit">수정</button>
-            </form>
+            </S.LabelInputBox>
+            <form onSubmit={onSubmit}>
+              <S.LabelInputBox>
+                <label htmlFor="nickname">닉네임</label>
+                <S.MyPageInput
+                  id="nickname"
+                  value={userName}
+                  onChange={onChange}
+                  required
+                />
+                <button type="submit">수정</button>
+              </S.LabelInputBox>
+              </form>
           </>
         )
       }
@@ -59,3 +67,4 @@ const ChangeNickname = () => {
 }
 
 export default ChangeNickname;
+
