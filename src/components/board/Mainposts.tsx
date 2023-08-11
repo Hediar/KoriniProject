@@ -71,9 +71,8 @@ const Mainposts = () => {
 
         {processedPosts?.map((post) => {
           return (
-            <S.box>
+            <S.box key={post.postid}>
               <S.PostBox
-                key={post.postid}
                 onClick={() => {
                   // 절대경로
                   navigate(`/detail/${post.postid}`);
