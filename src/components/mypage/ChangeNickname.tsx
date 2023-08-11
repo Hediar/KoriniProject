@@ -39,17 +39,17 @@ const ChangeNickname = () => {
         <>
           <S.LabelInputBox>
             <label htmlFor="email">가입 이메일</label>
-            <S.MyPageInput id="email" value={user.email} disabled />
+              <S.MyPageInput id="email" value={user.email} disabled />
           </S.LabelInputBox>
-          <form onSubmit={onSubmit}>
-            <S.LabelInputBox>
-              <label htmlFor="nickname">닉네임</label>
-              <S.MyPageInput id="nickname" value={userName} onChange={onChange} required />
+          <S.MyPageForm onSubmit={onSubmit}>
+              <S.LabelInputBox>
+                <label htmlFor="nickname">닉네임</label>
+                <S.MyPageInput id="nickname" value={userName} onChange={onChange} required />
+              </S.LabelInputBox>
               <G.Button type="submit" width="70px">
                 수정
               </G.Button>
-            </S.LabelInputBox>
-          </form>
+          </S.MyPageForm>
         </>
       )}
     </>

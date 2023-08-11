@@ -45,7 +45,7 @@ const ChangePassword = () => {
     <>
       <S.MyPageForm onSubmit={handleSubmit(onSubmit)}>
         <S.LabelInputBox>
-          <label htmlFor="password">비밀번호 변경</label>
+            <label htmlFor="password">비밀번호 변경</label>
           <S.MyPageInput
             id="password"
             type="password"
