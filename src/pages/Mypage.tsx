@@ -1,5 +1,5 @@
-import ChangeNickname from "../components/mypage/ChangeNickname";
-import ChangePassword from "../components/mypage/ChangePassword";
+import ChangeNickname from '../components/mypage/ChangeNickname';
+import ChangePassword from '../components/mypage/ChangePassword';
 
 const Mypage = () => {
   return (
@@ -8,7 +8,7 @@ const Mypage = () => {
       <ChangeNickname />
       <ChangePassword />
     </>
-  )
-}
+  );
+};
 
 export default Mypage;
