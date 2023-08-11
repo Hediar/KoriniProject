@@ -237,6 +237,7 @@ const Box = styled.div`
 `;
 
 const Title = styled.div`
+  line-height: 1.5;
   max-width: 1200px;
   width: 800px;
   margin: 20px 0 20px 0;
