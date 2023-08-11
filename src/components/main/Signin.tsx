@@ -5,6 +5,7 @@ import { setCurrentUser } from '../../redux/module/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
 import { closeModal } from '../../redux/module/modalSlice';
+import * as S from '../../styles/StSignInUp';
 
 const Signin = () => {
   const dispatch = useAppDispatch();
@@ -92,42 +93,58 @@ const Signin = () => {
   };
 
   return (
-    <div>
-      <StTitle>🐘 로그인 🐘</StTitle>
-      <form onSubmit={signInWithEmail}>
-        <label>이메일</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <label>비밀번호</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <button>로그인</button>
-      </form>
-      <button onClick={loginWithGithub}>Github Login</button>
-      <button onClick={loginWithGoogle}>Google Login</button>
-      <div></div>
-    </div>
+    <>
+      <div>
+        <S.StTitle>코리니 아이디로 로그인</S.StTitle>
+        <S.StForm onSubmit={signInWithEmail}>
+          <S.StLable>이메일</S.StLable>
+          <S.SuInput
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <S.StLable>비밀번호</S.StLable>
+          <S.SuInput
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          {/* </S.StForm> */}
+          <S.StDiv>
+            <S.SNSLogoTitle>SNS 로그인</S.SNSLogoTitle>
+            <S.StSNSBox>
+              <S.LogoNameBox>
+                <S.SNSLogoIcon
+                  onClick={loginWithGithub}
+                  src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlzrSj%2FbtsqRgbR8A9%2FSk1DSxrocwLAtuxl8d1EK1%2Fimg.png"
+                  width={40}
+                />
+                <S.StLable>Github</S.StLable>
+              </S.LogoNameBox>
+              <S.LogoNameBox>
+                <S.SNSLogoIcon
+                  onClick={loginWithGoogle}
+                  src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbriBHu%2FbtsqM7GLiEI%2Fq4B8ZInIG8ruvLnKHvlbzk%2Fimg.png"
+                  width={40}
+                />
+                <S.StLable>Google</S.StLable>
+              </S.LogoNameBox>
+            </S.StSNSBox>
+          </S.StDiv>
+          <S.StButton>로그인</S.StButton>
+        </S.StForm>
+      </div>
+      {/* <Div> */}
+    </>
   );
 };
 
 export default Signin;
 
-const StTitle = styled.div`
-  padding: 20px 0 50px 0;
-  font-size: 28px;
-  text-align: center;
-`;
-
-const StForm = styled.form`
-  display: flex;
+const Div = styled.div`
+  display: grid;
 `;

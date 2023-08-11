@@ -1,18 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react';
 
-import { openai } from "../../lib/openai";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { addChatLog } from "../../redux/module/chatBotLogSlice";
+import { openai } from '../../lib/openai';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { addChatLog } from '../../redux/module/chatBotLogSlice';
 
-import shortid from "shortid";
-import LoaderIcon from "remixicon-react/Loader2LineIcon"
-import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon"
-import * as S from "../../styles/StChatBot";
+import shortid from 'shortid';
+import LoaderIcon from 'remixicon-react/Loader2LineIcon';
+import SendPlaneIcon from 'remixicon-react/SendPlaneFillIcon';
+import * as S from '../../styles/StChatBot';
 
 const ChatBot = () => {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
-  const chatBotLogs = useAppSelector(((state) => state.chatBotLog.logs))
+  const chatBotLogs = useAppSelector((state) => state.chatBotLog.logs);
   console.log(chatBotLogs);
   const dispatch = useAppDispatch();
   const submitButtonRef = useRef(null);

@@ -2,6 +2,9 @@ import supabase from "../../lib/client";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
+import styled from "styled-components";
+import * as S from "../../styles/StMyPage"
+
 interface IFormInput {
   password: string;
   passwordCheck: string;
@@ -31,33 +34,41 @@ const ChangePassword = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="password"
-          {...register("password", {
-            required: "새 비밀번호를 입력하세요.",
-          })}
-        />
+      <S.MyPageForm onSubmit={handleSubmit(onSubmit)}>
+        <S.LabelInputBox>
+          <label htmlFor="password">비밀번호 변경</label>
+          <S.MyPageInput
+            id="password"
+            type="password"
+            {...register("password", {
+              required: "새 비밀번호를 입력하세요.",
+            })}
+          />
+        </S.LabelInputBox>
         <ErrorMessage
           errors={formState.errors}
           name="password"
           render={({ message }) => <p>{message}</p>}
         />
-        <input
-          type="password"
-          {...register("passwordCheck", {
-            validate: (value, formValues) =>
-              value === formValues.password ||
-              "비밀번호와 비밀번호 확인이 일치하지 않습니다.",
-          })}
-        />
+        <S.LabelInputBox>
+          <label htmlFor="passwordCheck">비밀번호 변경 확인</label>
+          <S.MyPageInput
+            id="passwordCheck"
+            type="password"
+            {...register("passwordCheck", {
+              validate: (value, formValues) =>
+                value === formValues.password ||
+                "비밀번호와 비밀번호 확인이 일치하지 않습니다.",
+            })}
+          />
+        </S.LabelInputBox>
         <ErrorMessage
           errors={formState.errors}
           name="passwordCheck"
           render={({ message }) => <p>{message}</p>}
         />
         <button type="submit">비밀번호 변경</button>
-      </form>
+      </S.MyPageForm>
     </>
   );
 };
