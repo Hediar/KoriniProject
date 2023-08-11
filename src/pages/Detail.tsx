@@ -106,7 +106,6 @@ const Detail = () => {
 
       <S.CommentContainer>
         <S.CommentTop>
-          {/* <S.WritetInputBox> */}
           <S.WriteInput
             type="text"
             value={newComment}
@@ -119,20 +118,14 @@ const Detail = () => {
             placeholder="댓글을 작성해주세요!"
           />
           <S.WriteButton onClick={handleCommentSubmit}>작성</S.WriteButton>
-          {/* </S.WritetInputBox> */}
         </S.CommentTop>
         <S.CommentBot>
           {comments.map((comment) => (
             <S.Comment key={comment.commentid}>
-              {comment.name} :
-              {comment.commentid === editingCommentId ? (
-                <input type="text" value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} />
-              ) : (
-                comment.text
-              )}
-              {' ('}
-              {new Date(comment.date).toLocaleString()}
-              {')'}
+              <div>
+                <S.CommentName>{comment.name}</S.CommentName>
+                <S.CommentDate>{new Date(comment.date).toLocaleString()}</S.CommentDate>
+              </div>
               {user?.userid === comment.userid && (
                 <S.ButtonBox>
                   <S.button onClick={() => handleCommentEdit(comment)}>
@@ -140,6 +133,12 @@ const Detail = () => {
                   </S.button>
                   <S.button onClick={() => handleCommentDelete(comment.commentid)}>삭제</S.button>
                 </S.ButtonBox>
+              )}
+
+              {comment.commentid === editingCommentId ? (
+                <input type="text" value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} />
+              ) : (
+                comment.text
               )}
             </S.Comment>
           ))}

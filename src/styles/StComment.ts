@@ -10,7 +10,7 @@ export const Title = styled.div`
   display: flex;
   text-align: center;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 20px;
   font-size: 20px;
 `;
 
@@ -36,16 +36,14 @@ export const CommentBot = styled.div`
   display: flex;
   flex-direction: column;
   height: 80%;
+  overflow-y: auto;
 `;
 
-// export const WritetInputBox = styled.div`
-//   display: flex;
-// `;
 export const WriteInput = styled.input`
   display: flex;
-  border: 3px solid #566270;
+  border: none;
   width: 90%;
-  height: 40px; /* 수정된 부분 */
+  height: 40px;
   background-color: #d9d9d9;
   margin-top: 10px;
   border-radius: 10px;
@@ -57,14 +55,24 @@ export const WriteButton = styled.button`
   color: white;
   border-radius: 10px;
   cursor: pointer;
-  width: 60px;
-  height: 40px;
+  width: 65px;
+  height: 38px;
   margin-left: 20px;
-  margin-top: 12px;
+  margin-top: 13px;
+  font-size: 16px;
   &:hover {
     background-color: rgb(0, 0, 0, 0.5);
     color: rgb(255, 255, 255, 100);
+    font-weight: bold;
   }
+`;
+
+export const ButtonBox = styled.div`
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 5px;
 `;
 
 export const button = styled.button`
@@ -72,21 +80,35 @@ export const button = styled.button`
   border: none;
   border-radius: 10px;
   color: white;
-  width: 50px;
-  height: 30px;
+  width: 40px;
+  height: 20px;
   margin-right: 5px;
-  margin-top: 15px;
   cursor: pointer;
-`;
-export const Comment = styled.div`
-  border: 3px solid #566270;
-  border-radius: 10px;
-  margin: 15px 0 15px 0;
-  width: 800px;
-  height: 55px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 1);
+    font-weight: bold;
+  }
 `;
 
-export const ButtonBox = styled.div`
+export const Comment = styled.div`
   display: flex;
-  float: right;
+  flex-direction: column;
+  position: relative;
+  border: 3px solid #566270;
+  border-radius: 10px;
+  margin: 15px 0;
+  padding: 10px;
+  width: 800px;
+  background-color: #ffffff;
+`;
+
+export const CommentName = styled.div`
+  font-weight: bold;
+  font-size: 16px;
+`;
+
+export const CommentDate = styled.div`
+  font-size: 12px;
+  color: #807b85;
 `;
