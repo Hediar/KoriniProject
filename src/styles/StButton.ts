@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Button = styled.button<{ width?: string; height?: string }>`
-  width: ${({ width }) => width || "100px"};
-  height: ${({ height }) => height || "30px"};
+  width: ${({ width }) => width || '100px'};
+  height: ${({ height }) => height || '30px'};
   margin: 0 5px;
   background-color: ${(props) => props.theme.mainPurpleColor};
   color: white;
@@ -11,6 +11,6 @@ export const Button = styled.button<{ width?: string; height?: string }>`
   font-size: 12px;
   cursor: pointer;
   &:hover {
-    background-color: ${props => props.theme.buttonHoverColor};
+    background-color: ${(props) => props.theme.buttonHoverColor};
   }
 `;
