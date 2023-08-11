@@ -88,19 +88,25 @@ const updatePost = async (editPost: PostType): Promise<void> => {
 };
 
 // 내가 쓴 글 조회
-const getMyPosts = async (userid: string): Promise<PostType[]> => {
-  const { data } = await supabase.from('post').select('*').eq('userid', userid);
+export const ITEMS_PER_PAGE = 5;
+const getMyPosts = async (userid: string, pageNum: number): Promise<PostType[]> => {
+  const startIndex = (pageNum - 1) * ITEMS_PER_PAGE;
+  const { data } = await supabase
+    .from('post')
+    .select('*')
+    .eq('userid', userid)
+    .range(startIndex, startIndex + ITEMS_PER_PAGE - 1);
   return data as PostType[];
 };
 
-// 내가 쓴 글 개수 조회 (페이지네이션용)
-const getMyPostsNumber = async (userid: string) => {
+// 내가 쓴 글 전체 개수
+const getMyPostsNum = async (userid: string) => {
+  if (!userid) return null;
   const { count } = await supabase
     .from('post')
-    .select('count', { count: 'exact' })
-    .filter('userid', 'eq', userid);
-
-  return count;
+    .select('*', { count: 'exact' })
+    .eq('userid', userid);
+  return count ?? 0;
 };
 
-export { getPosts, getDataNumber, getPost, createPost, deletePost, updatePost, getMyPosts, getMyPostsNumber };
+export { getPosts, getDataNumber, getPost, createPost, deletePost, updatePost, getMyPosts, getMyPostsNum };
