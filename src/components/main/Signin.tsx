@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import supabase from '../../lib/client';
 import { setCurrentUser } from '../../redux/module/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { UserType } from '../../types/types';
 import { RootState } from '../../redux/config/configStore';
 import { closeModal } from '../../redux/module/modalSlice';
 
