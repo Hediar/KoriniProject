@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Router from './shared/Router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import supabase from './lib/client';
+import { setCurrentUser } from './redux/module/userSlice';
 
-function App() {
+const queryClient = new QueryClient();
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session) {
+        const name = session.user.email?.split('@')[0];
+        const user = {
+          userid: session.user.id,
+          email: session.user.email,
+          name: name
+        };
+        dispatch(setCurrentUser(user));
+        await supabase.from('user').insert(user);
+      } else dispatch(setCurrentUser(null));
+      if (session) {
+        const response = await supabase.from('user').select().eq('userid', session?.user.id).single();
+        if (response.data) {
+          dispatch(setCurrentUser(response.data));
+        }
+      }
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Router />
+      </QueryClientProvider>
+    </>
   );
-}
+};
 
 export default App;
