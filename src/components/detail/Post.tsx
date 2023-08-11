@@ -25,13 +25,6 @@ const Post = () => {
     animation: ${blinkAnimation} 1s infinite;
   `;
 
-  const YourComponent = () => {
-    const [isEditing, setIsEditing] = useState(false);
-
-    const handleEditButtonClick = () => {
-      setIsEditing(!isEditing);
-    };
-  };
   const navigate = useNavigate();
   // 유저 정보 가져오기
   const { user } = useAppSelector((state: RootState) => state.user);
@@ -39,7 +32,7 @@ const Post = () => {
   const { id } = useParams<{ id: string }>();
 
   // Post 상세조회
-  const { isLoading, isError, data: post } = useQuery<PostType>(['post', id], () => getPost(id ?? ''));
+  const { isLoading, isError, data: post } = useQuery<PostType>(['post'], () => getPost(id ?? ''));
 
   // 수정 여부 및 수정 입력값 받기
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -87,7 +80,7 @@ const Post = () => {
   const queryClient = useQueryClient();
   const deleteMutation = useMutation(deletePost, {
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['post', id] });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     }
   });
   const deleteButton = (id: string) => {
@@ -96,7 +89,9 @@ const Post = () => {
     if (confirm) {
       // DB 삭제
       deleteMutation.mutate(id);
+
       // 페이지 이동 (어디로? 게시판 혹은 메인)
+      alert('삭제되었습니다!');
       navigate('/');
     }
   };
@@ -104,7 +99,7 @@ const Post = () => {
   // Post 수정
   const updateMutation = useMutation(updatePost, {
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['post', id] });
+      queryClient.invalidateQueries({ queryKey: ['post'] });
     }
   });
   const editButton = (post: PostType) => {

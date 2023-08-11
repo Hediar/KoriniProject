@@ -1,4 +1,3 @@
-import React from 'react';
 import { S } from '../../styles/StLoading';
 
 const Loading = () => {
