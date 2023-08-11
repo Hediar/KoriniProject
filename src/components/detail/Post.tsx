@@ -116,45 +116,50 @@ const Post = () => {
             <button onClick={backButton}>뒤로가기</button>
           </div>
           <div>
-            <button onClick={() => deleteButton(post.postid)}>삭제</button>
-            <button onClick={() => editButton(post)}>{isEdit ? '저장' : '수정'}</button>
+            <Button onClick={() => deleteButton(post.postid)}>삭제</Button>
+            <Button onClick={() => editButton(post)} style={{ marginRight: '20px' }}>
+              {isEdit ? '저장' : '수정'}
+            </Button>
           </div>
         </ButtonContainer>
       )}
       <PostContainer key={post.postid}>
         <Category>{post.category}</Category>
-        <Info>{post.date}</Info>
         {isEdit ? (
-          <Title>
-            <input value={title} onChange={onChangeTitle} />
-          </Title>
+          <EditBox>
+            <Info>(수정중)&nbsp;{post.date}</Info>
+            <Input value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
+          </EditBox>
         ) : (
-          <Title>{post.title}</Title>
+          <Box>
+            <Info>{post.date}</Info>
+            <Title>{post.title}</Title>
+          </Box>
         )}
         <Name>{post.name}</Name>
         {isEdit ? (
           <>
-            <Content>
-              <textarea value={body} onChange={onChangeBody} />
-            </Content>
-            {tags.length > 0 &&
-              tags.map((tag, index) => {
-                return (
-                  <>
-                    <span key={index} style={{ backgroundColor: 'green', color: 'white' }}>
-                      #{tag}
-                    </span>
-                  </>
-                );
-              })}
+            <EditBox>
+              <Textarea value={body} onChange={onChangeBody} />
+            </EditBox>
             <Box>
-              <input
-                type="text"
-                value={inputTag}
-                onChange={onChangeInputTag}
-                onKeyDown={handleHashTag}
-                placeholder="해시태그를 등록해주세요."
-              />
+              {tags.length > 0 &&
+                tags.map((tag, index) => {
+                  return (
+                    <TagContainer>
+                      <Tag key={index}>#{tag}</Tag>
+                    </TagContainer>
+                  );
+                })}
+              <Box style={{ borderBottom: '1px #566270 solid', margin: '20px 0 20px 0' }}>
+                <Input
+                  type="text"
+                  value={inputTag}
+                  onChange={onChangeInputTag}
+                  onKeyDown={handleHashTag}
+                  placeholder="해시태그를 수정할 수 있습니다."
+                />
+              </Box>
             </Box>
           </>
         ) : (
@@ -235,7 +240,7 @@ const Box = styled.div`
 const Title = styled.div`
   max-width: 1200px;
   width: 800px;
-  margin: 20px;
+  margin: 20px 0 20px 0;
   padding: 0 auto;
   font-size: 28px;
   font-weight: bold;
@@ -243,6 +248,7 @@ const Title = styled.div`
 
 const Content = styled.div`
   font-size: 18px;
+  line-height: 1.5;
   max-width: 1200px;
   width: 800px;
   margin: 20px;
@@ -260,4 +266,49 @@ const Tag = styled.span`
 const TagContainer = styled.div`
   display: inline-block;
   flex-wrap: wrap;
+  padding: 10px 5px 10px 5px;
+`;
+
+const Input = styled.input`
+  width: 800px;
+  margin: 10px 0 10px 0;
+  border: none;
+  outline: none;
+  &::placeholder {
+    color: ${(props) => props.theme.blackColor};
+  }
+`;
+
+const EditBox = styled.div`
+  max-width: 1200px;
+  width: 800px;
+  margin: 20px 0 20px 0;
+  border-bottom: 1px ${(props) => props.theme.mainNavyColor} solid;
+`;
+
+const Textarea = styled.textarea`
+  max-width: 1200px;
+  width: 800px;
+  height: 200px;
+  font-family: 'Pretendard-Regular';
+  line-height: 1.5;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  &::placeholder {
+    color: ${(props) => props.theme.blackColor};
+  }
+`;
+
+const Button = styled.button`
+  background-color: #a593e0;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  width: 60px;
+  height: 30px;
+  margin-right: 10px;
+  margin-top: 15px;
+  cursor: pointer;
 `;

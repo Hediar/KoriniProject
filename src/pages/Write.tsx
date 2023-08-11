@@ -136,7 +136,7 @@ const Write = () => {
             {tags.length > 0 &&
               tags.map((tag, index) => {
                 return (
-                  <TagContainer style={{ padding: '10px 5px 10px 5px' }}>
+                  <TagContainer>
                     <Tag key={index}>#{tag}</Tag>
                   </TagContainer>
                 );
@@ -150,7 +150,9 @@ const Write = () => {
               style={{ marginTop: '5px' }}
             />
           </InputContainer>
-          <button>게시글 작성</button>
+          <ButtonContainer>
+            <Button style={{ alignItems: 'right' }}>게시글 작성</Button>
+          </ButtonContainer>
         </FormContainer>
       </Container>
     </Layout>
@@ -179,7 +181,8 @@ const Container = styled.div`
 `;
 
 const InputContainer = styled.div`
-  width: 700px;
+  max-width: 1200px;
+  width: 800px;
   margin: 10px;
 `;
 
@@ -189,35 +192,35 @@ const Label = styled.div`
 `;
 
 const Select = styled.select`
-  width: 698px;
+  width: 798px;
   padding: 8px;
   border: none;
   border-radius: 8px;
-  background-color: ${(props) => props.theme.mainPaletteColor2};
+  border: 1px ${(props) => props.theme.mainNavyColor} solid;
 `;
 
 const Input = styled.input`
-  width: 680px;
+  max-width: 1200px;
+  width: 780px;
   padding: 10px;
-  border: none;
   outline: none;
   border-radius: 8px;
-  background-color: ${(props) => props.theme.mainPaletteColor2};
+  border: 1px ${(props) => props.theme.mainNavyColor} solid;
   &::placeholder {
     color: ${(props) => props.theme.blackColor};
   }
 `;
 
 const Textarea = styled.textarea`
-  width: 680px;
+  max-width: 1200px;
+  width: 780px;
   height: 400px;
   padding: 10px;
   font-family: 'Pretendard-Regular';
   font-size: 14px;
-  border: none;
+  border: 1px ${(props) => props.theme.mainNavyColor} solid;
   outline: none;
   border-radius: 8px;
-  background-color: ${(props) => props.theme.mainPaletteColor2};
   &::placeholder {
     color: ${(props) => props.theme.blackColor};
   }
@@ -233,4 +236,23 @@ const Tag = styled.span`
 const TagContainer = styled.div`
   display: inline-block;
   flex-wrap: wrap;
+  padding: 10px 5px 10px 5px;
+`;
+
+const ButtonContainer = styled.div`
+  max-width: 1200px;
+  width: 800px;
+  margin: 10px;
+  display: flex;
+`;
+
+const Button = styled.button`
+  background-color: #a593e0;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  width: 100px;
+  height: 30px;
+  margin-top: 15px;
+  cursor: pointer;
 `;

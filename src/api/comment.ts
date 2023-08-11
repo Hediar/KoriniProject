@@ -7,7 +7,6 @@ const fetchComments = async (id: string): Promise<any> => {
   const { data } = await supabase.from('comment').select().eq('postid', id);
   return data;
 };
-
 // 작성
 const addComment = async (createComment: Comment) => {
   await supabase.from('comment').insert(createComment);
