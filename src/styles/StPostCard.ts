@@ -41,7 +41,7 @@ const S = {
     max-width: 1200px;
     min-width: 800px;
     margin: 0 auto;
-    paddung: 0 auto;
+    padding: 0 auto;
   `,
   Nickname: styled.div`
     font-size: 14px;

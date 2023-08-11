@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
 import { styled } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Post = () => {
   const navigate = useNavigate();
@@ -110,11 +112,9 @@ const Post = () => {
   }
   return (
     <Layout>
+      <FontAwesomeIcon onClick={backButton} icon={faArrowLeft} style={{ marginLeft: '20px' }} />
       {user?.userid === post.userid && (
         <ButtonContainer>
-          <div>
-            <button onClick={backButton}>뒤로가기</button>
-          </div>
           <div>
             <Button onClick={() => deleteButton(post.postid)}>삭제</Button>
             <Button onClick={() => editButton(post)} style={{ marginRight: '20px' }}>
@@ -126,10 +126,10 @@ const Post = () => {
       <PostContainer key={post.postid}>
         <Category>{post.category}</Category>
         {isEdit ? (
-          <EditBox>
+          <Box>
             <Info>(수정중)&nbsp;{post.date}</Info>
             <Input value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
-          </EditBox>
+          </Box>
         ) : (
           <Box>
             <Info>{post.date}</Info>
@@ -139,9 +139,9 @@ const Post = () => {
         <Name>{post.name}</Name>
         {isEdit ? (
           <>
-            <EditBox>
+            <Box>
               <Textarea value={body} onChange={onChangeBody} />
-            </EditBox>
+            </Box>
             <Box>
               {tags.length > 0 &&
                 tags.map((tag, index) => {
@@ -151,15 +151,14 @@ const Post = () => {
                     </TagContainer>
                   );
                 })}
-              <Box style={{ borderBottom: '1px #566270 solid', margin: '20px 0 20px 0' }}>
-                <Input
-                  type="text"
-                  value={inputTag}
-                  onChange={onChangeInputTag}
-                  onKeyDown={handleHashTag}
-                  placeholder="해시태그를 수정할 수 있습니다."
-                />
-              </Box>
+
+              <Input
+                type="text"
+                value={inputTag}
+                onChange={onChangeInputTag}
+                onKeyDown={handleHashTag}
+                placeholder="해시태그를 수정할 수 있습니다."
+              />
             </Box>
           </>
         ) : (
@@ -193,7 +192,7 @@ const Layout = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
 `;
 
 const PostContainer = styled.div`
@@ -270,20 +269,16 @@ const TagContainer = styled.div`
 `;
 
 const Input = styled.input`
-  width: 800px;
-  margin: 10px 0 10px 0;
-  border: none;
+  max-width: 1200px;
+  width: 780px;
+  margin-top: 20px;
+  padding: 10px;
   outline: none;
+  border-radius: 8px;
+  border: 1px ${(props) => props.theme.mainNavyColor} solid;
   &::placeholder {
     color: ${(props) => props.theme.blackColor};
   }
-`;
-
-const EditBox = styled.div`
-  max-width: 1200px;
-  width: 800px;
-  margin: 20px 0 20px 0;
-  border-bottom: 1px ${(props) => props.theme.mainNavyColor} solid;
 `;
 
 const Textarea = styled.textarea`
@@ -293,7 +288,7 @@ const Textarea = styled.textarea`
   font-family: 'Pretendard-Regular';
   line-height: 1.5;
   font-size: 14px;
-  border: none;
+  border: 1px ${(props) => props.theme.mainNavyColor} solid;
   outline: none;
   border-radius: 8px;
   &::placeholder {

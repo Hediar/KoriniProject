@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../redux/config/configStore';
 import { styled } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Write = () => {
   const navigate = useNavigate();
@@ -34,6 +36,11 @@ const Write = () => {
   // 뒤로가기
   const backButton = () => {
     navigate(-1);
+  };
+
+  // 취소
+  const cancellButton = () => {
+    navigate('/');
   };
 
   // 해시태그 추가 및 삭제
@@ -112,8 +119,8 @@ const Write = () => {
 
   return (
     <Layout>
+      <FontAwesomeIcon onClick={backButton} icon={faArrowLeft} style={{ margin: ' 0 0 20px 200px' }} />
       <Container>
-        <button onClick={backButton}>뒤로가기</button>
         <FormContainer onSubmit={onSubmitHandler}>
           <InputContainer>
             <Label>카테고리</Label>
@@ -151,7 +158,8 @@ const Write = () => {
             />
           </InputContainer>
           <ButtonContainer>
-            <Button style={{ alignItems: 'right' }}>게시글 작성</Button>
+            <Button onClick={cancellButton}>취소</Button>
+            <Button>등록</Button>
           </ButtonContainer>
         </FormContainer>
       </Container>
@@ -244,6 +252,8 @@ const ButtonContainer = styled.div`
   width: 800px;
   margin: 10px;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;
 
 const Button = styled.button`
@@ -251,8 +261,8 @@ const Button = styled.button`
   border: none;
   border-radius: 12px;
   color: white;
-  width: 100px;
+  width: 70px;
   height: 30px;
-  margin-top: 15px;
+  margin: 10px;
   cursor: pointer;
 `;
