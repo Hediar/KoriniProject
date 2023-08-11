@@ -32,13 +32,12 @@ const S = {
   `,
 
   Name: styled.div`
+    color: ${(props) => props.theme.mainNavyColor};
     font-size: 16px;
     max-width: 1200px;
     width: 800px;
-    margin-bottom: 15px;
-    margin-top: -30px;
+    margin-bottom: 50px;
     padding: 0 auto;
-    color: #787d87;
   `,
 
   Info: styled.div`
@@ -60,7 +59,7 @@ const S = {
     line-height: 1.5;
     max-width: 1200px;
     width: 800px;
-    margin: 20px 0 20px 0;
+    margin-top: 20px;
     padding: 0 auto;
     font-size: 28px;
     font-weight: bold;
@@ -102,10 +101,7 @@ const S = {
       color: ${(props) => props.theme.blackColor};
     }
   `,
-  EditTitle: styled.input`
-    width: 780px;
-    margin-bottom: 15px;
-  `,
+
   Textarea: styled.textarea`
     max-width: 1200px;
     width: 800px;
