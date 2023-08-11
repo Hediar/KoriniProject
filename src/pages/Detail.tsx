@@ -11,6 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchComments, addComment, deleteComment, updateComment } from '../api/comment';
 import Loading from '../components/layout/Loading';
 import * as S from '../styles/StComment';
+import Comments from '../components/detail/Comments';
 
 const Detail = () => {
   // 포스트 아이디 가져오기
@@ -95,17 +96,17 @@ const Detail = () => {
   };
 
   //조회
-  const { isLoading, isError, data: comments } = useQuery<Comment[]>(['comment'], () => fetchComments(id ?? ''));
-  if (isLoading) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
-  if (isError) {
-    return <h1>댓글 오류 발생</h1>;
-  }
+  // const { isLoading, isError, data: comments } = useQuery<Comment[]>(['comment'], () => fetchComments(id ?? ''));
+  // if (isLoading) {
+  //   return (
+  //     <>
+  //       <Loading />
+  //     </>
+  //   );
+  // }
+  // if (isError) {
+  //   return <h1>댓글 오류 발생</h1>;
+  // }
 
   return (
     <S.Outer>
@@ -128,7 +129,7 @@ const Detail = () => {
           <S.WriteButton onClick={handleCommentSubmit}>작성</S.WriteButton>
         </S.CommentTop>
         <S.CommentBot>
-          {comments.map((comment) => (
+          {/* {comments.map((comment) => (
             <S.Comment key={comment.commentid}>
               <div>
                 <S.CommentName>{comment.name}</S.CommentName>
@@ -152,7 +153,8 @@ const Detail = () => {
                 comment.text
               )}
             </S.Comment>
-          ))}
+          ))} */}
+          <Comments />
         </S.CommentBot>
       </S.CommentContainer>
     </S.Outer>
