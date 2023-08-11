@@ -83,7 +83,9 @@ const Mainposts = () => {
                   <div>{post.title}</div>
                   <S.Nickname>{post.name}</S.Nickname>
                 </S.PostBoxNav>
-                <S.PostContentBox>{post.body}</S.PostContentBox>
+                <S.PostContentBox>
+                  <pre>{post.body}</pre>
+                </S.PostContentBox>
               </S.PostBox>
             </S.box>
           );
