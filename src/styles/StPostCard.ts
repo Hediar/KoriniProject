@@ -21,8 +21,7 @@ const S = {
     flex-direction: column;
     // 넘치는 text 처리
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    height: 150px;
 
     border-radius: 10px;
     &:hover {
@@ -42,6 +41,12 @@ const S = {
     letter-spacing: 1px;
     line-height: 25px;
     padding: 15px;
+    max-height: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 표시할 줄 수 설정 */
+    -webkit-box-orient: vertical; /* 텍스트의 방향 설정 */
   `,
   Outer: styled.div`
     max-width: 1200px;
