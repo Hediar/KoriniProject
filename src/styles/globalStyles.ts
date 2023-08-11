@@ -3,10 +3,15 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+
   body {
     margin:0;
     padding:0;
     font-family: 'Pretendard-Regular';
+    ::selection {
+      background-color: ${(props) => props.theme.mainPurpleColor};
+      color: ${(props) => props.theme.whiteColor}
+    }
   }
 
   @font-face {
