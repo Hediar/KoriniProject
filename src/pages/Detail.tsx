@@ -1,13 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Post from '../components/detail/Post';
 import { Comment } from '../types/types';
 import shortid from 'shortid';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../redux/config/configStore';
-import { useQueryClient } from '@tanstack/react-query';
-import { useMutation } from '@tanstack/react-query';
 import { fetchComments, addComment, deleteComment, updateComment } from '../api/comment';
 import Loading from '../components/layout/Loading';
 import * as S from '../styles/StComment';
