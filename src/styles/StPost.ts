@@ -65,6 +65,7 @@ const S = {
   `,
 
   Content: styled.div`
+    white-space: pre-wrap;
     font-size: 18px;
     line-height: 1.5;
     max-width: 1200px;
