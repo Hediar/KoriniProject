@@ -25,13 +25,6 @@ const Post = () => {
     animation: ${blinkAnimation} 1s infinite;
   `;
 
-  const YourComponent = () => {
-    const [isEditing, setIsEditing] = useState(false);
-
-    const handleEditButtonClick = () => {
-      setIsEditing(!isEditing);
-    };
-  };
   const navigate = useNavigate();
   // 유저 정보 가져오기
   const { user } = useAppSelector((state: RootState) => state.user);

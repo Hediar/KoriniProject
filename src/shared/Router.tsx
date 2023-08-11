@@ -15,7 +15,7 @@ import { toggleChatBotState } from '../redux/module/chatBotUISlice';
 import ChatBot from '../components/chatbot/ChatBot';
 import ChatIcon from 'remixicon-react/QuestionAnswerFillIcon';
 
-import * as S from "../styles/StChatBot"
+import * as S from '../styles/StChatBot';
 
 const Router = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
@@ -32,7 +32,7 @@ const Router = () => {
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/study" element={<Studyboard />} />
           <Route path="/free" element={<Freeboard />} />
-          
+
           {/* PrivateRoute : 로그인 유저 없으면 main 페이지로 이동 */}
           <Route element={<PrivateRoute />}>
             <Route path="/mypage" element={<Mypage />} />

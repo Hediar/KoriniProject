@@ -5,14 +5,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import supabase from './lib/client';
 import { setCurrentUser } from './redux/module/userSlice';
-import { useAppSelector } from './hooks';
-import { RootState } from './redux/config/configStore';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const dispatch = useDispatch();
-  const { user } = useAppSelector((state: RootState) => state.user);
 
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
