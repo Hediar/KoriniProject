@@ -32,10 +32,11 @@ const S = {
   `,
 
   Name: styled.div`
+    color: ${(props) => props.theme.mainNavyColor};
     font-size: 16px;
     max-width: 1200px;
     width: 800px;
-    margin: 10px;
+    margin-bottom: 50px;
     padding: 0 auto;
   `,
 
@@ -58,7 +59,7 @@ const S = {
     line-height: 1.5;
     max-width: 1200px;
     width: 800px;
-    margin: 20px 0 20px 0;
+    margin-top: 20px;
     padding: 0 auto;
     font-size: 28px;
     font-weight: bold;
