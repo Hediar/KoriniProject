@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 const Post = () => {
   const navigate = useNavigate();
@@ -31,9 +31,6 @@ const Post = () => {
   };
   const onChangeInputTag = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTag(e.target.value);
-  };
-  const onChangeTags = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTags([e.target.value]);
   };
 
   // 뒤로가기
