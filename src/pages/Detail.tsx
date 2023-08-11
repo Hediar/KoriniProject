@@ -9,6 +9,8 @@ import { RootState } from '../redux/config/configStore';
 import { fetchComments, addComment, deleteComment, updateComment } from '../api/comment';
 import Loading from '../components/layout/Loading';
 import * as S from '../styles/StComment';
+import Comments from '../components/detail/Comments';
+import Pagination from '../components/detail/Pagenation';
 
 const Detail = () => {
   // 포스트 아이디 가져오기
@@ -93,17 +95,46 @@ const Detail = () => {
   };
 
   //조회
-  const { isLoading, isError, data: comments } = useQuery<Comment[]>(['comment'], () => fetchComments(id ?? ''));
-  if (isLoading) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
-  if (isError) {
-    return <h1>댓글 오류 발생</h1>;
-  }
+  // const { isLoading, isError, data: comments } = useQuery<Comment[]>(['comment'], () => fetchComments(id ?? ''));
+  // if (isLoading) {
+  //   return (
+  //     <>
+  //       <Loading />
+  //     </>
+  //   );
+  // }
+  // if (isError) {
+  //   return <h1>댓글 오류 발생</h1>;
+  // }
+
+  const [page, setPage] = useState<number>(1);
+  const {
+    isLoading,
+    isError,
+    data: comments
+  } = useQuery<any>(
+    ['comment', id, page], // queryKey 수정
+    () => fetchComments(id!, page), // queryFn 수정
+    { keepPreviousData: true }
+  );
+  console.log('comments', comments);
+
+  const onClickPage = (selected: number | string) => {
+    // 같은 페이지를 그대로 클릭시 함수종료
+    if (page === selected) return;
+    if (typeof selected === 'number') {
+      setPage(selected);
+      return;
+    }
+    if (selected === 'prev' && page > 1) {
+      setPage((prev) => prev - 1);
+      return;
+    }
+    if (selected === 'next' && page < comments.total_pages) {
+      setPage((prev) => prev + 1);
+      return;
+    }
+  };
 
   return (
     <S.Outer>
@@ -126,31 +157,35 @@ const Detail = () => {
           <S.WriteButton onClick={handleCommentSubmit}>작성</S.WriteButton>
         </S.CommentTop>
         <S.CommentBot>
-          {comments.map((comment) => (
-            <S.Comment key={comment.commentid}>
-              <div>
-                <S.CommentName>{comment.name}</S.CommentName>
-                <S.CommentDate>{new Date(comment.date).toLocaleString()}</S.CommentDate>
-              </div>
-              {user?.userid === comment.userid && (
-                <S.ButtonBox>
-                  <S.button onClick={() => handleCommentEdit(comment)}>
-                    {comment.commentid === editingCommentId ? '저장' : '수정'}
-                  </S.button>
-                  <S.button onClick={() => handleCommentDelete(comment.commentid)}>삭제</S.button>
-                </S.ButtonBox>
-              )}
-              {comment.commentid === editingCommentId ? (
-                <S.EditInput
-                  type="text"
-                  value={editedCommentText}
-                  onChange={(e) => setEditedCommentText(e.target.value)}
-                />
-              ) : (
-                comment.text
-              )}
-            </S.Comment>
+          {comments?.data?.map((comment: any) => (
+            <>
+              <S.Comment key={comment.commentid}>
+                <div>
+                  <S.CommentName>{comment.name}</S.CommentName>
+                  <S.CommentDate>{new Date(comment.date).toLocaleString()}</S.CommentDate>
+                </div>
+                {user?.userid === comment.userid && (
+                  <S.ButtonBox>
+                    <S.button onClick={() => handleCommentEdit(comment)}>
+                      {comment.commentid === editingCommentId ? '저장' : '수정'}
+                    </S.button>
+                    <S.button onClick={() => handleCommentDelete(comment.commentid)}>삭제</S.button>
+                  </S.ButtonBox>
+                )}
+                {comment.commentid === editingCommentId ? (
+                  <S.EditInput
+                    type="text"
+                    value={editedCommentText}
+                    onChange={(e) => setEditedCommentText(e.target.value)}
+                  />
+                ) : (
+                  comment.text
+                )}
+              </S.Comment>
+            </>
           ))}
+          <Pagination currentPage={page} totalPages={comments?.totalPages ?? 1} onClick={onClickPage} />
+          {/* <Comments /> */}
         </S.CommentBot>
       </S.CommentContainer>
     </S.Outer>
