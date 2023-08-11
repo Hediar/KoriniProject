@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import shortid from 'shortid';
-import { PostType, UserType } from '../types/types';
+import { PostType } from '../types/types';
 import { createPost } from '../api/post';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../redux/config/configStore';
+import { styled } from 'styled-components';
 
 const Write = () => {
   const navigate = useNavigate();
@@ -80,15 +81,23 @@ const Write = () => {
       if (!body) {
         return alert('내용을 입력해주세요.');
       }
-      // 해시태그 입력도 필수로 할 것인가..??
-      // if (tags.length === 0) {
-      //   return alert('해시태그를 등록해주세요.');
-      // }
+      // 날짜
+      const currentTime = new Date();
+      const formattedDate = currentTime.toISOString();
+
+      const year = currentTime.getFullYear();
+      const month = String(currentTime.getMonth() + 1).padStart(2, '0');
+      const day = String(currentTime.getDate()).padStart(2, '0');
+      const hours = String(currentTime.getHours()).padStart(2, '0');
+      const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+
+      const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}`;
       // newPost 선언
-      const newPost: Omit<PostType, 'date'> = {
+      const newPost: PostType = {
         postid: shortid.generate(),
         userid: user.userid,
         name: user.name,
+        date: formattedDateTime,
         category,
         title,
         body,
@@ -102,59 +111,126 @@ const Write = () => {
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <button onClick={backButton}>뒤로가기</button>
-      <h1 style={{ padding: '10px', margin: '10px' }}>글 작성 페이지</h1>
-      <form
-        onSubmit={onSubmitHandler}
-        style={{
-          width: '500px',
-          height: '400px',
-          border: '1px solid black',
-          padding: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          카테고리 :{' '}
-          <select onChange={onChangeCategory}>
-            <option value={''}>카테고리</option>
-            <option value={'학습'}>학습</option>
-            <option value={'자유'}>자유</option>
-          </select>
-        </div>
-        <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          제목 : <input value={title} onChange={onChangeTitle} placeholder="제목을 입력해주세요." />
-        </div>
-        <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          내용 : <textarea value={body} onChange={onChangeBody} placeholder="내용을 입력해주세요." />
-        </div>
-        {tags.length > 0 &&
-          tags.map((tag, index) => {
-            return (
-              <>
-                <span key={index} style={{ backgroundColor: 'green', color: 'white' }}>
-                  #{tag}
-                </span>
-              </>
-            );
-          })}
-        <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          해시태그 :{' '}
-          <input
-            type="text"
-            value={inputTag}
-            onChange={onChangeInputTag}
-            onKeyDown={handleHashTag}
-            placeholder="해시태그를 등록해주세요."
-          />
-        </div>
-        <button>게시글 작성</button>
-      </form>
-    </div>
+    <Layout>
+      <Container>
+        <button onClick={backButton}>뒤로가기</button>
+        <FormContainer onSubmit={onSubmitHandler}>
+          <InputContainer>
+            <Label>카테고리</Label>
+            <Select onChange={onChangeCategory}>
+              <option value={''}>카테고리를 선택해주세요.</option>
+              <option value={'학습'}>학습</option>
+              <option value={'자유'}>자유</option>
+            </Select>
+          </InputContainer>
+          <InputContainer>
+            <Label>제목</Label>
+            <Input value={title} onChange={onChangeTitle} placeholder="제목을 입력해주세요." />
+          </InputContainer>
+          <InputContainer>
+            <Label>본문</Label>
+            <Textarea value={body} onChange={onChangeBody} placeholder="내용을 입력해주세요." />
+          </InputContainer>
+          <InputContainer>
+            <Label>해시태그</Label>
+            {tags.length > 0 &&
+              tags.map((tag, index) => {
+                return (
+                  <TagContainer style={{ padding: '10px 5px 10px 5px' }}>
+                    <Tag key={index}>#{tag}</Tag>
+                  </TagContainer>
+                );
+              })}
+            <Input
+              type="text"
+              value={inputTag}
+              onChange={onChangeInputTag}
+              onKeyDown={handleHashTag}
+              placeholder="해시태그를 등록해주세요."
+              style={{ marginTop: '5px' }}
+            />
+          </InputContainer>
+          <button>게시글 작성</button>
+        </FormContainer>
+      </Container>
+    </Layout>
   );
 };
 
 export default Write;
+
+const Layout = styled.div`
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+  padding: 0 auto;
+`;
+
+const FormContainer = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const InputContainer = styled.div`
+  width: 700px;
+  margin: 10px;
+`;
+
+const Label = styled.div`
+  font-size: 15px;
+  padding: 0 0 10px 5px;
+`;
+
+const Select = styled.select`
+  width: 698px;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background-color: ${(props) => props.theme.mainPaletteColor2};
+`;
+
+const Input = styled.input`
+  width: 680px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background-color: ${(props) => props.theme.mainPaletteColor2};
+  &::placeholder {
+    color: ${(props) => props.theme.blackColor};
+  }
+`;
+
+const Textarea = styled.textarea`
+  width: 680px;
+  height: 400px;
+  padding: 10px;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background-color: ${(props) => props.theme.mainPaletteColor2};
+  &::placeholder {
+    color: ${(props) => props.theme.blackColor};
+  }
+`;
+
+const Tag = styled.span`
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.mainNavyColor};
+  border-radius: 8px;
+  padding: 3px 10px 3px 10px;
+`;
+
+const TagContainer = styled.div`
+  display: inline-block;
+  flex-wrap: wrap;
+`;

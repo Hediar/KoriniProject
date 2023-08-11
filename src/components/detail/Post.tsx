@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
+import { styled } from 'styled-components';
 
 const Post = () => {
   const navigate = useNavigate();
@@ -30,9 +31,6 @@ const Post = () => {
   };
   const onChangeInputTag = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTag(e.target.value);
-  };
-  const onChangeTags = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTags([e.target.value]);
   };
 
   // 뒤로가기
@@ -111,38 +109,34 @@ const Post = () => {
     return <h1>오류 발생</h1>;
   }
   return (
-    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <h1 style={{ padding: '10px', margin: '10px' }}>상세페이지</h1>
-      <div
-        key={post.postid}
-        style={{
-          width: '500px',
-          height: '500px',
-          border: '1px solid black',
-          padding: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <button onClick={backButton}>뒤로가기</button>
-        <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          카테고리 : {post.category}
-        </div>
-        <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          닉네임 : {post.name}
-        </div>
-        <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-          작성일 : {post.date}
-        </div>
+    <Layout>
+      {user?.userid === post.userid && (
+        <ButtonContainer>
+          <div>
+            <button onClick={backButton}>뒤로가기</button>
+          </div>
+          <div>
+            <button onClick={() => deleteButton(post.postid)}>삭제</button>
+            <button onClick={() => editButton(post)}>{isEdit ? '저장' : '수정'}</button>
+          </div>
+        </ButtonContainer>
+      )}
+      <PostContainer key={post.postid}>
+        <Category>{post.category}</Category>
+        <Info>{post.date}</Info>
+        {isEdit ? (
+          <Title>
+            <input value={title} onChange={onChangeTitle} />
+          </Title>
+        ) : (
+          <Title>{post.title}</Title>
+        )}
+        <Name>{post.name}</Name>
         {isEdit ? (
           <>
-            <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-              제목 : <input value={title} onChange={onChangeTitle} />
-            </div>
-            <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-              내용 : <textarea value={body} onChange={onChangeBody} />
-            </div>
+            <Content>
+              <textarea value={body} onChange={onChangeBody} />
+            </Content>
             {tags.length > 0 &&
               tags.map((tag, index) => {
                 return (
@@ -153,8 +147,7 @@ const Post = () => {
                   </>
                 );
               })}
-            <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-              해시태그 :{' '}
+            <Box>
               <input
                 type="text"
                 value={inputTag}
@@ -162,41 +155,109 @@ const Post = () => {
                 onKeyDown={handleHashTag}
                 placeholder="해시태그를 등록해주세요."
               />
-            </div>
+            </Box>
           </>
         ) : (
           <>
-            <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-              제목 : {post.title}
-            </div>
-            <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-              내용 : {post.body}
-            </div>
-            <div style={{ width: '400px', border: '1px solid black', padding: '20px', margin: '10px' }}>
-              해시태그 :{' '}
+            <Content>{post.body}</Content>
+            <Box>
               {post.tags.length > 0 &&
                 post.tags.map((tag, index) => {
                   return (
-                    <>
-                      <span key={index} style={{ backgroundColor: 'green', color: 'white' }}>
-                        #{tag}
-                      </span>{' '}
-                      &nbsp;
-                    </>
+                    <TagContainer>
+                      <Tag key={index}>#{tag}</Tag>
+                    </TagContainer>
                   );
                 })}
-            </div>
+            </Box>
           </>
         )}
-      </div>
-      {user?.userid === post.userid && (
-        <div style={{ padding: '10px', margin: '10px' }}>
-          <button onClick={() => deleteButton(post.postid)}>삭제</button>
-          <button onClick={() => editButton(post)}>{isEdit ? '저장' : '수정'}</button>
-        </div>
-      )}
-    </div>
+      </PostContainer>
+    </Layout>
   );
 };
 
 export default Post;
+
+const Layout = styled.div`
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+  padding: 0 auto;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PostContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-top: 2px ${(props) => props.theme.mainNavyColor} solid;
+  border-bottom: 2px ${(props) => props.theme.mainNavyColor} solid;
+  margin: 20px;
+  padding: 40px;
+`;
+
+const Category = styled.div`
+  font-size: 20px;
+  max-width: 1200px;
+  width: 800px;
+  margin-left: 5px;
+  padding: 0 auto;
+`;
+
+const Name = styled.div`
+  font-size: 16px;
+  max-width: 1200px;
+  width: 800px;
+  margin: 10px;
+  padding: 0 auto;
+`;
+
+const Info = styled.div`
+  font-size: 16px;
+  max-width: 1200px;
+  width: 800px;
+  text-align: right;
+  padding: 0 auto;
+`;
+
+const Box = styled.div`
+  max-width: 1200px;
+  width: 800px;
+  margin: 20px;
+  padding: 0 auto;
+`;
+
+const Title = styled.div`
+  max-width: 1200px;
+  width: 800px;
+  margin: 20px;
+  padding: 0 auto;
+  font-size: 28px;
+  font-weight: bold;
+`;
+
+const Content = styled.div`
+  font-size: 18px;
+  max-width: 1200px;
+  width: 800px;
+  margin: 20px;
+  padding: 0 auto;
+`;
+
+const Tag = styled.span`
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.mainNavyColor};
+  border-radius: 8px;
+  padding: 3px 10px 3px 10px;
+  margin-right: 5px;
+`;
+
+const TagContainer = styled.div`
+  display: inline-block;
+  flex-wrap: wrap;
+`;

@@ -73,7 +73,7 @@ const getPost = async (id: string): Promise<PostType> => {
 };
 
 // Post 추가
-const createPost = async (newPost: Omit<PostType, 'date'>): Promise<void> => {
+const createPost = async (newPost: PostType): Promise<void> => {
   await supabase.from('post').insert(newPost);
 };
 
