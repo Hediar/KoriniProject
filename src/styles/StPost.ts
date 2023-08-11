@@ -29,6 +29,7 @@ const S = {
     width: 800px;
     margin-left: 5px;
     padding: 0 auto;
+    font-weight: 700;
   `,
 
   Name: styled.div`

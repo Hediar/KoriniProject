@@ -5,7 +5,7 @@ export const Header = styled.div`
   align-items: center;
   /* background-color: ${(props) => props.theme.mainPaletteColor1}; */
   border-bottom: 1px solid ${(props) => props.theme.mainNavyColor};
-  height: 60px;
+  height: 100px;
   display: flex;
   margin-bottom: 30px;
   padding: 0 30px;
@@ -80,7 +80,11 @@ export const SwitchPageLink = styled.p`
 
 export const MenuBox = styled.div`
   display: flex;
-  width: 300px;
+  position: absolute;
+  left: 35%;
+`;
+
+export const ButtonBox = styled.div`
 `;
 
 export const MenuButton = styled.p`
