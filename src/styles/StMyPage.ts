@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MyProfileSection = styled.section`
   display: flex;
@@ -24,7 +24,7 @@ export const MyPageTitle = styled.h1`
 
 export const HighlightName = styled.span`
   font-weight: 700;
-  color: ${props => props.theme.mainPurpleColor}
+  color: ${(props) => props.theme.mainPurpleColor};
 `;
 
 export const ProfilePic = styled.img`
@@ -59,7 +59,7 @@ export const LabelInputBox = styled.div`
 export const MyPageInput = styled.input`
   border: none;
   border-radius: 10px;
-  background-color: ${props => props.theme.mainInputColor};
+  background-color: ${(props) => props.theme.mainInputColor};
   width: 200px;
   height: 15px;
   padding: 10px;
@@ -67,24 +67,23 @@ export const MyPageInput = styled.input`
 
 export const MyPageErrorMsg = styled.p`
   font-size: 12px;
-  color: ${props => props.theme.errorMsgColor};
+  color: ${(props) => props.theme.errorMsgColor};
   margin: 10px;
 `;
 
-
 export const MainPostsContainer = styled.div`
-    margin: 0px auto;
-    padding: 30px;
-    border-radius: 5px;
+  margin: 0px auto;
+  padding: 30px;
+  border-radius: 5px;
 `;
 
 export const PostsBoxContainer = styled.div`
-    display: grid;
+  display: grid;
 `;
 
 export const title = styled.div`
-    margin-left: 20px;
-    font-size: 18px;
+  margin-left: 20px;
+  font-size: 18px;
 `;
 
 export const PostBox = styled.div`
@@ -108,38 +107,38 @@ export const PostBox = styled.div`
 `;
 
 export const PostBoxNav = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 13px;
-    background-color: ${(props) => props.theme.mainNavyColor};
-    color: ${(props) => props.theme.whiteColor};
+  display: flex;
+  justify-content: space-between;
+  padding: 13px;
+  background-color: ${(props) => props.theme.mainNavyColor};
+  color: ${(props) => props.theme.whiteColor};
 `;
 
 export const PostContentBox = styled.div`
-    margin: 10px;
-    font-size: 17px;
-    letter-spacing: 1px;
-    line-height: 25px;
-    padding: 15px;
-    max-height: 25%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* 표시할 줄 수 설정 */
-    -webkit-box-orient: vertical; /* 텍스트의 방향 설정 */
+  margin: 10px;
+  font-size: 17px;
+  letter-spacing: 1px;
+  line-height: 25px;
+  padding: 15px;
+  max-height: 25%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 표시할 줄 수 설정 */
+  -webkit-box-orient: vertical; /* 텍스트의 방향 설정 */
 `;
 
 export const Outer = styled.div`
-    max-width: 1200px;
-    min-width: 800px;
-    margin: 0 auto;
-    padding: 0 auto;
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+  padding: 0 auto;
 `;
 
 export const Nickname = styled.div`
-    font-size: 14px;
+  font-size: 14px;
 `;
 
 export const box = styled.div`
-    margin-bottom: 28px;
+  margin-bottom: 28px;
 `;

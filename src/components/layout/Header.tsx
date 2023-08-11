@@ -6,7 +6,7 @@ import supabase from '../../lib/client';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
 import { openModal, closeModal, openSignupModal, closeSignupModal } from '../../redux/module/modalSlice';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import CloseIcon from 'remixicon-react/CloseFillIcon';
 import HeaderLogo from '../../assets/headerlogo.png';
@@ -21,6 +21,7 @@ const Header = () => {
   const [switchPage, setSwitchPage] = useState<boolean>(false);
   const [isFreeBoardActive, setIsFreeBoardActive] = useState(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const openModalButton = () => {
     dispatch(openModal());
@@ -62,14 +63,16 @@ const Header = () => {
     navigate('/mypage');
   };
 
+  const handleAllBoardClick = () => {
+    navigate('/');
+  };
+
   const handleFreeBoardClick = () => {
     navigate('/free');
-    setIsFreeBoardActive(true);
   };
 
   const handleStudyBoardClick = () => {
     navigate('/study');
-    setIsFreeBoardActive(false);
   };
 
   return (
@@ -79,13 +82,18 @@ const Header = () => {
           <S.Imagelogo src={HeaderLogo}></S.Imagelogo>
         </Link>
         <S.MenuBox>
-          <S.MenuButton onClick={() => navigate('/')}>전체</S.MenuButton>
+          <S.MenuButton onClick={handleAllBoardClick} style={{ color: pathname === '/' ? '#6708bf' : 'inherit' }}>
+            전체
+          </S.MenuButton>
           <p>|</p>
-          <S.MenuButton onClick={handleFreeBoardClick} style={{ color: isFreeBoardActive ? '#6708bf' : 'inherit' }}>
+          <S.MenuButton onClick={handleFreeBoardClick} style={{ color: pathname === '/free' ? '#6708bf' : 'inherit' }}>
             자유게시판
           </S.MenuButton>
           <p>|</p>
-          <S.MenuButton onClick={handleStudyBoardClick} style={{ color: isFreeBoardActive ? 'inherit' : '#6708bf' }}>
+          <S.MenuButton
+            onClick={handleStudyBoardClick}
+            style={{ color: pathname === '/study' ? '#6708bf' : 'inherit' }}
+          >
             학습게시판
           </S.MenuButton>
         </S.MenuBox>
