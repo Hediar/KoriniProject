@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import * as S from '../../styles/StHeader';
 import Signin from '../main/Signin';
 import Signup from '../main/Signup';
@@ -18,8 +17,7 @@ const Header = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
   const { isOpen } = useAppSelector((state: RootState) => state.modal);
   const { isSignupOpen } = useAppSelector((state: RootState) => state.modal);
-  const [switchPage, setSwitchPage] = useState<boolean>(false);
-  const [isFreeBoardActive, setIsFreeBoardActive] = useState(false);
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -39,17 +37,12 @@ const Header = () => {
     dispatch(closeSignupModal());
   };
 
-  const switchPageButton = () => {
-    setSwitchPage(!switchPage);
-  };
-
   // 로그아웃
   const signOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
       alert('로그아웃 되었습()니다.');
       if (error) {
-        console.log(error);
       }
     } catch (error) {
       alert('로그아웃 실패');
@@ -85,11 +78,9 @@ const Header = () => {
           <S.MenuButton onClick={handleAllBoardClick} style={{ color: pathname === '/' ? '#6708bf' : 'inherit' }}>
             전체
           </S.MenuButton>
-          <p>|</p>
           <S.MenuButton onClick={handleFreeBoardClick} style={{ color: pathname === '/free' ? '#6708bf' : 'inherit' }}>
             자유게시판
           </S.MenuButton>
-          <p>|</p>
           <S.MenuButton
             onClick={handleStudyBoardClick}
             style={{ color: pathname === '/study' ? '#6708bf' : 'inherit' }}

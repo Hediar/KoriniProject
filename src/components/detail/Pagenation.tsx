@@ -7,7 +7,6 @@ export default function Pagination({
   totalPages: number;
   onClick: (page: number | 'prev' | 'next') => void;
 }) {
-  console.log('currentPage: ', currentPage);
   return (
     <div>
       <span className="page-click" onClick={() => onClick('prev')}>

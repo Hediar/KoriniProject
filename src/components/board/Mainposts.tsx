@@ -1,6 +1,6 @@
 import { ToTalDataType } from '../../types/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import React, { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { getPosts } from '../../api/post';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -48,11 +48,6 @@ const Mainposts = () => {
       })
       .flat();
   }, [posts]);
-
-  // useEffect(() => {
-  //   console.log('key', queryKey);
-  //   console.log('posts', posts);
-  // }, [posts]);
 
   if (isLoading) {
     return (

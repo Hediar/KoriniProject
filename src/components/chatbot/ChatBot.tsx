@@ -1,20 +1,18 @@
-import React, { useRef, useState, useEffect } from "react";
-
-import { openai } from "../../lib/openai";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { RootState } from "../../redux/config/configStore";
-import { addChatLog } from "../../redux/module/chatBotLogSlice";
-
-import shortid from "shortid";
-import LoaderIcon from "remixicon-react/Loader2LineIcon";
-import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon";
-import * as S from "../../styles/StChatBot";
+import React, { useRef, useState, useEffect } from 'react';
+import { openai } from '../../lib/openai';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { RootState } from '../../redux/config/configStore';
+import { addChatLog } from '../../redux/module/chatBotLogSlice';
+import shortid from 'shortid';
+import LoaderIcon from 'remixicon-react/Loader2LineIcon';
+import SendPlaneIcon from 'remixicon-react/SendPlaneFillIcon';
+import * as S from '../../styles/StChatBot';
 
 const ChatBot = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
-  const chatBotLogs = useAppSelector(((state) => state.chatBotLog.logs))
+  const chatBotLogs = useAppSelector((state) => state.chatBotLog.logs);
   const dispatch = useAppDispatch();
   const submitButtonRef = useRef(null);
 
@@ -71,7 +69,6 @@ const ChatBot = () => {
         alert('정상적으로 전달되지 않았습니다. 다시 시도해주세요.');
       }
     } catch (err) {
-      console.log(err);
       alert('정상적으로 전달되지 않았습니다. 다시 시도해주세요.');
     }
     setLoading(false);
@@ -99,7 +96,7 @@ const ChatBot = () => {
             } else if (chat.role === 'user') {
               return (
                 <S.UserPromptBox key={chat.id}>
-                  <S.RoleName>{user ? user.name : ""} 님</S.RoleName>
+                  <S.RoleName>{user ? user.name : ''} 님</S.RoleName>
                   <S.UserChatLog>{chat.chat}</S.UserChatLog>
                 </S.UserPromptBox>
               );

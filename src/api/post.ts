@@ -9,6 +9,7 @@ const getPosts = async (pageParam: number = 1, param?: string): Promise<ToTalDat
     const freePosts = await supabase
       .from('post')
       .select('*')
+      .order('date', { ascending: false })
       .eq('category', '자유')
       .range(pageParam * 10 - 10, pageParam * 10 - 1);
 
@@ -21,6 +22,7 @@ const getPosts = async (pageParam: number = 1, param?: string): Promise<ToTalDat
     const studyPosts = await supabase
       .from('post')
       .select('*')
+      .order('date', { ascending: false })
       .eq('category', '학습')
       .range(pageParam * 10 - 10, pageParam * 10 - 1);
 
@@ -36,6 +38,7 @@ const getPosts = async (pageParam: number = 1, param?: string): Promise<ToTalDat
     const allPosts = await supabase
       .from('post')
       .select('*')
+      .order('date', { ascending: false })
       .range(pageParam * 10 - 10, pageParam * 10 - 1);
 
     data = allPosts.data;
@@ -49,16 +52,6 @@ const getPosts = async (pageParam: number = 1, param?: string): Promise<ToTalDat
 
   return { posts: data as PostType[], page: pageParam, total_pages, total_results: count };
 };
-
-// Post 전체조회
-// const getPosts = async (pageParam: number): Promise<PostType[]> => {
-//   const { data } = await supabase
-//     .from('post')
-//     .select('*')
-//     .range(pageParam * 10 - 10, pageParam * 10 - 1);
-
-//   return data as PostType[];
-// };
 
 // 데이터 개수 조회
 const getDataNumber = async () => {
@@ -102,10 +95,7 @@ const getMyPosts = async (userid: string, pageNum: number): Promise<PostType[]> 
 // 내가 쓴 글 전체 개수
 const getMyPostsNum = async (userid: string) => {
   if (!userid) return null;
-  const { count } = await supabase
-    .from('post')
-    .select('*', { count: 'exact' })
-    .eq('userid', userid);
+  const { count } = await supabase.from('post').select('*', { count: 'exact' }).eq('userid', userid);
   return count ?? 0;
 };
 

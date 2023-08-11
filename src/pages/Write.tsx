@@ -91,7 +91,6 @@ const Write = () => {
       }
       // 날짜
       const currentTime = new Date();
-      const formattedDate = currentTime.toISOString();
 
       const year = currentTime.getFullYear();
       const month = String(currentTime.getMonth() + 1).padStart(2, '0');
