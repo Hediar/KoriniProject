@@ -68,35 +68,37 @@ const Mainposts = () => {
     <>
       <S.MainPostsContainer>
         <div>글 목록</div>
-        {processedPosts?.map((post) => {
-          return (
-            <>
-              <S.PostBox
-                key={post.postid}
-                onClick={() => {
-                  // 절대경로
-                  navigate(`/detail/${post.postid}`);
-                }}
-              >
-                <S.PostBoxNav>
-                  <div>{post.title}</div>
-                  <div>{post.name}</div>
-                </S.PostBoxNav>
-                <S.PostContentBox>{post.body}</S.PostContentBox>
-              </S.PostBox>
-            </>
-          );
-        })}
-        <div
-          style={{
-            textAlign: 'center',
-            backgroundColor: 'white',
-            color: 'white',
-            width: '100%',
-            height: 50
-          }}
-          ref={ref}
-        ></div>
+        <S.PostsBoxContainer>
+          {processedPosts?.map((post) => {
+            return (
+              <>
+                <S.PostBox
+                  key={post.postid}
+                  onClick={() => {
+                    // 절대경로
+                    navigate(`/detail/${post.postid}`);
+                  }}
+                >
+                  <S.PostBoxNav>
+                    <div>{post.title}</div>
+                    <div>{post.name}</div>
+                  </S.PostBoxNav>
+                  <S.PostContentBox>{post.body}</S.PostContentBox>
+                </S.PostBox>
+              </>
+            );
+          })}
+          <div
+            style={{
+              textAlign: 'center',
+              backgroundColor: 'white',
+              color: 'white',
+              width: '100%',
+              height: 50
+            }}
+            ref={ref}
+          ></div>
+        </S.PostsBoxContainer>
       </S.MainPostsContainer>
     </>
   );

@@ -6,6 +6,9 @@ const S = {
     padding: 30px;
     border-radius: 5px;
   `,
+  PostsBoxContainer: styled.div`
+    display: grid;
+  `,
   PostBox: styled.div`
     font-size: 13px;
     margin: 13px;
@@ -13,6 +16,10 @@ const S = {
     border: 1px solid ${(props) => props.theme.mainPaletteColor2};
     border-radius: 5px;
     flex-direction: column;
+    // 넘치는 text 처리
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     &:hover {
       cursor: pointer;
     }
