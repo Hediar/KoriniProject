@@ -86,3 +86,9 @@ export const MenuButton = styled.p`
   padding: 0 20px;
   cursor: pointer;
 `;
+export const outer = styled.p`
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+  paddung: 0 auto;
+`;

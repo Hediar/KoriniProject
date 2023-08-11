@@ -6,13 +6,19 @@ const S = {
     padding: 30px;
     border-radius: 5px;
   `,
+
+  title: styled.div`
+    margin-left: 20px;
+    font-size: 18px;
+  `,
   PostBox: styled.div`
-    font-size: 13px;
     margin: 13px;
-    font-size: 20px;
+    font-size: 18px;
     border: 1px solid ${(props) => props.theme.mainPaletteColor2};
     border-radius: 5px;
     flex-direction: column;
+
+    border-radius: 10px;
     &:hover {
       cursor: pointer;
     }
@@ -26,6 +32,22 @@ const S = {
   `,
   PostContentBox: styled.div`
     margin: 10px;
+    font-size: 17px;
+    letter-spacing: 1px;
+    line-height: 25px;
+    padding: 15px;
+  `,
+  Outer: styled.div`
+    max-width: 1200px;
+    min-width: 800px;
+    margin: 0 auto;
+    paddung: 0 auto;
+  `,
+  Nickname: styled.div`
+    font-size: 14px;
+  `,
+  box: styled.div`
+    margin-bottom: 28px;
   `
 };
 

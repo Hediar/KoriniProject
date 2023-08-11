@@ -16,6 +16,7 @@ const Header = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
   const { isOpen } = useAppSelector((state: RootState) => state.modal);
   const [switchPage, setSwitchPage] = useState<boolean>(false);
+  const [isFreeBoardActive, setIsFreeBoardActive] = useState(false);
   const navigate = useNavigate();
 
   const openModalButton = () => {
@@ -51,8 +52,18 @@ const Header = () => {
     navigate('/write');
   };
 
+  const handleFreeBoardClick = () => {
+    navigate('/free');
+    setIsFreeBoardActive(true);
+  };
+
+  const handleStudyBoardClick = () => {
+    navigate('/study');
+    setIsFreeBoardActive(false); // Set to false when the other menu is clicked
+  };
+
   return (
-    <>
+    <S.outer>
       <S.Header>
         <Link to="/">
           <img
@@ -61,14 +72,18 @@ const Header = () => {
           ></img>
         </Link>
         <S.MenuBox>
-          <S.MenuButton onClick={() => navigate('/free')}>자유게시판</S.MenuButton>
+          <S.MenuButton onClick={handleFreeBoardClick} style={{ color: isFreeBoardActive ? '#6708bf' : 'inherit' }}>
+            자유게시판
+          </S.MenuButton>
           <p>|</p>
-          <S.MenuButton onClick={() => navigate('/study')}>학습게시판</S.MenuButton>
+          <S.MenuButton onClick={handleStudyBoardClick} style={{ color: isFreeBoardActive ? 'inherit' : '#6708bf' }}>
+            학습게시판
+          </S.MenuButton>
         </S.MenuBox>
         {user ? (
           <div>
             <S.HeaderButton onClick={writeButton}>글쓰기</S.HeaderButton>
-            {/* <S.HeaderButton onClick={mypageButton}>mypage</S.HeaderButton> */}
+            <S.HeaderButton onClick={mypageButton}>mypage</S.HeaderButton>
             <S.HeaderButton onClick={signOut}>로그아웃</S.HeaderButton>
 
             <S.HeaderName onClick={() => navigate('/mypage')}>{user.name}</S.HeaderName>
@@ -104,7 +119,7 @@ const Header = () => {
           </>
         )}
       </S.Header>
-    </>
+    </S.outer>
   );
 };
 
