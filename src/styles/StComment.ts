@@ -4,7 +4,7 @@ export const Outer = styled.div`
   max-width: 1200px;
   min-width: 800px;
   margin: 0 auto;
-  paddung: 0 auto;
+  padding: 0 auto;
 `;
 export const Title = styled.div`
   display: flex;
@@ -21,21 +21,20 @@ export const CommentContainer = styled.div`
   align-items: center;
   background-color: #efefef;
   margin-top: 10px;
-
-  height: 470px;
+  height: 540px;
   border-radius: 30px;
 `;
 
 export const CommentTop = styled.div`
   display: flex;
-  height: 15%;
+  height: 10%;
   width: 700px;
+  margin-bottom: 18px;
 `;
 export const CommentBot = styled.div`
   display: flex;
   flex-direction: column;
   height: 80%;
-  overflow-y: auto;
 `;
 
 export const WriteInput = styled.input`

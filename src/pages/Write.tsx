@@ -120,7 +120,11 @@ const Write = () => {
 
   return (
     <S.Layout>
-      <FontAwesomeIcon onClick={backButton} icon={faArrowLeft} style={{ margin: ' 0 0 20px 200px' }} />
+      <FontAwesomeIcon
+        onClick={backButton}
+        icon={faArrowLeft}
+        style={{ margin: ' 0 0 20px 200px', cursor: 'pointer' }}
+      />
       <S.Container>
         <S.FormContainer onSubmit={onSubmitHandler}>
           <S.InputContainer>
