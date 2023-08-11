@@ -59,7 +59,7 @@ const Header = () => {
 
   const handleStudyBoardClick = () => {
     navigate('/study');
-    setIsFreeBoardActive(false); // Set to false when the other menu is clicked
+    setIsFreeBoardActive(false);
   };
 
   return (
