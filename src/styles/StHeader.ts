@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
-  /* background-color: ${(props) => props.theme.mainPaletteColor1}; */
   border-bottom: 1px solid ${(props) => props.theme.mainNavyColor};
   height: 100px;
   display: flex;
@@ -84,8 +83,7 @@ export const MenuBox = styled.div`
   left: 35%;
 `;
 
-export const ButtonBox = styled.div`
-`;
+export const ButtonBox = styled.div``;
 
 export const MenuButton = styled.p`
   padding: 0 20px;
