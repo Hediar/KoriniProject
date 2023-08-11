@@ -6,7 +6,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../redux/config/configStore';
-import { styled } from 'styled-components';
+import { S } from '../styles/StWrite';
+import * as G from '../styles/StButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Write = () => {
   const navigate = useNavigate();
@@ -34,6 +37,11 @@ const Write = () => {
   // 뒤로가기
   const backButton = () => {
     navigate(-1);
+  };
+
+  // 취소
+  const cancellButton = () => {
+    navigate('/');
   };
 
   // 해시태그 추가 및 삭제
@@ -111,37 +119,37 @@ const Write = () => {
   };
 
   return (
-    <Layout>
-      <Container>
-        <button onClick={backButton}>뒤로가기</button>
-        <FormContainer onSubmit={onSubmitHandler}>
-          <InputContainer>
-            <Label>카테고리</Label>
-            <Select onChange={onChangeCategory}>
+    <S.Layout>
+      <FontAwesomeIcon onClick={backButton} icon={faArrowLeft} style={{ margin: ' 0 0 20px 200px' }} />
+      <S.Container>
+        <S.FormContainer onSubmit={onSubmitHandler}>
+          <S.InputContainer>
+            <S.Label>카테고리</S.Label>
+            <S.Select onChange={onChangeCategory}>
               <option value={''}>카테고리를 선택해주세요.</option>
               <option value={'학습'}>학습</option>
               <option value={'자유'}>자유</option>
-            </Select>
-          </InputContainer>
-          <InputContainer>
-            <Label>제목</Label>
-            <Input value={title} onChange={onChangeTitle} placeholder="제목을 입력해주세요." />
-          </InputContainer>
-          <InputContainer>
-            <Label>본문</Label>
-            <Textarea value={body} onChange={onChangeBody} placeholder="내용을 입력해주세요." />
-          </InputContainer>
-          <InputContainer>
-            <Label>해시태그</Label>
+            </S.Select>
+          </S.InputContainer>
+          <S.InputContainer>
+            <S.Label>제목</S.Label>
+            <S.Input value={title} onChange={onChangeTitle} placeholder="제목을 입력해주세요." />
+          </S.InputContainer>
+          <S.InputContainer>
+            <S.Label>본문</S.Label>
+            <S.Textarea value={body} onChange={onChangeBody} placeholder="내용을 입력해주세요." />
+          </S.InputContainer>
+          <S.InputContainer>
+            <S.Label>해시태그</S.Label>
             {tags.length > 0 &&
               tags.map((tag, index) => {
                 return (
-                  <TagContainer>
-                    <Tag key={index}>#{tag}</Tag>
-                  </TagContainer>
+                  <S.TagContainer>
+                    <S.Tag key={index}>#{tag}</S.Tag>
+                  </S.TagContainer>
                 );
               })}
-            <Input
+            <S.Input
               type="text"
               value={inputTag}
               onChange={onChangeInputTag}
@@ -149,110 +157,17 @@ const Write = () => {
               placeholder="해시태그를 등록해주세요."
               style={{ marginTop: '5px' }}
             />
-          </InputContainer>
-          <ButtonContainer>
-            <Button style={{ alignItems: 'right' }}>게시글 작성</Button>
-          </ButtonContainer>
-        </FormContainer>
-      </Container>
-    </Layout>
+          </S.InputContainer>
+          <S.ButtonContainer>
+            <G.Button onClick={cancellButton} width="80px">
+              취소
+            </G.Button>
+            <G.Button width="80px">등록</G.Button>
+          </S.ButtonContainer>
+        </S.FormContainer>
+      </S.Container>
+    </S.Layout>
   );
 };
 
 export default Write;
-
-const Layout = styled.div`
-  max-width: 1200px;
-  min-width: 800px;
-  margin: 0 auto;
-  padding: 0 auto;
-`;
-
-const FormContainer = styled.form`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const InputContainer = styled.div`
-  max-width: 1200px;
-  width: 800px;
-  margin: 10px;
-`;
-
-const Label = styled.div`
-  font-size: 15px;
-  padding: 0 0 10px 5px;
-`;
-
-const Select = styled.select`
-  width: 798px;
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  border: 1px ${(props) => props.theme.mainNavyColor} solid;
-`;
-
-const Input = styled.input`
-  max-width: 1200px;
-  width: 780px;
-  padding: 10px;
-  outline: none;
-  border-radius: 8px;
-  border: 1px ${(props) => props.theme.mainNavyColor} solid;
-  &::placeholder {
-    color: ${(props) => props.theme.blackColor};
-  }
-`;
-
-const Textarea = styled.textarea`
-  max-width: 1200px;
-  width: 780px;
-  height: 400px;
-  padding: 10px;
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
-  border: 1px ${(props) => props.theme.mainNavyColor} solid;
-  outline: none;
-  border-radius: 8px;
-  &::placeholder {
-    color: ${(props) => props.theme.blackColor};
-  }
-`;
-
-const Tag = styled.span`
-  color: ${(props) => props.theme.whiteColor};
-  background-color: ${(props) => props.theme.mainNavyColor};
-  border-radius: 8px;
-  padding: 3px 10px 3px 10px;
-`;
-
-const TagContainer = styled.div`
-  display: inline-block;
-  flex-wrap: wrap;
-  padding: 10px 5px 10px 5px;
-`;
-
-const ButtonContainer = styled.div`
-  max-width: 1200px;
-  width: 800px;
-  margin: 10px;
-  display: flex;
-`;
-
-const Button = styled.button`
-  background-color: #a593e0;
-  border: none;
-  border-radius: 12px;
-  color: white;
-  width: 100px;
-  height: 30px;
-  margin-top: 15px;
-  cursor: pointer;
-`;

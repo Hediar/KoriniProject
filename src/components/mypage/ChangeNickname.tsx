@@ -4,8 +4,8 @@ import { RootState } from '../../redux/config/configStore';
 import updateUserNickname from "../../api/editprofile";
 import { updateUserName } from "../../redux/module/userSlice";
 
-import styled from "styled-components";
-import * as S from "../../styles/StMyPage"
+import * as S from "../../styles/StMyPage";
+import * as G from "../../styles/StButton";
 
 const ChangeNickname = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
@@ -56,7 +56,12 @@ const ChangeNickname = () => {
                   onChange={onChange}
                   required
                 />
-                <button type="submit">수정</button>
+                <G.Button
+                  type="submit"
+                  width="70px"
+                >
+                  수정
+                </G.Button>
               </S.LabelInputBox>
               </form>
           </>
