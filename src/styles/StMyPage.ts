@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MyProfileSection = styled.section`
   display: flex;
@@ -11,7 +11,7 @@ export const MyPageTitleBox = styled.div`
   width: 90%;
   border-bottom: 2px solid lightgray;
   margin-top: 20px;
-`
+`;
 
 export const MyPageTitle = styled.h1`
   font-size: 32px;
@@ -20,7 +20,7 @@ export const MyPageTitle = styled.h1`
 
 export const HighlightName = styled.span`
   font-weight: 700;
-  color: ${props => props.theme.mainPurpleColor}
+  color: ${(props) => props.theme.mainPurpleColor};
 `;
 
 export const ProfilePic = styled.img`
@@ -55,7 +55,7 @@ export const LabelInputBox = styled.div`
 export const MyPageInput = styled.input`
   border: none;
   border-radius: 10px;
-  background-color: ${props => props.theme.mainInputColor};
+  background-color: ${(props) => props.theme.mainInputColor};
   width: 200px;
   height: 15px;
   padding: 10px;
@@ -63,6 +63,6 @@ export const MyPageInput = styled.input`
 
 export const MyPageErrorMsg = styled.p`
   font-size: 12px;
-  color: ${props => props.theme.errorMsgColor};
+  color: ${(props) => props.theme.errorMsgColor};
   margin: 10px;
 `;
