@@ -64,6 +64,7 @@ const S = {
     &::placeholder {
       color: ${(props) => props.theme.blackColor};
     }
+    resize: none;
   `,
 
   Tag: styled.span`

@@ -149,7 +149,7 @@ const Post = () => {
             <BlinkingText>
               <S.Info>(수정중)&nbsp;{post.date}</S.Info>
             </BlinkingText>
-            <S.Input value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
+            <S.Input value={title} onChange={onChangeTitle} style={{ fontSize: '24px', fontWeight: '500' }} />
           </S.Box>
         ) : (
           <S.Box>
