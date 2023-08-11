@@ -47,12 +47,13 @@ export const MyPageForm = styled.form`
 
 export const LabelInputBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin-bottom: 20px;
 
   label {
-    display: block;
-    padding: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -60,7 +61,7 @@ export const MyPageInput = styled.input`
   border: none;
   border-radius: 10px;
   background-color: ${(props) => props.theme.mainInputColor};
-  width: 200px;
+  width: 300px;
   height: 15px;
   padding: 10px;
 `;
