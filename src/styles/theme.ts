@@ -9,4 +9,5 @@ export const theme: DefaultTheme = {
   blackColor: '#000000',
   whiteColor: '#FFFFFF',
   ChatBoxBgColor: '#e2deef',
+  buttonHoverColor: '#c1b3f2',
 };

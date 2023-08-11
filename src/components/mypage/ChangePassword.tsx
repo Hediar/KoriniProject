@@ -2,8 +2,8 @@ import supabase from "../../lib/client";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
-import styled from "styled-components";
-import * as S from "../../styles/StMyPage"
+import * as S from "../../styles/StMyPage";
+import * as G from "../../styles/StButton";
 
 interface IFormInput {
   password: string;
@@ -67,7 +67,7 @@ const ChangePassword = () => {
           name="passwordCheck"
           render={({ message }) => <p>{message}</p>}
         />
-        <button type="submit">비밀번호 변경</button>
+        <G.Button type="submit">비밀번호 변경</G.Button>
       </S.MyPageForm>
     </>
   );
