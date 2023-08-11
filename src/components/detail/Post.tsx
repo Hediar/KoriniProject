@@ -5,7 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { RootState } from '../../redux/config/configStore';
-import { styled } from 'styled-components';
+import { S } from '../../styles/StPost';
+import * as G from '../../styles/StButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Post = () => {
   const navigate = useNavigate();
@@ -109,206 +112,78 @@ const Post = () => {
     return <h1>오류 발생</h1>;
   }
   return (
-    <Layout>
+    <S.Layout>
+      <FontAwesomeIcon onClick={backButton} icon={faArrowLeft} style={{ marginLeft: '20px' }} />
       {user?.userid === post.userid && (
-        <ButtonContainer>
+        <S.ButtonContainer>
           <div>
-            <button onClick={backButton}>뒤로가기</button>
-          </div>
-          <div>
-            <Button onClick={() => deleteButton(post.postid)}>삭제</Button>
-            <Button onClick={() => editButton(post)} style={{ marginRight: '20px' }}>
+            <G.Button onClick={() => deleteButton(post.postid)} width="70px">
+              삭제
+            </G.Button>
+            <G.Button onClick={() => editButton(post)} width="70px" style={{ marginRight: '20px' }}>
               {isEdit ? '저장' : '수정'}
-            </Button>
+            </G.Button>
           </div>
-        </ButtonContainer>
+        </S.ButtonContainer>
       )}
-      <PostContainer key={post.postid}>
-        <Category>{post.category}</Category>
+      <S.PostContainer key={post.postid}>
+        <S.Category>{post.category}</S.Category>
         {isEdit ? (
-          <EditBox>
-            <Info>(수정중)&nbsp;{post.date}</Info>
-            <Input value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
-          </EditBox>
+          <S.Box>
+            <S.Info>(수정중)&nbsp;{post.date}</S.Info>
+            <S.Input value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
+          </S.Box>
         ) : (
-          <Box>
-            <Info>{post.date}</Info>
-            <Title>{post.title}</Title>
-          </Box>
+          <S.Box>
+            <S.Info>{post.date}</S.Info>
+            <S.Title>{post.title}</S.Title>
+          </S.Box>
         )}
-        <Name>{post.name}</Name>
+        <S.Name>{post.name}</S.Name>
         {isEdit ? (
           <>
-            <EditBox>
-              <Textarea value={body} onChange={onChangeBody} />
-            </EditBox>
-            <Box>
+            <S.Box>
+              <S.Textarea value={body} onChange={onChangeBody} />
+            </S.Box>
+            <S.Box>
               {tags.length > 0 &&
                 tags.map((tag, index) => {
                   return (
-                    <TagContainer>
-                      <Tag key={index}>#{tag}</Tag>
-                    </TagContainer>
+                    <S.TagContainer>
+                      <S.Tag key={index}>#{tag}</S.Tag>
+                    </S.TagContainer>
                   );
                 })}
-              <Box style={{ borderBottom: '1px #566270 solid', margin: '20px 0 20px 0' }}>
-                <Input
-                  type="text"
-                  value={inputTag}
-                  onChange={onChangeInputTag}
-                  onKeyDown={handleHashTag}
-                  placeholder="해시태그를 수정할 수 있습니다."
-                />
-              </Box>
-            </Box>
+
+              <S.Input
+                type="text"
+                value={inputTag}
+                onChange={onChangeInputTag}
+                onKeyDown={handleHashTag}
+                placeholder="해시태그를 수정할 수 있습니다."
+              />
+            </S.Box>
           </>
         ) : (
           <>
-            <Content>{post.body}</Content>
-            <Box>
+            <S.Content>
+              <pre>{post.body}</pre>
+            </S.Content>
+            <S.Box>
               {post.tags.length > 0 &&
                 post.tags.map((tag, index) => {
                   return (
-                    <TagContainer>
-                      <Tag key={index}>#{tag}</Tag>
-                    </TagContainer>
+                    <S.TagContainer>
+                      <S.Tag key={index}>#{tag}</S.Tag>
+                    </S.TagContainer>
                   );
                 })}
-            </Box>
+            </S.Box>
           </>
         )}
-      </PostContainer>
-    </Layout>
+      </S.PostContainer>
+    </S.Layout>
   );
 };
 
 export default Post;
-
-const Layout = styled.div`
-  max-width: 1200px;
-  min-width: 800px;
-  margin: 0 auto;
-  padding: 0 auto;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const PostContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-top: 2px ${(props) => props.theme.mainNavyColor} solid;
-  border-bottom: 2px ${(props) => props.theme.mainNavyColor} solid;
-  margin: 20px;
-  padding: 40px;
-`;
-
-const Category = styled.div`
-  font-size: 20px;
-  max-width: 1200px;
-  width: 800px;
-  margin-left: 5px;
-  padding: 0 auto;
-`;
-
-const Name = styled.div`
-  font-size: 16px;
-  max-width: 1200px;
-  width: 800px;
-  margin: 10px;
-  padding: 0 auto;
-`;
-
-const Info = styled.div`
-  font-size: 16px;
-  max-width: 1200px;
-  width: 800px;
-  text-align: right;
-  padding: 0 auto;
-`;
-
-const Box = styled.div`
-  max-width: 1200px;
-  width: 800px;
-  margin: 20px;
-  padding: 0 auto;
-`;
-
-const Title = styled.div`
-  max-width: 1200px;
-  width: 800px;
-  margin: 20px 0 20px 0;
-  padding: 0 auto;
-  font-size: 28px;
-  font-weight: bold;
-`;
-
-const Content = styled.div`
-  font-size: 18px;
-  line-height: 1.5;
-  max-width: 1200px;
-  width: 800px;
-  margin: 20px;
-  padding: 0 auto;
-`;
-
-const Tag = styled.span`
-  color: ${(props) => props.theme.whiteColor};
-  background-color: ${(props) => props.theme.mainNavyColor};
-  border-radius: 8px;
-  padding: 3px 10px 3px 10px;
-  margin-right: 5px;
-`;
-
-const TagContainer = styled.div`
-  display: inline-block;
-  flex-wrap: wrap;
-  padding: 10px 5px 10px 5px;
-`;
-
-const Input = styled.input`
-  width: 800px;
-  margin: 10px 0 10px 0;
-  border: none;
-  outline: none;
-  &::placeholder {
-    color: ${(props) => props.theme.blackColor};
-  }
-`;
-
-const EditBox = styled.div`
-  max-width: 1200px;
-  width: 800px;
-  margin: 20px 0 20px 0;
-  border-bottom: 1px ${(props) => props.theme.mainNavyColor} solid;
-`;
-
-const Textarea = styled.textarea`
-  max-width: 1200px;
-  width: 800px;
-  height: 200px;
-  font-family: 'Pretendard-Regular';
-  line-height: 1.5;
-  font-size: 14px;
-  border: none;
-  outline: none;
-  border-radius: 8px;
-  &::placeholder {
-    color: ${(props) => props.theme.blackColor};
-  }
-`;
-
-const Button = styled.button`
-  background-color: #a593e0;
-  border: none;
-  border-radius: 12px;
-  color: white;
-  width: 60px;
-  height: 30px;
-  margin-right: 10px;
-  margin-top: 15px;
-  cursor: pointer;
-`;
