@@ -41,7 +41,7 @@ const Header = () => {
   const signOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
-      alert('로그아웃 되었습()니다.');
+      alert('로그아웃 되었습니다.');
       if (error) {
       }
     } catch (error) {
