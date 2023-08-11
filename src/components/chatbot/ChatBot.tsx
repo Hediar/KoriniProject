@@ -9,6 +9,7 @@ import shortid from "shortid";
 import LoaderIcon from "remixicon-react/Loader2LineIcon";
 import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon";
 import * as S from "../../styles/StChatBot";
+import * as G from "../../styles/StButton";
 
 const ChatBot = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
