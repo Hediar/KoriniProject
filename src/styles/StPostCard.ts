@@ -22,10 +22,13 @@ const S = {
     // 넘치는 text 처리
     overflow: hidden;
     height: 150px;
+    transition: all 0.2s ease-in-out;
 
     border-radius: 10px;
     &:hover {
       cursor: pointer;
+      transform: scale(1.01);
+      box-shadow: 5px 5px 13px rgba(154, 154, 154, 0.4);
     }
   `,
   PostBoxNav: styled.div`
