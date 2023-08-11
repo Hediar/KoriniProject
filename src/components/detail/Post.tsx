@@ -134,7 +134,7 @@ const Post = () => {
   }
   return (
     <S.Layout>
-      <FontAwesomeIcon onClick={backButton} icon={faArrowLeft} style={{ marginLeft: '20px' }} />
+      <FontAwesomeIcon onClick={backButton} icon={faArrowLeft} style={{ marginLeft: '20px', cursor: 'pointer' }} />
       {user?.userid === post.userid && (
         <S.ButtonContainer>
           <div>
