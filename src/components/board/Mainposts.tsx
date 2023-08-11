@@ -4,6 +4,8 @@ import React, { useMemo, useEffect } from 'react';
 import { getPosts } from '../../api/post';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { S } from '../../styles/StPostCard';
+import Loading from '../layout/Loading';
 
 const Mainposts = () => {
   const navigate = useNavigate();
@@ -53,47 +55,49 @@ const Mainposts = () => {
   // }, [posts]);
 
   if (isLoading) {
-    return <h1>로딩중입니다</h1>;
+    return (
+      <>
+        <Loading />
+      </>
+    );
   }
   if (isError) {
     return <h1>오류 발생</h1>;
   }
   return (
     <>
-      {processedPosts?.map((post) => {
-        return (
-          <>
-            -----------------------
-            <div
-              key={post.postid}
-              onClick={() => {
-                // 절대경로
-                navigate(`/detail/${post.postid}`);
-              }}
-            >
-              {post.postid}
-              <div>user id: {post.userid}</div>
-              <div>태그: {post.tags}</div>
-              <div>제목: {post.title}</div>
-              <div>작성자: {post.name}</div>
-              <div>내용: {post.body}</div>
-              <div>카테고리: {post.category}</div>
-              <div>작성날짜: {post.date}</div>
-            </div>
-            -----------------------
-          </>
-        );
-      })}
-      <div
-        style={{
-          textAlign: 'center',
-          backgroundColor: 'white',
-          color: 'white',
-          width: '100%',
-          height: 50
-        }}
-        ref={ref}
-      ></div>
+      <S.MainPostsContainer>
+        <div>글 목록</div>
+        {processedPosts?.map((post) => {
+          return (
+            <>
+              <S.PostBox
+                key={post.postid}
+                onClick={() => {
+                  // 절대경로
+                  navigate(`/detail/${post.postid}`);
+                }}
+              >
+                <S.PostBoxNav>
+                  <div>{post.title}</div>
+                  <div>{post.name}</div>
+                </S.PostBoxNav>
+                <S.PostContentBox>{post.body}</S.PostContentBox>
+              </S.PostBox>
+            </>
+          );
+        })}
+        <div
+          style={{
+            textAlign: 'center',
+            backgroundColor: 'white',
+            color: 'white',
+            width: '100%',
+            height: 50
+          }}
+          ref={ref}
+        ></div>
+      </S.MainPostsContainer>
     </>
   );
 };

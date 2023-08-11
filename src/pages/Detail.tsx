@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Post from '../components/detail/Post';
-import supabase from '../lib/client';
 import { Comment } from '../types/types';
 import shortid from 'shortid';
 import { useQuery } from '@tanstack/react-query';
@@ -10,6 +9,8 @@ import { RootState } from '../redux/config/configStore';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { fetchComments, addComment, deleteComment, updateComment } from '../api/comment';
+import Loading from '../components/layout/Loading';
+import * as S from '../styles/StComment';
 
 const Detail = () => {
   // 포스트 아이디 가져오기
@@ -22,7 +23,6 @@ const Detail = () => {
   const [newComment, setNewComment] = useState<string>('');
   const [editingCommentId, setEditingCommentId] = useState<string | null>('');
   const [editedCommentText, setEditedCommentText] = useState<string>('');
-  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   //작성
   const addMutation = useMutation(addComment, {
@@ -33,6 +33,11 @@ const Detail = () => {
   const handleCommentSubmit = () => {
     if (!user) {
       alert('로그인 후에 댓글을 작성할 수 있습니다! 로그인해주세요.');
+      return;
+    }
+
+    if (!newComment) {
+      alert('댓글 내용을 입력해주세요.');
       return;
     }
 
@@ -92,52 +97,65 @@ const Detail = () => {
   //조회
   const { isLoading, isError, data: comments } = useQuery<Comment[]>(['comment'], () => fetchComments(id ?? ''));
   if (isLoading) {
-    return <h1>로딩중입니다</h1>;
+    return (
+      <>
+        <Loading />
+      </>
+    );
   }
   if (isError) {
     return <h1>댓글 오류 발생</h1>;
   }
 
   return (
-    <div>
+    <S.Outer>
       <Post />
-      <div>
-        <input
-          type="text"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              handleCommentSubmit();
-            }
-          }}
-          placeholder="댓글을 작성해주세요!"
-        />
-        <button onClick={handleCommentSubmit}>작성하기</button>
-      </div>
-      {comments.map((comment) => (
-        <div key={comment.commentid}>
-          {comment.name} :
-          {comment.commentid === editingCommentId ? (
-            <input type="text" value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} />
-          ) : (
-            comment.text
-          )}
-          {' ('}
-          {new Date(comment.date).toLocaleString()}
-          {')'}
-          {user?.userid === comment.userid && (
-            <>
-              <button onClick={() => handleCommentEdit(comment)}>
-                {comment.commentid === editingCommentId ? '저장' : '수정'}
-              </button>
-              <button onClick={() => handleCommentDelete(comment.commentid)}>삭제</button>
-            </>
-          )}
-        </div>
-      ))}
-    </div>
+      <S.Title>같이 이야기를 나눠보아요🗣️</S.Title>
+
+      <S.CommentContainer>
+        <S.CommentTop>
+          <S.WriteInput
+            type="text"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleCommentSubmit();
+              }
+            }}
+            placeholder="댓글을 작성해주세요!"
+          />
+          <S.WriteButton onClick={handleCommentSubmit}>작성</S.WriteButton>
+        </S.CommentTop>
+        <S.CommentBot>
+          {comments.map((comment) => (
+            <S.Comment key={comment.commentid}>
+              <div>
+                <S.CommentName>{comment.name}</S.CommentName>
+                <S.CommentDate>{new Date(comment.date).toLocaleString()}</S.CommentDate>
+              </div>
+              {user?.userid === comment.userid && (
+                <S.ButtonBox>
+                  <S.button onClick={() => handleCommentEdit(comment)}>
+                    {comment.commentid === editingCommentId ? '저장' : '수정'}
+                  </S.button>
+                  <S.button onClick={() => handleCommentDelete(comment.commentid)}>삭제</S.button>
+                </S.ButtonBox>
+              )}
+              {comment.commentid === editingCommentId ? (
+                <S.EditInput
+                  type="text"
+                  value={editedCommentText}
+                  onChange={(e) => setEditedCommentText(e.target.value)}
+                />
+              ) : (
+                comment.text
+              )}
+            </S.Comment>
+          ))}
+        </S.CommentBot>
+      </S.CommentContainer>
+    </S.Outer>
   );
 };
-
 export default Detail;
