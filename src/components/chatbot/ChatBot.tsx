@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { addChatLog } from "../../redux/module/chatBotLogSlice";
 
 import shortid from "shortid";
-import LoaderIcon from "remixicon-react/Loader2LineIcon"
-import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon"
+import LoaderIcon from "remixicon-react/Loader2LineIcon";
+import SendPlaneIcon from "remixicon-react/SendPlaneFillIcon";
 import * as S from "../../styles/StChatBot";
 
 const ChatBot = () => {
