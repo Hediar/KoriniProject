@@ -1,4 +1,3 @@
-import React from 'react';
 import Mainposts from '../components/board/Mainposts';
 
 const Freeboard = () => {

@@ -1,9 +1,7 @@
-import React, { FormEvent, useState } from 'react';
-import styled from 'styled-components';
+import { FormEvent, useState } from 'react';
 import supabase from '../../lib/client';
 import { setCurrentUser } from '../../redux/module/userSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { RootState } from '../../redux/config/configStore';
+import { useAppDispatch } from '../../hooks';
 import { closeModal } from '../../redux/module/modalSlice';
 import * as S from '../../styles/StSignInUp';
 
@@ -11,8 +9,6 @@ const Signin = () => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const { isOpen } = useAppSelector((state: RootState) => state.modal);
 
   //이메일 유효성
   const isEmailValid = (email: any) => {
@@ -43,9 +39,7 @@ const Signin = () => {
       await supabase.auth.signInWithOAuth({
         provider: 'github'
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const loginWithGoogle = async () => {
@@ -53,9 +47,7 @@ const Signin = () => {
       await supabase.auth.signInWithOAuth({
         provider: 'google'
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const signInWithEmail = async (e: FormEvent) => {
@@ -82,14 +74,9 @@ const Signin = () => {
         return;
       }
 
-      // 로그인 성공 후 이메일 정보를 localStorage에 저장
-      // localStorage.setItem('email', email);
-
       alert('로그인 성공');
       dispatch(closeModal());
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -138,13 +125,8 @@ const Signin = () => {
           <S.StButton>로그인</S.StButton>
         </S.StForm>
       </div>
-      {/* <Div> */}
     </>
   );
 };
 
 export default Signin;
-
-const Div = styled.div`
-  display: grid;
-`;

@@ -7,9 +7,9 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../redux/config/configStore';
 import { fetchComments, addComment, deleteComment, updateComment } from '../api/comment';
-import Loading from '../components/layout/Loading';
 import * as S from '../styles/StComment';
 import Pagination from '../components/detail/Pagenation';
+import Loading from '../components/layout/Loading';
 
 const Detail = () => {
   // 포스트 아이디 가져오기
@@ -93,19 +93,6 @@ const Detail = () => {
     }
   };
 
-  //조회
-  // const { isLoading, isError, data: comments } = useQuery<Comment[]>(['comment'], () => fetchComments(id ?? ''));
-  // if (isLoading) {
-  //   return (
-  //     <>
-  //       <Loading />
-  //     </>
-  //   );
-  // }
-  // if (isError) {
-  //   return <h1>댓글 오류 발생</h1>;
-  // }
-
   const [page, setPage] = useState<number>(1);
   const {
     isLoading,
@@ -116,7 +103,6 @@ const Detail = () => {
     () => fetchComments(id!, page), // queryFn 수정
     { keepPreviousData: true }
   );
-  console.log('comments', comments);
 
   const onClickPage = (selected: number | string) => {
     // 같은 페이지를 그대로 클릭시 함수종료
@@ -134,6 +120,17 @@ const Detail = () => {
       return;
     }
   };
+
+  if (isLoading) {
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  }
+  if (isError) {
+    return <h1>오류 발생</h1>;
+  }
 
   return (
     <S.Outer>

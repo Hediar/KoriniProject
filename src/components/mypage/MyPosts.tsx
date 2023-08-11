@@ -1,47 +1,38 @@
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../hooks";
-import { RootState } from "../../redux/config/configStore";
-
-import { useQueryClient, useQuery } from "@tanstack/react-query";
-import { ITEMS_PER_PAGE, getMyPosts, getMyPostsNum } from "../../api/post";
-import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { RootState } from '../../redux/config/configStore';
+import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { ITEMS_PER_PAGE, getMyPosts, getMyPostsNum } from '../../api/post';
+import { useState, useEffect } from 'react';
 import Pagination from 'react-js-pagination';
+import Loading from '../layout/Loading';
+import { PostType } from '../../types/types';
 
-import Loading from "../layout/Loading";
-
-import { PostType } from "../../types/types";
-
-import * as S from "../../styles/StMyPage";
-import * as P from "../../styles/StPageButton";
+import * as S from '../../styles/StMyPage';
+import * as P from '../../styles/StPageButton';
 
 const MyPosts = () => {
   const navigate = useNavigate();
   const { user } = useAppSelector((state: RootState) => state.user);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: myPostsNum }
-    = useQuery(['myPostsNum'],
-      () => getMyPostsNum(user?.userid ?? ''));
+  const { data: myPostsNum } = useQuery(['myPostsNum'], () => getMyPostsNum(user?.userid ?? ''));
 
   const maxPostPage = Math.ceil(myPostsNum ? myPostsNum / 5 : 1);
-  
+
   // 프리페칭
   const queryClient = useQueryClient();
   useEffect(() => {
     if (currentPage < maxPostPage) {
       const nextPage = currentPage + 1;
-      queryClient.prefetchQuery(
-        ['myPosts', nextPage],
-        () => getMyPosts(user?.userid ?? '', nextPage)
-      );
+      queryClient.prefetchQuery(['myPosts', nextPage], () => getMyPosts(user?.userid ?? '', nextPage));
     }
   }, [currentPage, queryClient]);
-  
+
   // 현재 페이지 데이터 불러오기
-  const { isLoading, isError, data: myPosts }
-  = useQuery<PostType[]>(
-    ['myPosts', currentPage],
-    () => getMyPosts(user?.userid ?? '', currentPage));
+  const { isLoading, data: myPosts } = useQuery<PostType[]>(['myPosts', currentPage], () =>
+    getMyPosts(user?.userid ?? '', currentPage)
+  );
 
   if (isLoading) {
     return <Loading />;
@@ -68,7 +59,7 @@ const MyPosts = () => {
             </S.box>
           );
         })}
-        </S.MainPostsContainer>
+      </S.MainPostsContainer>
       <P.PageLists>
         <Pagination
           activePage={currentPage}
@@ -81,7 +72,7 @@ const MyPosts = () => {
         />
       </P.PageLists>
     </>
-  )
-}
+  );
+};
 
 export default MyPosts;
