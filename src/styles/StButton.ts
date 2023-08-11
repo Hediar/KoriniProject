@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Button = styled.button<{ width?: string; height?: string }>`
+export const Button = styled.button<{ width?: string, height?: string }>`
   width: ${({ width }) => width || '100px'};
   height: ${({ height }) => height || '30px'};
   margin: 0 5px;
