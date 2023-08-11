@@ -133,7 +133,7 @@ const Post = () => {
       {user?.userid === post.userid && (
         <S.ButtonContainer>
           <div>
-            <G.Button onClick={() => deleteButton(post.postid)} width="70px">
+            <G.Button onClick={() => deleteButton(post.postid)} width="70px" style={{ marginRight: '10px' }}>
               삭제
             </G.Button>
             <G.Button onClick={() => editButton(post)} width="70px" style={{ marginRight: '20px' }}>
@@ -149,7 +149,7 @@ const Post = () => {
             <BlinkingText>
               <S.Info>(수정중)&nbsp;{post.date}</S.Info>
             </BlinkingText>
-            <S.Input value={title} onChange={onChangeTitle} style={{ fontSize: '28px', fontWeight: '500' }} />
+            <S.Input value={title} onChange={onChangeTitle} style={{ fontSize: '24px', fontWeight: '500' }} />
           </S.Box>
         ) : (
           <S.Box>

@@ -19,7 +19,6 @@ export const PageLists = styled.div`
     display: inline-block;
     width: 30px;
     height: 30px;
-    // border: 1px solid #e2e2e2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +43,7 @@ export const PageLists = styled.div`
 
   ul.pagination li a:hover,
   ul.pagination li a.active {
-    color: ${props => props.theme.mainNavyColor};
+    color: #fff;
   }
 
   .page-selection {

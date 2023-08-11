@@ -12,6 +12,7 @@ const S = {
   title: styled.div`
     margin-left: 20px;
     font-size: 18px;
+    margin-bottom: 30px;
   `,
   PostBox: styled.div`
     margin: 13px;

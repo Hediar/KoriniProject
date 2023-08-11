@@ -46,8 +46,8 @@ const ChangeNickname = () => {
                 <label htmlFor="nickname">닉네임</label>
                 <S.MyPageInput id="nickname" value={userName} onChange={onChange} required />
               </S.LabelInputBox>
-              <G.Button type="submit" width="70px">
-                수정
+              <G.Button type="submit">
+                닉네임 수정
               </G.Button>
           </S.MyPageForm>
         </>

@@ -45,6 +45,7 @@ export const WriteInput = styled.input`
   background-color: #d9d9d9;
   margin-top: 10px;
   border-radius: 10px;
+  padding: 0 10px;
 `;
 
 export const WriteButton = styled.button`
@@ -59,9 +60,7 @@ export const WriteButton = styled.button`
   margin-top: 13px;
   font-size: 16px;
   &:hover {
-    background-color: rgb(0, 0, 0, 0.5);
-    color: rgb(255, 255, 255, 100);
-    font-weight: bold;
+    background-color: ${(props) => props.theme.buttonHoverColor};
   }
 `;
 
@@ -83,8 +82,7 @@ export const button = styled.button`
   margin-right: 5px;
   cursor: pointer;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: rgba(255, 255, 255, 1);
+    background-color: ${(props) => props.theme.buttonHoverColor};
     font-weight: bold;
   }
 `;
@@ -110,7 +108,7 @@ export const CommentName = styled.div`
 export const CommentDate = styled.div`
   font-size: 12px;
   color: #807b85;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 export const EditInput = styled.input`
   display: flex;
@@ -119,4 +117,5 @@ export const EditInput = styled.input`
   height: 25px;
   margin-top: 5px;
   border-radius: 5px;
+  padding: 0 10px;
 `;

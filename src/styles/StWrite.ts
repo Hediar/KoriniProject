@@ -64,6 +64,7 @@ const S = {
     &::placeholder {
       color: ${(props) => props.theme.blackColor};
     }
+    resize: none;
   `,
 
   Tag: styled.span`
@@ -81,10 +82,9 @@ const S = {
 
   ButtonContainer: styled.div`
     max-width: 1200px;
-    width: 800px;
+    width: 200px;
     margin: 10px;
     display: flex;
-    flex-direction: row;
     justify-content: center;
   `
 };

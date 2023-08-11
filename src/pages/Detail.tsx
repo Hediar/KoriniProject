@@ -7,8 +7,9 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../redux/config/configStore';
 import { fetchComments, addComment, deleteComment, updateComment } from '../api/comment';
+import Pagination from 'react-js-pagination';
 import * as S from '../styles/StComment';
-import Pagination from '../components/detail/Pagenation';
+import * as P from '../styles/StPageButton';
 import Loading from '../components/layout/Loading';
 
 const Detail = () => {
@@ -104,23 +105,6 @@ const Detail = () => {
     { keepPreviousData: true }
   );
 
-  const onClickPage = (selected: number | string) => {
-    // 같은 페이지를 그대로 클릭시 함수종료
-    if (page === selected) return;
-    if (typeof selected === 'number') {
-      setPage(selected);
-      return;
-    }
-    if (selected === 'prev' && page > 1) {
-      setPage((prev) => prev - 1);
-      return;
-    }
-    if (selected === 'next' && page < comments.total_pages) {
-      setPage((prev) => prev + 1);
-      return;
-    }
-  };
-
   if (isLoading) {
     return (
       <>
@@ -180,8 +164,17 @@ const Detail = () => {
               </S.Comment>
             </>
           ))}
-          <Pagination currentPage={page} totalPages={comments?.totalPages ?? 1} onClick={onClickPage} />
-          {/* <Comments /> */}
+          <P.PageLists>
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={4}
+              totalItemsCount={comments?.totalPages * 4 ?? 0}
+              pageRangeDisplayed={5}
+              prevPageText={`◀`}
+              nextPageText={`▶`}
+              onChange={setPage}
+            />
+          </P.PageLists>
         </S.CommentBot>
       </S.CommentContainer>
     </S.Outer>
