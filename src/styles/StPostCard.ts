@@ -6,7 +6,9 @@ const S = {
     padding: 30px;
     border-radius: 5px;
   `,
-
+  PostsBoxContainer: styled.div`
+    display: grid;
+  `,
   title: styled.div`
     margin-left: 20px;
     font-size: 18px;
@@ -17,6 +19,9 @@ const S = {
     border: 1px solid ${(props) => props.theme.mainPaletteColor2};
     border-radius: 5px;
     flex-direction: column;
+    // 넘치는 text 처리
+    overflow: hidden;
+    height: 150px;
 
     border-radius: 10px;
     &:hover {
@@ -36,6 +41,12 @@ const S = {
     letter-spacing: 1px;
     line-height: 25px;
     padding: 15px;
+    max-height: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 표시할 줄 수 설정 */
+    -webkit-box-orient: vertical; /* 텍스트의 방향 설정 */
   `,
   Outer: styled.div`
     max-width: 1200px;
