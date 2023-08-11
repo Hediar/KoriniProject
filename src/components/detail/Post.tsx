@@ -166,9 +166,7 @@ const Post = () => {
           </>
         ) : (
           <>
-            <S.Content>
-              <pre>{post.body}</pre>
-            </S.Content>
+            <S.Content>{post.body}</S.Content>
             <S.Box>
               {post.tags.length > 0 &&
                 post.tags.map((tag, index) => {
