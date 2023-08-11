@@ -1,5 +1,4 @@
-import React, { FormEvent, useState } from 'react';
-import styled from 'styled-components';
+import { FormEvent, useState } from 'react';
 import supabase from '../../lib/client';
 import * as S from '../../styles/StSignInUp';
 
@@ -38,9 +37,7 @@ const Signup = () => {
           alert(error.message);
         }
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   return (

@@ -1,12 +1,6 @@
 import supabase from '../lib/client';
-import shortid from 'shortid';
 import { Comment } from '../types/types';
 
-// 게시글에 맞는 댓글 조회
-// const fetchComments = async (id: string): Promise<any> => {
-//   const { data } = await supabase.from('comment').select().eq('postid', id);
-//   return data;
-// };
 const fetchComments = async (id: string, page: number): Promise<any> => {
   const itemsPerPage = 4; // 한 페이지당 보여줄 댓글 개수
 
