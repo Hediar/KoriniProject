@@ -10,7 +10,8 @@ export const Title = styled.div`
   display: flex;
   text-align: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
+  font-size: 20px;
 `;
 
 export const CommentContainer = styled.div`
@@ -20,15 +21,14 @@ export const CommentContainer = styled.div`
   align-items: center;
   background-color: #efefef;
   margin-top: 10px;
-  max-height: 500px;
+  height: 500px;
   border-radius: 30px;
 `;
 
 export const WritetInputBox = styled.div`
   display: flex;
   width: 700px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 30px;
 `;
 export const WriteInput = styled.input`
   display: flex;
@@ -47,7 +47,7 @@ export const WriteButton = styled.button`
   border-radius: 10px;
   cursor: pointer;
   width: 30px;
-  height: 30px;
+  height: 50px;
   margin-left: 20px;
 `;
 export const button = styled.button`
@@ -67,7 +67,6 @@ export const Comment = styled.div`
   margin: 15px 0 15px 0;
   width: 800px;
   height: 50px;
-  padding-top: 15px;
 `;
 
 export const ButtonBox = styled.div`
