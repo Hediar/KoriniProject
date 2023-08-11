@@ -9,7 +9,6 @@ import { RootState } from '../redux/config/configStore';
 import { fetchComments, addComment, deleteComment, updateComment } from '../api/comment';
 import Loading from '../components/layout/Loading';
 import * as S from '../styles/StComment';
-import Comments from '../components/detail/Comments';
 import Pagination from '../components/detail/Pagenation';
 
 const Detail = () => {
