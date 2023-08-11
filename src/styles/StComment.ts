@@ -21,20 +21,31 @@ export const CommentContainer = styled.div`
   align-items: center;
   background-color: #efefef;
   margin-top: 10px;
+
   height: 500px;
   border-radius: 30px;
 `;
 
-export const WritetInputBox = styled.div`
+export const CommentTop = styled.div`
   display: flex;
+  height: 15%;
   width: 700px;
-  margin-bottom: 30px;
+  margin-top: 10px;
 `;
+export const CommentBot = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+`;
+
+// export const WritetInputBox = styled.div`
+//   display: flex;
+// `;
 export const WriteInput = styled.input`
   display: flex;
   border: 3px solid #566270;
   width: 90%;
-  height: 50px;
+  height: 40px; /* 수정된 부분 */
   background-color: #d9d9d9;
   margin-top: 10px;
   border-radius: 10px;
@@ -46,10 +57,16 @@ export const WriteButton = styled.button`
   color: white;
   border-radius: 10px;
   cursor: pointer;
-  width: 30px;
-  height: 50px;
+  width: 60px;
+  height: 40px;
   margin-left: 20px;
+  margin-top: 12px;
+  &:hover {
+    background-color: rgb(0, 0, 0, 0.5);
+    color: rgb(255, 255, 255, 100);
+  }
 `;
+
 export const button = styled.button`
   background-color: #a593e0;
   border: none;
@@ -66,7 +83,7 @@ export const Comment = styled.div`
   border-radius: 10px;
   margin: 15px 0 15px 0;
   width: 800px;
-  height: 50px;
+  height: 55px;
 `;
 
 export const ButtonBox = styled.div`
