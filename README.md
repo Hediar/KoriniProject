@@ -69,7 +69,7 @@ https://github.com/Hediar/KoriniProject
 ## 5. 사용한 API
    * supabase
 <img src="https://img.shields.io/badge/supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white">
-* Chat GPT 
+   * Chat GPT 
 
 ## 6. 버전 관리 시스템
   * Git/Github
