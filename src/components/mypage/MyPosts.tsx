@@ -18,7 +18,7 @@ const MyPosts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: myPostsNum } = useQuery(['myPostsNum'], () => getMyPostsNum(user?.userid ?? ''));
 
-  const maxPostPage = Math.ceil(myPostsNum ? myPostsNum / 5 : 1);
+  const maxPostPage = Math.ceil(myPostsNum ? myPostsNum / ITEMS_PER_PAGE : 1);
 
   // 프리페칭
   const queryClient = useQueryClient();
