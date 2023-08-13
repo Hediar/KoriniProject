@@ -59,18 +59,17 @@ https://github.com/Hediar/KoriniProject
   * types/react-query
   * tanstack/react-query-devtools
   * reduxjs/toolkit
-  * Chat GPT API
   * types/styled-components
   * types/react-router-dom
   * types/react-js-pagination
   * types/react-redux
   * types/shortid
-  * supabase
   * axios
     
 ## 5. 사용한 API
    * supabase
 <img src="https://img.shields.io/badge/supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white">
+* Chat GPT 
 
 ## 6. 버전 관리 시스템
   * Git/Github
