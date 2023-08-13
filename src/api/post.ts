@@ -88,7 +88,8 @@ const getMyPosts = async (userid: string, pageNum: number): Promise<PostType[]> 
     .from('post')
     .select('*')
     .eq('userid', userid)
-    .range(startIndex, startIndex + ITEMS_PER_PAGE - 1);
+    .range(startIndex, startIndex + ITEMS_PER_PAGE - 1)
+    .order('date', { ascending: false });
   return data as PostType[];
 };
 
