@@ -31,7 +31,7 @@ export const ChatContainer = styled.div`
   box-shadow: 5px 5px 13px rgba(91, 81, 81, 0.4);
 
   position: fixed;
-  right: 40px;
+  right: 110px;
   bottom: 90px;
   z-index: 9999;
 
@@ -98,6 +98,7 @@ export const PromptForm = styled.form`
   bottom: 0;
   display: flex;
   justify-content: center;
+  font-family: 'Pretendard-Regular';
 `;
 
 export const PromptInput = styled.textarea`
@@ -107,6 +108,7 @@ export const PromptInput = styled.textarea`
   padding: 10px;
   outline: none;
   resize: none;
+  font-family: 'Pretendard-Regular';
 `;
 
 export const PromptSubmitButton = styled.button`
