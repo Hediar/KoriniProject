@@ -40,7 +40,7 @@ https://github.com/Hediar/KoriniProject
 
 배포 : https://korini-project.vercel.app/
 <div align=“center”>
-	  <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+	  <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=#3178C6">
   </div>
 
 ## 3. 기술스택
