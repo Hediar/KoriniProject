@@ -95,9 +95,8 @@ https://github.com/Hediar/KoriniProject
   <img width="1440" src="https://github.com/Hediar/KoriniProject/assets/122673560/e363dde7-caa8-4257-89be-52d41376f5fb">
   
   ### 2) 로그인/회원가입 창
-<p align="center"><img src="image_src">
   ![image](https://github.com/Hediar/KoriniProject/assets/122673560/4a30127c-18e8-42a2-8689-809bc34c49c0)
-  ![image](https://github.com/Hediar/KoriniProject/assets/122673560/cf426b69-f130-477e-ab28-c70e546e3be9)</p>
+  ![image](https://github.com/Hediar/KoriniProject/assets/122673560/cf426b69-f130-477e-ab28-c70e546e3be9)
   
  ### 글 디테일(+댓글)
  <img width="1440" src="https://github.com/Hediar/KoriniProject/assets/122673560/6584a43c-ec07-48cf-8a72-30f2e86a3eab">
